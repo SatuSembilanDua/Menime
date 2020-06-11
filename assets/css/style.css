@@ -1,0 +1,191 @@
+@font-face {
+    font-family: opfont;
+    src: url(../fonts/one_piece_font.ttf);
+}
+
+body{
+	background: #F0F0F3;
+}
+
+.header-main{
+	
+}
+
+.header-main>h1{
+	font-family: opfont;
+	font-size: 5em;
+	-webkit-text-stroke: 0.5px #3C9CCD;
+	color: #000;
+}
+
+.color-yellow{
+}
+
+.navbar-main{
+	border-radius: 0;
+}
+
+.navbar-inverse 
+.navbar-nav>.active>a, 
+.navbar-inverse 
+.navbar-nav>.active>a:focus, 
+.navbar-inverse 
+.navbar-nav>.active>a:hover {
+    color: #fff;
+    background-color: #7A101C;
+}
+
+.body-main{
+	min-height: 240px;
+}
+
+.body-main>h2{
+	border-bottom: 2px solid #3C9CCD;
+}
+
+.table-list{
+
+}
+.table-list>tbody>tr>td, 
+.table-list>tbody>tr>th, 
+.table-list>tfoot>tr>td, 
+.table-list>tfoot>tr>th, 
+.table-list>thead>tr>td, 
+.table-list>thead>tr>th {
+    border-top: none;
+    border-bottom: 1px solid #DDD;
+}
+
+.table-list a{
+	color: #7A101C;
+}
+
+.footer{
+	background: #222222;
+	height: 150px;
+	margin-top: 50px;
+}
+
+.footer h1{
+	font-family: opfont;
+	font-size: 5em;
+	color: #FFF;
+	border-bottom: 1px solid #FFF;
+}
+.footer p{
+	color: #Fff;
+	margin: 0;
+}
+.social-btn{
+	padding: 50px;
+}
+
+.btn-social{
+	display: inline-block;
+	width: 40px;
+	height: 40px;
+	margin-right: 10px;
+	text-align: center;
+	border: 2px solid #fff;
+	border-radius: 10px;
+	padding: 4px;
+	color: #FFF;
+	font-size: 1.6em;
+}
+
+.social-btn>a:hover .btn-social{
+	color: #3C9CCD;
+	border: 2px solid #3C9CCD;
+}
+
+.link_back{
+	display: inline;
+	padding:10px;
+	border:2px solid #3D7C9D;
+	border-radius: 10px;
+	background: #3C9CCD;
+	color: #FFF; 
+}
+.link_back:hover{
+	background: #3D7C9D;
+	border:2px solid #3C9CCD;
+}
+a:hover{
+	text-decoration: none;
+}
+.img-res{
+	width: 100%;
+}
+.latestest {
+    float: right;
+    border: 1px solid #ddd;
+    margin-left: 10px;
+    padding: 1px;
+    overflow: hidden;
+    width: 150px;
+    text-align: center;
+}
+.latestheader {
+    background: #333;
+    color: #fff;
+    line-height: 27px;
+    font-size: 13px;
+}
+ .latestepisode {
+    line-height: 34px;
+    font-size: 17px;
+    color: #4b5360;
+    background: #FFF; 
+}
+.latestnow {
+    line-height: 27px;
+    font-size: 13px;
+}
+
+.listinfo{
+	padding: 20px 5px;
+    font-size: 13px;
+    background: #f7f7f7;
+    border: 1px solid #e0dfdf;
+    margin-bottom: 5px;
+    color: #444;
+}
+
+.listinfo ul li {
+    line-height: 20px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: #333;
+}
+.listinfo ul li b {
+    display: block;
+    float: left;
+    width: 95px;
+    color: #333;
+}
+
+@media (min-width: 320px) and (max-width: 480px) {
+	.body-main{
+		min-height: 340px;
+	}
+
+ 	.footer-left{
+	 	padding-right: 5px;
+	    padding-left: 5px;
+ 	}
+ 	.footer-left>h1{
+		font-size: 3em;
+ 	}
+ 	.footer-left>p{
+ 		font-size: 0.7em;
+ 	}
+ 	.social-btn{
+ 		padding: 10% 5%;
+ 	}
+ 	.btn-social{
+ 		width: 30px;
+    	height: 30px;
+		font-size: 1em;
+ 	}
+}
