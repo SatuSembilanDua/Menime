@@ -56,6 +56,22 @@ body{
     border-bottom: 1px solid #DDD;
 }
 
+.table-list>tbody>tr:hover {
+    background-color: #7A101C;
+    color: #FFF;
+}
+.table-list>tbody>tr:hover td>a{
+    color: #FFF;
+}
+
+.table-list>tbody>tr{
+	cursor: pointer;
+}
+
+.table-list>tbody>tr:first-child td{
+	border-top: 1px solid #DDD;
+}
+
 .table-list a{
 	color: #7A101C;
 }
@@ -164,6 +180,37 @@ a:hover{
     width: 95px;
     color: #333;
 }
+
+.nav_bottom{
+	padding: 0;
+}
+.nav_bottom>.col-xs-4{
+	padding: 0;
+}
+.btn-nav-bottom{
+	width: 100%;
+	padding: 10px 0;
+}
+
+.btn-seb{
+	border-radius: 4px 0px 0px 4px;
+	-moz-border-radius: 4px 0px 0px 4px;
+	-webkit-border-radius: 4px 0px 0px 4px;
+}
+.btn-lis{
+	border-radius:0;
+}
+.btn-nex{
+	border-radius: 0px 4px 4px 0px;
+	-moz-border-radius: 0px 4px 4px 0px;
+	-webkit-border-radius: 0px 4px 4px 0px;
+}
+@media (min-width: 320px) and (max-width: 480px) {
+	.btn-nav-bottom{
+		font-size: 0.8em;
+	}
+}
+
 
 @media (min-width: 320px) and (max-width: 480px) {
 	.body-main{

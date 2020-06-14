@@ -5,7 +5,7 @@ require('func.php');
 
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Headers: x-access-header, Authorization, Origin, X-Requested-With, Content-Type, Accept");
-
+$menime_list = json_decode(file_get_contents("data/menime.json") ,true);
 $file = scandir(".");
 unset($file[0], $file[1]);
 $title = "Menine ";
@@ -18,20 +18,46 @@ if(isset($_GET['page'])){
 			$inc = $p;
 			$anime_txt = "";
 			if(isset($_GET['a'])){
-				$anime_txt = join(" ", explode("_", $_GET['a']));
+				$anime_txt = $menime_list[$_GET['a']]['judul'];
 			}
 			$nav = '<li><a href="index.php">Home</a></li>';
 			$nav .= '<li class="active">'.ucwords($anime_txt).'</li>';
 			$title .= " | ".ucwords($anime_txt);
 		}else{
 			$inc = $p;
-			$anime_txt = d_url($_GET['judul']);
 			$sub = $_GET['sub'];
-			$at = join(" ", explode("_", $sub));
-			$nav = '<li><a href="index.php">Home</a></li>';
-			$nav .= '<li><a href="index.php">'.ucwords($at).'</a></li>';
-			$nav .= '<li class="active">'.trim($anime_txt).'</li>';
-			$title .= " | ".ucwords($at)." ".ucwords($anime_txt);
+			$ml_current = $menime_list[$sub];
+			if($ml_current['sts']==0){
+				$anime_txt = d_url($_GET['judul']);
+				$at = $ml_current['judul'];//join(" ", explode("_", $sub));
+				$nav = '<li><a href="index.php">Home</a></li>';
+				$nav .= '<li><a href="index.php?page=anime&a='.$sub.'">'.ucwords($at).'</a></li>';
+				$nav .= '<li class="active">'.trim($anime_txt).'</li>';
+				$title .= " | ".ucwords($at)." ".ucwords($anime_txt);
+				$link = d_url($_GET['link']);
+				$list_anime = list_anime($link);
+			}else{
+				$file = $ml_current['link'];
+				$list_episode = json_decode(file_get_contents("data/".$file.".json") ,true);
+				$list_episode = array_reverse($list_episode);
+				$curr_le = $list_episode[$_GET['eps']];
+				$anime_txt = $curr_le['eps']." - ".$curr_le['judul'];
+				
+				$at = $ml_current['judul'];//join(" ", explode("_", $sub));
+				$nav = '<li><a href="index.php">Home</a></li>';
+				$nav .= '<li><a href="index.php?page=anime&a='.$sub.'">'.ucwords($at).'</a></li>';
+				$nav .= '<li class="active">'.trim($anime_txt).'</li>';
+				$title .= " | ".ucwords($at)." ".ucwords($anime_txt);
+
+				$ls_eps = "index.php?page=anime&a=$sub";
+				$ep = $_GET['eps'];
+				$seb = (int)$ep-1;
+				$nex = (int)$ep+1;
+				$dis = isset($list_episode[$seb])?'':'disabled';
+				$disn = isset($list_episode[$nex])?'':'disabled';
+
+				$list_anime = list_anime($curr_le['link']);
+			}
 		}
 	}
 }else{
@@ -117,5 +143,13 @@ if(isset($_GET['page'])){
 		</div>
 	</div>
 	<script src="assets/js/bootstrap.min.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$(".table-list>tbody>tr").click(function(){
+				var link = $(this).children().children().attr("href");
+				window.location = link;
+			});
+		});
+	</script>
 </body>
 </html>
