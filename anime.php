@@ -106,9 +106,22 @@
 		$list_episode = json_decode(file_get_contents("data/".$ml_current['link'].".json") ,true);
 		$list_episode = array_reverse($list_episode);
 ?>
-<link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap.min.css">
-<script type="text/javascript" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
-<script type="text/javascript" src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap.min.js"></script>
+<link rel="stylesheet" href="assets/css/dataTables.bootstrap.min.css">
+<style>
+.pagination>.active>a, .pagination>.active>a:focus, .pagination>.active>a:hover, .pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover {
+    background-color: #7A101C;
+    border-color: #7A101C;
+}
+
+.pagination>li>a, .pagination>li>span {
+    color: #7A101C;
+}
+.pagination>li>a:focus, .pagination>li>a:hover, .pagination>li>span:focus, .pagination>li>span:hover{
+    color: #7A101C;
+}
+</style>
+<script type="text/javascript" src="assets/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="assets/js/dataTables.bootstrap.min.js"></script>
 <br>
 <table class="table table-list" id="myTable">
 	<thead>

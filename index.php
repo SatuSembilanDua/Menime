@@ -91,41 +91,10 @@ if(isset($_GET['page'])){
 			<img src="assets/img/icons.png" alt="Logo" height="75px" style="margin:20px 0;">
 		</a>
 	</div>
-	<nav class="navbar navbar-inverse navbar-main">
-  		<div class="container-fluid">
-	    	<!-- Brand and toggle get grouped for better mobile display -->
-		    <div class="navbar-header">
-		     	 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-			        <span class="sr-only">Toggle navigation</span>
-			        <span class="icon-bar"></span>
-			        <span class="icon-bar"></span>
-			        <span class="icon-bar"></span>
-		      	</button>
-		    </div>
-
-		    <!-- Collect the nav links, forms, and other content for toggling -->
-		    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-		      	<div class="container">
-			      	<ul class="nav navbar-nav">
-				        <!-- 
-				        <li class="active"><a href="index.php">Home <span class="sr-only">(current)</span></a></li>
-				         -->
-			      	</ul>
-		      	</div>
-	    	</div><!-- /.navbar-collapse -->
-	  	</div><!-- /.container-fluid -->
-	</nav>
+	<ol class="breadcrumb">
+		<?php echo $nav; ?>
+	</ol>
 	<div class="container body-main">
-
-	<?php
-	?>
-		<ol class="breadcrumb">
-			<?php echo $nav; ?>
-		  	<!-- 
-		  	<li><a href="index.php">Home</a></li>
-		  	<li><a href="#">Library</a></li>
-		  	<li class="active">Data</li> -->
-		</ol>
 		<?php include $inc; ?>
 	</div>
 	<div class="footer">
@@ -134,7 +103,7 @@ if(isset($_GET['page'])){
 				<div class="row">
 					<div class="col-xs-6 footer-left">
 						<h1>Menime</h1>
-						<p>Powered by <a href="http://heroku.com/" target="blank">heroku</a></p>
+						<p>Powered by <a href="http://heroku.com/" target="blank" style="color:#337ab7;">heroku</a></p>
 					</div>
 					
 				</div>

@@ -227,4 +227,59 @@ echo '<pre>';
 print_r($anime);
 echo '</pre>';*/
 
+function list_episode2($url){
+	$ch = curl_init();
+	curl_setopt($ch,CURLOPT_URL,$url);
+	curl_setopt($ch, CURLOPT_USERAGENT, "Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.102 Safari/537.36");
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+	curl_setopt($ch, CURLOPT_PROXY, null);
+
+	$data = curl_exec($ch);
+	$info = curl_getinfo($ch);
+	$error = curl_error($ch);
+
+	curl_close($ch);
+	$dom = new simple_html_dom(null, true, true, DEFAULT_TARGET_CHARSET, true, DEFAULT_BR_TEXT, DEFAULT_SPAN_TEXT);
+	/*echo "<pre>";
+	echo htmlentities($data);
+	echo "<pre>";*/
+	$html = $dom->load(htmlentities($data), true, true);
+
+	//$html = file_get_html($url);
+	//echo $a;
+	
+	/*foreach ($html->find("#mvframe") as $div) {
+		echo $div;
+	}*/
+	/*foreach ($html->find(".episodelist") as $div) {
+		foreach ($div->find("li") as $li) {
+			$eps = $li->find(".leftoff",0);
+			$judul = $li->find(".lefttitle",0);
+			$dt = $li->find(".rightoff",0);
+			array_push($list_episode, array(
+											'link'	=> $eps->find("a",0)->href,
+											'eps'	=> $eps->plaintext,
+											'judul'	=> $judul->plaintext,
+											'date'	=> $dt->plaintext
+											));
+		}
+	}
+	return $list_episode;*/
+}
+
+
+/*$url = "https://gomunime.com/avatar-the-legend-of-aang-episode-61-sub-indo/";
+//$url = "https://animenine.com/nonton-avatar-the-legend-of-aang-sub-indo/episode-60";
+//$url = "https://www.oploverz.in/series/boruto-naruto-next-generations/";
+list_episode2($url);*/
+
+/*$a = '<iframe id="mvframe" src="https://animenine.com/play?u=aHR0cHM6Ly9yZWRpcmVjdG9yLmdvb2dsZXZpZGVvLmNvbS92aWRlb3BsYXliYWNrP2V4cGlyZT0xNTkyMTcwMjIyJmVpPWJpYm1YcF9MR00tX2h3Ym5ucXpvREEmaXA9NTEuMTU5LjAuMTg5JmlkPWMyZmVmZTFjZTY1NTAzYmMmaXRhZz0xOCZzb3VyY2U9YmxvZ2dlciZtaD1EUSZtbT0zMSZtbj1zbi0yNWdsZW5leiZtcz1hdSZtdj1tJm12aT0xJnBsPTE2JnN1c2M9YmwmbWltZT12aWRlby9tcDQmZHVyPTEzNjEuOTQzJmxtdD0xNTE0OTcxMjQzMjExMDQyJm10PTE1OTIxNDEzMjImc3BhcmFtcz1leHBpcmUsZWksaXAsaWQsaXRhZyxzb3VyY2Usc3VzYyxtaW1lLGR1cixsbXQmc2lnPUFPcTBRSjh3UlFJaEFOUzM3aEQtSXlyMG1WU1c0VWttdUhUa04zOGZqLTZqWlZiSTNyTXloY0IzQWlCTDFnWlBrNVVpRnpsZGZHR1Q3b1Qwa0ExUjVvRG1HTzZWUzlFZ3BGcFM0ZyUzRCUzRCZsc3BhcmFtcz1taCxtbSxtbixtcyxtdixtdmkscGwmbHNpZz1BRzNDX3hBd1JRSWhBSzJ6RFFwemNDbExtODViRjhFQmVpWGpnT3pvaEp4clhmbWlITHdySVA2TUFpQVVyaGMzV243Y2tSYWgxOGVDaTZ1aUpfX1ZGdVUzQzQ1N0NGQ0dObGhqS0ElM0QlM0Qg&p=aHR0cHM6Ly9tLm1lZGlhLWFtYXpvbi5jb20vaW1hZ2VzL00vTVY1Qk56WmxabVF5WVRndE9XTm1NeTAwTlROaExUZ3lPVFl0TmpoaU9UbGxPR1UyTURnNVhrRXlYa0ZxY0dkZVFYVnlNall4TXpZMk5Ea0AuX1YxX1VZMjY4X0NSMCwwLDE4MiwyNjhfQUxfLmpwZw==&a=0&i=aHR0cDovL2FuaW1lbmluZS5uZXQvYXNzZXRzL2ltYWdlcy9hbmltZW5pbmUyLnBuZw==" scrolling="no" frameborder="0" allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true" height="480px" width="100%"></iframe>';
+	$array = array();
+	preg_match('/<iframe id="mvframe" src="([^"]*)"/i', $a, $array);
+    
+	echo $array[1];*/
+    /*foreach ($array as $key => $value) {
+    	echo htmlentities($value);
+    }*/
 ?>

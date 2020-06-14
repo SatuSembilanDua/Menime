@@ -8,7 +8,10 @@ body{
 }
 
 .header-main{
-	
+	width: 100%;
+	background: #FFF;
+	margin: 0;
+	padding: 0 100px;
 }
 
 .header-main>h1{
@@ -40,7 +43,11 @@ body{
 }
 
 .body-main>h2{
-	border-bottom: 2px solid #3C9CCD;
+	border-bottom: 2px solid #7A101C;
+}
+
+a{
+	color: #7A101C;
 }
 
 .table-list{
@@ -211,10 +218,24 @@ a:hover{
 	}
 }
 
-
+.breadcrumb{
+	padding-left: 100px;
+}
 @media (min-width: 320px) and (max-width: 480px) {
+	.header-main{
+		padding: 0;
+		text-align: center;
+	}
+	.breadcrumb{
+		padding: 8px 15px;
+	}
 	.body-main{
 		min-height: 340px;
+	}
+
+	.body-main>h2{
+		font-size: 1.5em;
+		font-weight: 900;
 	}
 
  	.footer-left{
