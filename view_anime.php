@@ -2,7 +2,7 @@
 	
 ?>
 <pre>
-<?= $list_anime['video']; ?>
+<?= $list_anime['video']; ?><br>
 <?= d_url($list_anime['video']); ?>
 </pre>
 <h2><?= $anime_txt; ?></h2>

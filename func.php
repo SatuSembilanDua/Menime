@@ -245,7 +245,10 @@ function list_anime2($url){
 	$html = $dom->load($data, true, true);
 	
 	foreach ($html->find("#tontonin") as $div) {
-		return array("video" => $div->attr["src"]);
+		echo "<pre>";
+		echo htmlentities($div);
+		echo "</pre>";
+		return array("video" => e_url("http://".$div->attr["src"]));
 	}
 	
 }
