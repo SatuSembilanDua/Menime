@@ -250,16 +250,16 @@ function list_anime2($url){
 	$dom = new simple_html_dom(null, true, true, DEFAULT_TARGET_CHARSET, true, DEFAULT_BR_TEXT, DEFAULT_SPAN_TEXT);
 	
 	$html = $dom->load($data, true, true);
-	
+	$a = array();
+	$a["html"] = htmlentities($html);
 	foreach ($html->find("#tontonin") as $div) {
 		/*echo "<pre>";
 		echo htmlentities($div);
 		echo "</pre>";*/
 		//return array("video" => e_url("http://".$div->attr["src"]));
-		return array("video" => e_url(htmlentities($div)),
-					"html" => htmlentities($html)
-					);
+		$a["video"] = e_url(htmlentities($div));
 	}
+	return $a;
 	
 }
 
