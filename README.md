@@ -1,5 +1,5 @@
 # Menime
-Streaming anime without ad.
+Streaming anime mostly without ad.
 
 ## Requirement
 * [PHP 5.5](http://php.net/downloads.php) - or later

@@ -38,10 +38,20 @@ if(isset($_GET['page'])){
 				$list_anime = list_anime($link);
 			}else{
 				$file = $ml_current['link'];
+
 				$list_episode = json_decode(file_get_contents("data/".$file.".json") ,true);
-				$list_episode = array_reverse($list_episode);
-				$curr_le = $list_episode[$_GET['eps']];
-				$anime_txt = $curr_le['eps']." - ".$curr_le['judul'];
+				if($ml_current['link']=="avatar_the_legend_of_aang"){
+					$curr_le = $list_episode[$_GET['eps']];
+					$anime_txt = $curr_le['book']." : ".$curr_le['eps']." - ".$curr_le['judul'];
+					$list_anime = list_anime2($curr_le['link']);
+				}else{
+					$list_episode = array_reverse($list_episode);
+					$curr_le = $list_episode[$_GET['eps']];
+					$anime_txt = $curr_le['eps']." - ".$curr_le['judul'];
+					$list_anime = list_anime($curr_le['link']);
+				}
+				
+				
 				
 				$at = $ml_current['judul'];//join(" ", explode("_", $sub));
 				$nav = '<li><a href="index.php">Home</a></li>';
@@ -56,7 +66,7 @@ if(isset($_GET['page'])){
 				$dis = isset($list_episode[$seb])?'':'disabled';
 				$disn = isset($list_episode[$nex])?'':'disabled';
 
-				$list_anime = list_anime($curr_le['link']);
+				
 			}
 		}
 	}

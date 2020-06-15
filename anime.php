@@ -7,6 +7,7 @@
 	$anime = anime_info($url);
 	
 	$per_page = 100;
+	if($ml_current["src"]==1):
 ?>
 <h2>NONTON <?= strtoupper($anime_txt); ?></h2>
 <div class="row">
@@ -20,6 +21,20 @@
 <hr>
 <?= html_entity_decode($anime['info']); ?>
 
+<?php else: ?>
+
+<h2>NONTON <?= strtoupper($anime_txt); ?></h2>
+<div class="row">
+	<div class="col-xs-4 col-md-2">
+		<img src="<?= $ml_current['img']; ?>" alt="anime" class="img-res">
+	</div>
+	<div class="col-xs-8 col-md-10">
+		<p><?= html_entity_decode($ml_current['desc']); ?></p>
+		
+	</div>
+</div>
+<hr>
+<?php endif; ?>
 <h2>LIST ANIME <?= strtoupper($anime_txt); ?></h2>
 <?php
 
@@ -104,26 +119,85 @@
 <?php
 	}else{
 		$list_episode = json_decode(file_get_contents("data/".$ml_current['link'].".json") ,true);
-		$list_episode = array_reverse($list_episode);
+		
 ?>
 <link rel="stylesheet" href="assets/css/dataTables.bootstrap.min.css">
-<style>
-.pagination>.active>a, .pagination>.active>a:focus, .pagination>.active>a:hover, .pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover {
-    background-color: #7A101C;
-    border-color: #7A101C;
-}
-
-.pagination>li>a, .pagination>li>span {
-    color: #7A101C;
-}
-.pagination>li>a:focus, .pagination>li>a:hover, .pagination>li>span:focus, .pagination>li>span:hover{
-    color: #7A101C;
-}
-</style>
 <script type="text/javascript" src="assets/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="assets/js/dataTables.bootstrap.min.js"></script>
 <br>
-<table class="table table-list" id="myTable">
+<?php if($ml_current['link']=="avatar_the_legend_of_aang"): ?>
+<ul class="nav nav-tabs" role="tablist">
+	<?php
+		
+		$i=0;
+		$list_book = [];
+		foreach ($list_episode as $k => $v) {
+			$book = str_replace(" ", "_", strtolower($v['book']));
+			$list_book[$book][] = $v;
+		}
+		foreach ($list_book as $k => $v):
+			$book = ucwords(str_replace("_", " ", $k));
+			$ac = $i==0?'class="active"':"";
+	?>
+	<li role="presentation" <?= $ac; ?> > 
+		<a href="#<?= $k; ?>" aria-controls="<?= $k; ?>" role="tab" data-toggle="tab"><?= $book; ?></a>
+	</li>
+	<?php
+		$i++;
+		endforeach;
+	?>
+</ul>
+
+<!-- Tab panes -->
+<div class="tab-content">
+	<?php
+		$i=0;
+		foreach ($list_book as $k => $a):
+			$book = ucwords(str_replace("_", " ", $k));
+			$ac = $i==0?'active':"";
+	?>
+	<div role="tabpanel" class="tab-pane <?= $ac; ?>" id="<?= $k; ?>">
+		<br>
+		<table class="table table-list myTable">
+			<thead>
+				<tr>
+					<th>No</th>
+					<th>Episode</th>
+					<th>Judul</th>
+					<th>Date</th>
+				</tr>
+			</thead>
+			<tbody>
+			<?php 
+				$i=0;
+				foreach($a as $k => $v): 
+				$link  = "index.php?page=view_anime&sub=$_GET[a]&eps=$v[id_eps]";
+			?>
+				<tr>
+					<td><?= ++$i; ?></td>
+					<td>
+						<a href="<?= $link; ?>">
+							<?= $v['eps']; ?>
+						</a>
+					</td>
+					<td>
+						<a href="<?= $link; ?>">
+							<?= $v['judul']; ?>
+						</a>
+					</td>
+					<td><?= $v['date']; ?></td>
+				</tr>
+			<?php endforeach; ?>
+			</tbody>
+		</table>
+	</div>
+	<?php
+		$i++;
+		endforeach;
+	?>
+</div>
+<?php else: ?>
+<table class="table table-list myTable">
 	<thead>
 		<tr>
 			<th>No</th>
@@ -134,6 +208,7 @@
 	</thead>
 	<tbody>
 	<?php 
+		$list_episode = array_reverse($list_episode);
 		$i=0;
 		foreach($list_episode as $k => $v): 
 		$link  = "index.php?page=view_anime&sub=$_GET[a]&eps=$k";
@@ -155,8 +230,9 @@
 	<?php endforeach; ?>
 	</tbody>
 </table>
+<?php endif; ?>
 <script type="text/javascript">
-	var table = $('#myTable').DataTable();
+	var table = $('.myTable').DataTable();
 	
 </script>
 <?php

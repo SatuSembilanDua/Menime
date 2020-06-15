@@ -221,6 +221,19 @@ a:hover{
 .breadcrumb{
 	padding-left: 100px;
 }
+
+.pagination>.active>a, .pagination>.active>a:focus, .pagination>.active>a:hover, .pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover {
+    background-color: #7A101C;
+    border-color: #7A101C;
+}
+
+.pagination>li>a, .pagination>li>span {
+    color: #7A101C;
+}
+.pagination>li>a:focus, .pagination>li>a:hover, .pagination>li>span:focus, .pagination>li>span:hover{
+    color: #7A101C;
+}
+
 @media (min-width: 320px) and (max-width: 480px) {
 	.header-main{
 		padding: 0;
