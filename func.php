@@ -108,7 +108,6 @@ function list_episode_page($url){
 	curl_setopt($ch, CURLOPT_HTTPHEADER,
     array(
         "Upgrade-Insecure-Requests: 1",
-        //"User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.100 Safari/537.36",
         "User-Agent: Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.87 Safari/537.36",
         "Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3",
         "Accept-Language: en-US,en;q=0.9",
@@ -234,6 +233,14 @@ function list_anime2($url){
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
 	curl_setopt($ch, CURLOPT_PROXY, null);
+	curl_setopt($ch, CURLOPT_HTTPHEADER,
+	    array(
+	        "Upgrade-Insecure-Requests: 1",
+	        "User-Agent: Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.87 Safari/537.36",
+	        "Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3",
+	        "Accept-Language: en-US,en;q=0.9",
+	        "cookie: __cfduid=d463c2c74b8cb4ad701c41487ef15ba271592223878; PHPSESSID=cq1245ofoi0qab5gun4lqfj365; _ga=GA1.2.205899321.1592223880; _gid=GA1.2.1323666345.1592223880; HstCfa4237846=1592223880537; HstCmu4237846=1592223880537; c_ref_4237846=https%3A%2F%2Fwww.google.com%2F; __dtsu=1040159222388239E79CA78CAA0D19A1; HstCnv4237846=2; _gat_gtag_UA_126097535_3=1; HstCla4237846=1592234566756; HstPn4237846=6; HstPt4237846=14; HstCns4237846=3"
+	    ));
 
 	$data = curl_exec($ch);
 	$info = curl_getinfo($ch);
@@ -249,7 +256,9 @@ function list_anime2($url){
 		echo htmlentities($div);
 		echo "</pre>";*/
 		//return array("video" => e_url("http://".$div->attr["src"]));
-		return array("video" => e_url(htmlentities($div)));
+		return array("video" => e_url(htmlentities($div)),
+					"html" => htmlentities($html)
+					);
 	}
 	
 }
@@ -265,8 +274,8 @@ function list_episode2($url){
 	curl_setopt($ch,CURLOPT_URL,$url);
 	curl_setopt($ch, CURLOPT_USERAGENT, "Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.102 Safari/537.36");
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-
 	curl_setopt($ch, CURLOPT_PROXY, null);
+	
 
 	$data = curl_exec($ch);
 	$info = curl_getinfo($ch);

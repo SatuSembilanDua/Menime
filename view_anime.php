@@ -4,7 +4,8 @@
 <pre>
 <?= $list_anime['video']; ?><br>
 <?= d_url($list_anime['video']); ?><br>
-<?= $curr_le['link']; ?>
+<?= $curr_le['link']; ?><br>
+<?= $list_anime['html']; ?>
 </pre>
 <h2><?= $anime_txt; ?></h2>
 <br><br>
