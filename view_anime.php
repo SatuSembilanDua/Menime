@@ -3,7 +3,8 @@
 ?>
 <pre>
 <?= $list_anime['video']; ?><br>
-<?= d_url($list_anime['video']); ?>
+<?= d_url($list_anime['video']); ?><br>
+<?= $curr_le['link']; ?>
 </pre>
 <h2><?= $anime_txt; ?></h2>
 <br><br>
