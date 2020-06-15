@@ -257,7 +257,7 @@ function list_anime2($url){
 		echo htmlentities($div);
 		echo "</pre>";*/
 		//return array("video" => e_url("http://".$div->attr["src"]));
-		$a["video"] = e_url(htmlentities($div));
+		$a["video"] = e_url($div->attr["src"]);
 	}
 	return $a;
 	
