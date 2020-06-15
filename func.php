@@ -248,7 +248,8 @@ function list_anime2($url){
 		/*echo "<pre>";
 		echo htmlentities($div);
 		echo "</pre>";*/
-		return array("video" => e_url("http://".$div->attr["src"]));
+		//return array("video" => e_url("http://".$div->attr["src"]));
+		return array("video" => e_url(htmlentities($div));
 	}
 	
 }
