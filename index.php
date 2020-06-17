@@ -43,7 +43,7 @@ if(isset($_GET['page'])){
 				if($ml_current['link']=="avatar_the_legend_of_aang"){
 					$curr_le = $list_episode[$_GET['eps']];
 					$anime_txt = $curr_le['book']." : ".$curr_le['eps']." - ".$curr_le['judul'];
-					$list_anime = list_anime2($curr_le['link']);
+					$list_anime['video'] = $curr_le['link'];
 				}else{
 					$list_episode = array_reverse($list_episode);
 					$curr_le = $list_episode[$_GET['eps']];
