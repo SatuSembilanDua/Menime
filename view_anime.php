@@ -1,8 +1,8 @@
 
 <h2><?= $anime_txt; ?></h2>
-<br><br>
+<br>
 <?php if($ml_current['link']=="avatar_the_legend_of_aang"): ?>
-	<video controls width="100%">
+	<video controls width="100%" height="500px" poster="<?= $list_anime['thumb']; ?>">
 		<source src="<?= $list_anime['video']; ?>" type='video/mp4'/>
 	    <source src="<?= $list_anime['video']; ?>" type='video/webm'/>
 	</video>
@@ -10,6 +10,7 @@
 <iframe style="width:100%; height:500px;" src="<?= $list_anime['video']; ?>" allowfullscreen="true" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" class="idframe" __idm_frm__="1931"></iframe>
 <?php endif; ?>
 <br><br>
+
 <?php if(isset($ls_eps)): ?>
 <div class="container nav_bottom">
 	<div class="col-xs-4">

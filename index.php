@@ -10,6 +10,9 @@ $file = scandir(".");
 unset($file[0], $file[1]);
 $title = "Menine ";
 $inc = '';
+$og_desc = 'Menine Adalah Website Nonton Anime Subtitle Indonesia Gratis Disini Bisa Streaming.'; 
+$og_img = 'menime.herokuapp.com/assets/img/logo.png'; 
+$og_url = "https://menime.herokuapp.com/index.php";
 if(isset($_GET['page'])){
 	$q = $_GET['page'];
 	$p = $q.".php";
@@ -43,6 +46,7 @@ if(isset($_GET['page'])){
 				if($ml_current['link']=="avatar_the_legend_of_aang"){
 					$curr_le = $list_episode[$_GET['eps']];
 					$anime_txt = $curr_le['book']." : ".$curr_le['eps']." - ".$curr_le['judul'];
+					$list_anime['thumb'] = $curr_le['thumb'];
 					$list_anime['video'] = $curr_le['link'];
 				}else{
 					$list_episode = array_reverse($list_episode);
@@ -87,6 +91,11 @@ if(isset($_GET['page'])){
 	<meta name="msapplication-navbutton-color" content="#7A101C">
 	<!-- iOS Safari -->
 	<meta name="apple-mobile-web-app-status-bar-style" content="#7A101C">
+	<meta property="og:url"           content="<?= $og_url; ?>" />
+  	<meta property="og:type"          content="website" />
+  	<meta property="og:title"         content="<?= $title; ?>" />
+  	<meta property="og:description"   content="<?= $og_desc; ?>" />
+  	<meta property="og:image"         content="<?= $og_img; ?>" />
 	<title><?= $title; ?></title>
 	<link rel="shortcut icon" href="assets/img/logo.png" type="image/x-icon"/>
 	<link rel="stylesheet" href="assets/css/bootstrap.min.css">
