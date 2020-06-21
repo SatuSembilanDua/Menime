@@ -1,5 +1,3 @@
-
-
 <?php
 	$ml_current = $menime_list[$_GET['a']];
 				

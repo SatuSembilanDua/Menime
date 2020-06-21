@@ -30,3 +30,12 @@
 </div>
 <br><br>
 <?php endif; ?>
+<?php if(!empty($list_anime['error'])): ?>
+<pre>
+--- debug
+<?php
+echo "\n";
+print_r($list_anime['error']);
+?>
+</pre>
+<?php endif; ?>

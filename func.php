@@ -168,6 +168,7 @@ function list_anime($url){
 	$html = $dom->load($data, true, true);
 	$list_anime = array();
 	foreach ($html->find('.idframe') as $vid) {
+		$list_anime['error'] = $error;
 		$list_anime['video'] = $vid->attr["src"];
 	}
 	
