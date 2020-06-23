@@ -48,6 +48,11 @@ if(isset($_GET['page'])){
 					$anime_txt = $curr_le['book']." : ".$curr_le['eps']." - ".$curr_le['judul'];
 					$list_anime['thumb'] = $curr_le['thumb'];
 					$list_anime['video'] = $curr_le['link'];
+				}elseif($ml_current['link']=="kekkaishi"){
+					$curr_le = $list_episode[$_GET['eps']];
+					$anime_txt = $curr_le['eps']." - ".$curr_le['judul'];
+					$list_anime['thumb'] = $curr_le['thumb'];
+					$list_anime['video'] = $curr_le['link'];
 				}else{
 					$list_episode = array_reverse($list_episode);
 					$curr_le = $list_episode[$_GET['eps']];

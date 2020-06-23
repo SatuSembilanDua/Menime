@@ -7,32 +7,34 @@
 	$per_page = 100;
 	if($ml_current["src"]==1):
 ?>
-<h2>NONTON <?= strtoupper($anime_txt); ?></h2>
-<div class="row">
-	<div class="col-xs-4 col-md-2">
-		<img src="data:image/gif;base64,<?= $anime['img']; ?>" alt="anime" class="img-res">
+	<h2>NONTON <?= strtoupper($anime_txt); ?></h2>
+	<div class="row">
+		<div class="col-xs-4 col-md-2">
+			<img src="data:image/gif;base64,<?= $anime['img']; ?>" alt="anime" class="img-res">
+		</div>
+		<div class="col-xs-8 col-md-10">
+			<?= html_entity_decode($anime['desc']); ?>
+		</div>
 	</div>
-	<div class="col-xs-8 col-md-10">
-		<?= html_entity_decode($anime['desc']); ?>
-	</div>
-</div>
-<hr>
-<?= html_entity_decode($anime['info']); ?>
+	<hr>
+	<?= html_entity_decode($anime['info']); ?>
 
 <?php else: ?>
 
-<h2>NONTON <?= strtoupper($anime_txt); ?></h2>
-<div class="row">
-	<div class="col-xs-4 col-md-2">
-		<img src="<?= $ml_current['img']; ?>" alt="anime" class="img-res">
+	<h2>NONTON <?= strtoupper($anime_txt); ?></h2>
+	<div class="row">
+		<div class="col-xs-4 col-md-2">
+			<img src="<?= $ml_current['img']; ?>" alt="anime" class="img-res">
+		</div>
+		<div class="col-xs-8 col-md-10">
+			<?= html_entity_decode($ml_current['desc']); ?>
+		</div>
 	</div>
-	<div class="col-xs-8 col-md-10">
-		<p><?= html_entity_decode($ml_current['desc']); ?></p>
-		
-	</div>
-</div>
-<hr>
+	<hr>
+	<?= html_entity_decode($ml_current['info']); ?>
 <?php endif; ?>
+
+<!-- LIST ANIME -->
 <h2>LIST ANIME <?= strtoupper($anime_txt); ?></h2>
 <?php
 
@@ -205,8 +207,12 @@
 		</tr>
 	</thead>
 	<tbody>
-	<?php 
-		$list_episode = array_reverse($list_episode);
+	<?php
+		if($ml_current['link']=="kekkaishi"){
+			$list_episode = $list_episode;
+		}else{
+			$list_episode = array_reverse($list_episode);
+		}
 		$i=0;
 		foreach($list_episode as $k => $v): 
 		$link  = "index.php?page=view_anime&sub=$_GET[a]&eps=$k";
