@@ -1,5 +1,4 @@
 <h2>LIST ANIME</h2>
-<pre>
 <table class="table table-list">
 	<tbody>
 		<?php

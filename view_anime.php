@@ -8,6 +8,14 @@
 	</video>
 <?php else: ?>
 <iframe src="<?= $list_anime['video']; ?>" allowfullscreen="true" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" class="idframe"></iframe>
+<script type="text/javascript">
+	//var scriptTag = "<script>if ('mediaSession' in navigator) {navigator.mediaSession.metadata = new ({ artwork: [{src: 'https://menime.herokuapp.com/assets/img/icon.png', sizes: '128x128', type: 'image/png'}]});}<";
+	//scriptTag +=  "/script>";
+	//console.log(scriptTag);
+	//$(".idframe").contents().find("body").append(scriptTag);
+	var script = "";
+	$('.idframe').contents().find('body').append($('<script>').html(script))
+</script>
 <?php endif; ?>
 <br><br>
 
