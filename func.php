@@ -299,7 +299,36 @@ function list_episode2($url){
 	return $ls_eps;
 }
 
-/*$url = "https://anoboy.mobi/anime/avatar-the-legend-of-aang/";
+function get_kekkaishi($url){
+	$ch = curl_init();
+	curl_setopt($ch, CURLOPT_URL, $url);
+	curl_setopt($ch, CURLOPT_POST, 1);
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+	$headers = [
+	    'X-Apple-Tz: 0',
+	    'X-Apple-Store-Front: 143444,12',
+	    'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+	    'Accept-Encoding: gzip, deflate',
+	    'Accept-Language: en-US,en;q=0.5',
+	    'Cache-Control: no-cache',
+	    'Content-Type: application/x-www-form-urlencoded; charset=utf-8',
+	    'Host: www3.animeseries.info',
+	    'Referer: http://www3.animeseries.info/tvseries/kekkaishi/', 
+	    'User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux i686; rv:28.0) Gecko/20100101 Firefox/28.0',
+	    'X-MicrosoftAjax: Delta=true'
+	];
+
+	curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+
+	$data = curl_exec($ch);
+	$info = curl_getinfo($ch);
+	$error = curl_error($ch);
+	return $info['redirect_url'];
+}
+
+/*
+$url = "https://anoboy.mobi/anime/avatar-the-legend-of-aang/";
 $vid = list_episode2($url);*/
 
 
