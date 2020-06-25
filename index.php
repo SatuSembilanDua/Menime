@@ -48,6 +48,15 @@ if(isset($_GET['page'])){
 					$anime_txt = $curr_le['book']." : ".$curr_le['eps']." - ".$curr_le['judul'];
 					$list_anime['thumb'] = $curr_le['thumb'];
 					$list_anime['video'] = $curr_le['link'];
+				}elseif($ml_current['link']=="avatar_the_legend_of_korra"){
+					$curr_le = $list_episode[$_GET['eps']];
+					$anime_txt = $curr_le['book']." : ".$curr_le['eps']." - ".$curr_le['judul'];
+					$list_anime['thumb'] = $curr_le['thumb'];
+					$list_anime['video'] = korra_vid($curr_le['link']);
+					if($list_anime['video']=='embed'){
+						$list_anime['video'] = $curr_le['link'];
+						$ml_current['src']=1;
+					}
 				}elseif($ml_current['link']=="kekkaishi"){
 					$curr_le = $list_episode[$_GET['eps']];
 					$anime_txt = $curr_le['eps']." - ".$curr_le['judul'];

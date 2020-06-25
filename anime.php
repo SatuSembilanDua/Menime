@@ -125,7 +125,7 @@
 <script type="text/javascript" src="assets/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="assets/js/dataTables.bootstrap.min.js"></script>
 <br>
-<?php if($ml_current['link']=="avatar_the_legend_of_aang"): ?>
+<?php if(explode("_", $ml_current['link'])[0]=="avatar"): ?>
 <ul class="nav nav-tabs" role="tablist">
 	<?php
 		
