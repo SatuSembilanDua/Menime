@@ -222,6 +222,35 @@ function anime_info($url){
 	return $info_anime;
 
 }
+
+
+function anime_info2($url){
+	$ch = curl_init();
+	curl_setopt($ch,CURLOPT_URL,$url);
+	curl_setopt($ch, CURLOPT_USERAGENT, "Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.102 Safari/537.36");
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+	curl_setopt($ch, CURLOPT_PROXY, null);
+
+	$data = curl_exec($ch);
+	$info = curl_getinfo($ch);
+	$error = curl_error($ch);
+
+	curl_close($ch);
+	$dom = new simple_html_dom(null, true, true, DEFAULT_TARGET_CHARSET, true, DEFAULT_BR_TEXT, DEFAULT_SPAN_TEXT);
+
+	$html = $dom->load($data, true, true);
+	$info_anime = array();
+	
+	foreach ($html->find('.imgdesc') as $con) {
+		foreach ($con->find('img') as $im) {
+			$a = file_get_contents($im->src);
+			$src =  base64_encode($a);
+			$info_anime['img'] = $src;
+		}
+	}
+	return $info_anime;
+}
 /*$anime = anime_info("https://www.oploverz.in/series/boruto-naruto-next-generations/");
 echo '<pre>';
 print_r($anime);

@@ -240,10 +240,52 @@ a:hover{
 	background: #000;
 }
 
+.anime-list{
+	text-align: center;
+	background: #FFF;
+	border-radius: 5px;
+	margin-bottom: 20px;
+}
+.anime-list:hover{
+	border-radius: 5px;
+	outline:2px solid #7A101C;
+}
+.img-list{
+	width: 100%;
+	height: 200px;
+	background-size: 100%;
+	background-repeat:no-repeat;
+	background-position: center center;
+}
+.anime-judul{
+	display: flex;
+	padding: 10px;
+	min-height: 80px;
+  	justify-content: center;
+}
+.anime-judul>p{
+
+	display: flex;
+  	justify-content: center;
+  	align-items: center;
+	margin: 0;
+}
 @media (min-width: 320px) and (max-width: 480px) {
 	.idframe{
 		width:100%; 
 		height:320px;
+	}
+
+	.img-list{
+		width: 100%;
+		height: 100px;
+		background-size: 100%;
+		background-repeat:no-repeat;
+		background-position: center center;
+	}
+
+	.anime-judul>p{
+		font-size: 0.8em;
 	}
 }
 @media (min-width: 320px) and (max-width: 480px) {
