@@ -100,11 +100,11 @@ if(isset($_GET['page'])){
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Chrome, Firefox OS and Opera -->
-	<meta name="theme-color" content="#7A101C">
+	<meta name="theme-color" content="#e50914">
 	<!-- Windows Phone -->
-	<meta name="msapplication-navbutton-color" content="#7A101C">
+	<meta name="msapplication-navbutton-color" content="#e50914">
 	<!-- iOS Safari -->
-	<meta name="apple-mobile-web-app-status-bar-style" content="#7A101C">
+	<meta name="apple-mobile-web-app-status-bar-style" content="#e50914">
 	<meta property="og:url"           content="<?= $og_url; ?>" />
   	<meta property="og:type"          content="website" />
   	<meta property="og:title"         content="<?= $title; ?>" />
@@ -136,7 +136,11 @@ if(isset($_GET['page'])){
 			<div class="container">
 				<div class="row">
 					<div class="col-xs-6 footer-left">
-						<h1>Menime</h1>
+						<a href="index.php">
+							<h1>
+							<img src="assets/img/icons.png" alt="Logo" height="45px" style="margin:5px 0;">
+							</h1>
+						</a>
 						<p>Powered by <a href="http://heroku.com/" target="blank" style="color:#337ab7;">heroku</a></p>
 					</div>
 					
@@ -152,6 +156,7 @@ if(isset($_GET['page'])){
 				var link = $(this).children().children().attr("href");
 				window.location = link;
 			});
+
 		});
 	</script>
 </body>

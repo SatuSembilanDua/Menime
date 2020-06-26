@@ -14,16 +14,16 @@
 <?php if(isset($ls_eps)): ?>
 <div class="container nav_bottom">
 	<div class="col-xs-4">
-		<a href="index.php?page=view_anime&sub=<?= $_GET['sub']; ?>&eps=<?= $seb; ?>" class="btn btn-success btn-nav-bottom btn-seb <?= $dis; ?>">	
+		<a href="index.php?page=view_anime&sub=<?= $_GET['sub']; ?>&eps=<?= $seb; ?>" class="btn btn-danger2 btn-nav-bottom btn-seb <?= $dis; ?>">	
 			<i class="fa fa-angle-double-left"></i> Episode Sebelumnya
 		</a>
 	</div>
 
 	<div class="col-xs-4">
-		<a href="<?= $ls_eps; ?>" class="btn btn-warning btn-nav-bottom btn-lis">List Episode</a>
+		<a href="<?= $ls_eps; ?>" class="btn btn-danger btn-nav-bottom btn-lis">List Episode</a>
 	</div>
 	<div class="col-xs-4">
-		<a href="index.php?page=view_anime&sub=<?= $_GET['sub']; ?>&eps=<?= $nex; ?>" class="btn btn-success btn-nav-bottom btn-nex <?= $disn; ?>">
+		<a href="index.php?page=view_anime&sub=<?= $_GET['sub']; ?>&eps=<?= $nex; ?>" class="btn btn-danger2 btn-nav-bottom btn-nex <?= $disn; ?>">
 			Episode Berikutnya <i class="fa fa-angle-double-right"></i> 
 		</a>
 	</div>
