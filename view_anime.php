@@ -1,16 +1,37 @@
+<style>
 
+
+</style>
 <h2><?= $anime_txt; ?></h2>
 <br>
+<div id="container">
+	<?php if(isMobile()): ?>
+		<?php if(isset($ls_eps)): ?>
+		<div class="row" style="padding-top:20px">
+			<div class="col-xs-4 col-md-2">
+				<div class="btn-fs" id="btnFS">Fullscreen</div>
+			</div>
+			<div class="col-xs-8 col-md-2 flex-container">
+				<a id="btnfullnext" href="index.php?page=view_anime&sub=<?= $_GET['sub']; ?>&eps=<?= $nex; ?>">
+					<div class="btn-fs">Next</div>
+				</a>&nbsp;
+				<a id="btnfullprev" href="index.php?page=view_anime&sub=<?= $_GET['sub']; ?>&eps=<?= $seb; ?>">
+					<div class="btn-fs">Prev</div>
+				</a>
+			</div>
+		</div>
+		<?php endif; ?>
+	<?php endif; ?>
 <?php if($ml_current['src']!=1): ?>
 	<video controls class="idframe" poster="<?= $list_anime['thumb']; ?>">
 		<source src="<?= $list_anime['video']; ?>" type='video/mp4'/>
 	    <source src="<?= $list_anime['video']; ?>" type='video/webm'/>
 	</video>
 <?php else: ?>
-<iframe src="<?= $list_anime['video']; ?>" allowfullscreen="true" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" class="idframe"></iframe>
+	<iframe src="<?= $list_anime['video']; ?>" allowfullscreen="true" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" class="idframe"></iframe>
 <?php endif; ?>
+</div>
 <br><br>
-
 <?php if(isset($ls_eps)): ?>
 <div class="container nav_bottom">
 	<div class="col-xs-4">
@@ -18,7 +39,6 @@
 			<i class="fa fa-angle-double-left"></i> Episode Sebelumnya
 		</a>
 	</div>
-
 	<div class="col-xs-4">
 		<a href="<?= $ls_eps; ?>" class="btn btn-danger btn-nav-bottom btn-lis">List Episode</a>
 	</div>
@@ -40,4 +60,68 @@ print_r($list_anime['error']);
 </pre>
 <?php endif; ?>
 
+<script src="assets/js/media_session.js"></script>
+<?php if(isMobile()): ?>
+<script type="text/javascript">
+var fs = document.getElementById('btnFS');
 
+fs.addEventListener('click', goFullScreen);
+
+function goFullScreen() {
+	var fullscreenElement = document.fullscreenElement || document.mozFullScreenElement ||
+	document.webkitFullscreenElement || document.msFullscreenElement;
+	var ne = $("#btnfullnext").attr("href");
+	var pe = $("#btnfullprev").attr("href");
+	if(fullscreenElement){
+		$("#btnfullnext").attr("href", ne.replace("&sc=ld", ""));
+  		$("#btnfullprev").attr("href", pe.replace("&sc=ld", ""));
+  		exitFullscreen();
+  	}else {
+  		$("#btnfullnext").attr("href", ne+"&sc=ld");
+  		$("#btnfullprev").attr("href", pe+"&sc=ld");
+  		launchIntoFullscreen(document.getElementById('container'));
+  	}
+}
+
+<?php if(isset($_GET['sc'])): ?>
+setTimeout(function(){
+	launchIntoFullscreen(document.getElementById('container'));
+}, 1000);
+	//launchIntoFullscreen(document.getElementById('container'));
+<?php endif; ?>
+
+// From https://davidwalsh.name/fullscreen
+// Find the right method, call on correct element
+function launchIntoFullscreen(element) {
+	if (element.requestFullscreen) {
+    	element.requestFullscreen();
+  	} else if (element.mozRequestFullScreen) {
+    	element.mozRequestFullScreen();
+  	} else if (element.webkitRequestFullscreen) {
+    	element.webkitRequestFullscreen();
+  	} else if (element.msRequestFullscreen) {
+    	element.msRequestFullscreen();
+  	}
+  	/*var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+  	if(isMobile){
+  	}*/
+  	screen.orientation.lock("landscape");
+}
+
+// Whack fullscreen
+function exitFullscreen() {
+  	if (document.exitFullscreen) {
+    	document.exitFullscreen();
+  	} else if (document.mozCancelFullScreen) {
+    	document.mozCancelFullScreen();
+  	} else if (document.webkitExitFullscreen) {
+    	document.webkitExitFullscreen();
+  	}
+  	/*var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+  	if(isMobile){
+  		screen.orientation.unlock();
+  	}*/
+}
+
+</script>
+<?php endif; ?>
