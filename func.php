@@ -394,7 +394,7 @@ function korak_vid1($url){
 
 
 function cek_update_anime($list_episode, $origin){
-	$le = list_episode_page('https://www.oploverz.in/series/one-piece-sub-indo/');
+	$le = list_episode_page($origin);
 	$eps_lama = (int)explode(" ", $list_episode[0]['eps'])[1];
 	$eps_baru_arr = explode(" ", $le[0]['eps']);
 	$eps_baru = $eps_lama;
