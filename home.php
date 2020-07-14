@@ -24,5 +24,3 @@
 		</div>
 <?php endforeach; ?>
 </div>
-
-<!-- <?= strlen($v['judul'])>11?substr($v['judul'], 0, 12).' ...':$v['judul']; ?> -->

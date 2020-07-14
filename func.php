@@ -11,8 +11,8 @@ function d_url($s) {
 }
 
 function isMobile() {
-    return true;
-    //return preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo|fone|hiptop|mini|mobi|palm|phone|pie|tablet|up\.browser|up\.link|webos|wos)/i", $_SERVER["HTTP_USER_AGENT"]);
+    //return true;
+    return preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo|fone|hiptop|mini|mobi|palm|phone|pie|tablet|up\.browser|up\.link|webos|wos)/i", $_SERVER["HTTP_USER_AGENT"]);
 }
 
 function _filter_($arr){
@@ -390,6 +390,35 @@ function korak_vid1($url){
 			return $src->attr['src'];
 		}
 	}
+}
+
+
+function cek_update_anime($list_episode, $origin){
+	$le = list_episode_page('https://www.oploverz.in/series/one-piece-sub-indo/');
+	$eps_lama = (int)explode(" ", $list_episode[0]['eps'])[1];
+	$eps_baru_arr = explode(" ", $le[0]['eps']);
+	$eps_baru = $eps_lama;
+	foreach ($eps_baru_arr as $k => $v) {
+		if(is_numeric($v)){
+			$eps_baru = (int)$v;
+		}
+	}
+	$kur = 0;
+	$new = [];
+	if($eps_baru>$eps_lama){
+		$kur = $eps_baru-$eps_lama;
+		$new = array_splice($le, 0, $kur);
+		foreach ($new as $k => $v) {
+			$eps = preg_replace('/\s+/', ' ', trim($v['eps']));
+			$judul = trim($v['judul']);
+			$new[$k]['eps'] = $eps;
+			$new[$k]['judul'] = $judul;
+			$new[$k]['sts'] = '1';
+			$new[$k]['div'] = $kur;
+		}
+		$list_episode = array_merge($new, $list_episode);
+	}
+	return $list_episode;
 }
 
 /*

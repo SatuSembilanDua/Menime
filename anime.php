@@ -28,88 +28,7 @@
 <!-- LIST ANIME -->
 <h2>LIST ANIME <?= strtoupper($anime_txt); ?></h2>
 <?php
-
-
-	if($ml_current['sts']==0){
-		$list_episode = list_episode($url);
-
-		$page_count = ceil(sizeof($list_episode)/$per_page);
-		if(isset($_GET['hal'])){
-			$curr_page = $_GET['hal'];
-			$first = ((int)$curr_page * $per_page) - ($per_page-1) ;
-			$last = ($first+$per_page)-1;
-		}else{
-			$curr_page = 1;
-			$first = 1;
-			$last = ($first+$per_page)-1;
-		}
-		$fr = $curr_page>4?$curr_page-3:1;
-		$ls = $fr+4;
-		if($ls>=$page_count){
-			$ls = $page_count;
-		}
-		if($last>sizeof($list_episode)){
-			$last = sizeof($list_episode);
-		}
-?>
-<table class="table table-list">
-	<tbody>
-		<?php
-			for ($i=($first-1); $i < ($last) ; $i++) { 
-				$v = $list_episode[$i];
-		?>
-		<tr>
-			<td><a href="index.php?page=view_anime&sub=<?= $_GET['a']?>&judul=<?= e_url($v['eps'].' - '.$v['judul']);?>&link=<?= e_url($v['link']);?>"><?= $v['eps']; ?></a></td>
-			<td><a href="index.php?page=view_anime&sub=<?= $_GET['a']?>&judul=<?= e_url($v['eps'].' - '.$v['judul']);?>&link=<?= e_url($v['link']);?>"><?= $v['judul']; ?></a></td>
-			<td><?= $v['date']; ?></td>
-		</tr>
-		<?php
-			}
-		?>
-		
-	</tbody>
-</table>
-<nav>
-  	<ul class="pagination">
-	    <li>
-	      	<a href="index.php?page=anime&a=<?= $_GET['a']; ?>&hal=1" aria-label="Previous">
-	        	<span aria-hidden="true">&laquo;</span>
-	      	</a>
-	    </li>
-	    <?php
-	    	$link_pagination = "";
-	    	if($fr>1){
-    			$link_pagination.= '<li><a href="index.php?page=anime&a='.$_GET['a'].'&hal=1">1</a></li>';
-    			$link_pagination.= '<li class="disabled"><a href="#">...</a></li>';
-    		}
-	    	
-    		for($i = $fr; $i <= $ls; $i++){
-	    		
-	    		if($curr_page==$i){
-    				$link_pagination.= "<li class='active'><a href='index.php?page=anime&a=$_GET[a]&hal=$i'>$i</a></li>";
-	    		}else{
-    				$link_pagination.= "<li><a href='index.php?page=anime&a=$_GET[a]&hal=$i'>$i</a></li>";
-	    		}
-	    		
-	    	}
-	    	if($ls<$page_count){
-    			$link_pagination.= "<li class='disabled'><a href='#'>...</a></li>";
-	    		$link_pagination.= "<li><a href='index.php?page=anime&a=$_GET[a]&hal=$page_count'>$page_count</a></li>";
-    		}
-	    	echo $link_pagination;
-	    ?>	    
-	    <li>
-	      	<a href="index.php?page=anime&a=<?= $_GET['a']; ?>&hal=<?= $page_count; ?>" aria-label="Next">
-	        	<span aria-hidden="true">&raquo;</span>
-	      	</a>
-	    </li>
-  	</ul>
-</nav>
-
-<?php
-	}else{
-		$list_episode = json_decode(file_get_contents("data/".$ml_current['link'].".json") ,true);
-		
+	$list_episode = json_decode(file_get_contents("data/".$ml_current['link'].".json") ,true);	
 ?>
 <link rel="stylesheet" href="assets/css/dataTables.bootstrap.min.css">
 <script type="text/javascript" src="assets/js/jquery.dataTables.min.js"></script>
@@ -186,7 +105,7 @@
 		endforeach;
 	?>
 </div>
-<?php else: ?>
+<?php else: // if not have session ?>
 <table class="table table-list myTable">
 	<thead>
 		<tr>
@@ -201,11 +120,24 @@
 		if($ml_current['link']=="kekkaishi"){
 			$list_episode = $list_episode;
 		}else{
+			if($ml_current['sts']==0){
+				//$le = list_episode_page($ml_current['origin']);
+				$list_episode = cek_update_anime($list_episode, $ml_current['origin']);
+			}
 			$list_episode = array_reverse($list_episode);
 		}
 		$i=0;
 		foreach($list_episode as $k => $v): 
-		$link  = "index.php?page=view_anime&sub=$_GET[a]&eps=$k";
+			$judul = $v['judul'];
+			$link  = "index.php?page=view_anime&sub=$_GET[a]&eps=$k";
+			if(isset($v['sts'])){
+				$judul .= '<img src="assets/img/new.gif" alt="New">';
+				//$get_a -= $v['div'];
+				//e_url
+				$jdl = e_url($v['judul']);
+				$lnk = e_url($v['link']);
+				$link = "index.php?page=view_anime&sub=$_GET[a]&eps=$k&judul=$jdl&link=$lnk";
+			}
 	?>
 		<tr>
 			<td><?= ++$i; ?></td>
@@ -216,7 +148,7 @@
 			</td>
 			<td>
 				<a href="<?= $link; ?>">
-					<?= $v['judul']; ?>
+					<?= $judul; ?>
 				</a>
 			</td>
 			<td><?= $v['date']; ?></td>
@@ -226,12 +158,14 @@
 </table>
 <?php endif; ?>
 <script type="text/javascript">
+	<?php if($ml_current['sts']==0): ?>
+	var table = $('.myTable').DataTable({
+		 "order": [[ 0, "desc" ]]
+	});
+	<?php else: ?>
 	var table = $('.myTable').DataTable();
+	<?php endif; ?>
 	
 </script>
-<?php
-	}
-	
-?>
 
 

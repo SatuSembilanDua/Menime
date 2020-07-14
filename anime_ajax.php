@@ -1,107 +1,156 @@
+<pre>
 <?php
-$file = $_GET['data'];
-$list_episode = json_decode(file_get_contents("data/".$file.".json") ,true);
+echo "<br>";
 
-/*---------- cari -----------------*/
-if(isset($_GET['cari'])){
-	$needle = $_GET['cari'];
-	foreach($list_episode as $k=>$v){
-	   if(stristr($v['eps'],$needle) || stristr($v['judul'],$needle))
-	   $output[$k]=$v;
+/*$data = json_decode(file_get_contents("data/menime.json") ,true);
+$op = [array(
+			"judul" => "One Piece",
+			"link" => "one_piece",
+			"origin" => "https://www.oploverz.in/series/one-piece-sub-indo/",
+			"sts" => "2",
+			"src" => "1",
+			"img" => "https://cdn.myanimelist.net/images/anime/6/73245.jpg"
+			)];
+$start_data = array_slice($data,0, 8);
+$end_data = array_slice($data,10);
+$data = array_merge($start_data, $op, $end_data);*/
+//print_r($data);
+/*
+$myfile = fopen("data/menime.json", "w") or die("Unable to open file!");
+fwrite($myfile, json_encode($data));
+fclose($myfile);
+*/
+
+
+/*$ani = json_decode(file_get_contents("../opmanga/anime.json") ,true);
+//print_r(json_decode(file_get_contents("data/naruto.json") ,true));
+$data = [];
+foreach ($ani as $k => $v) {
+	unset($ani[$k]['video']);
+	$eps = preg_replace('/\s+/', ' ', trim($v['eps']));
+
+	$data[] = array(
+					'link' => $v['link'],
+					'eps' => $eps,
+					'judul' => trim($v['judul']),
+					'date' => $v['date'],
+					);	
+}
+print_r($data);*/
+/*$data = json_decode(file_get_contents("data/one_piece.json") ,true);
+$data = array_reverse($data);
+print_r($data);*/
+/*
+$myfile = fopen("data/one_piece.json", "w") or die("Unable to open file!");
+fwrite($myfile, json_encode($data));
+fclose($myfile);
+*/
+/*$list_episode = json_decode(file_get_contents("data/one_piece.json") ,true);
+$le = list_episode('https://www.oploverz.in/series/boruto-naruto-next-generations/');
+foreach ($le as $k => $v) {
+	$eps = preg_replace('/\s+/', ' ', trim($v['eps']));
+	$judul = trim($v['judul']);
+	$le[$k]['eps'] = $eps;
+	$le[$k]['judul'] = $judul;
+	
+}
+$myfile = fopen("data/boruto_naruto_next_generations.json", "w") or die("Unable to open file!");
+fwrite($myfile, json_encode($le));
+fclose($myfile);*/
+/*
+$list_episode = json_decode(file_get_contents("data/boruto_naruto_next_generations.json") ,true);
+$le = list_episode_page('https://www.oploverz.in/series/boruto-naruto-next-generations/');
+*/
+
+/*$list_episode = json_decode(file_get_contents("data/one_piece.json") ,true);
+$le = list_episode_page('https://www.oploverz.in/series/one-piece-sub-indo/');
+$origin = 'https://www.oploverz.in/series/one-piece-sub-indo/';
+//$list_episode = cek_update_anime($list_episode, $origin);
+
+$eps_lama = (int)explode(" ", $list_episode[0]['eps'])[1];
+	$eps_baru_arr = explode(" ", $le[0]['eps']);
+	$eps_baru = $eps_lama;
+	foreach ($eps_baru_arr as $k => $v) {
+		if(is_numeric($v)){
+			$eps_baru = (int)$v;
+		}
 	}
-	echo "<pre>";
-	print_r($output);
-	echo "</pre>";
-	// /$list_episode = $output;
-}
-/*---------- cari -----------------*/
+	$kur = 0;
+	$new = [];
+	if($eps_baru>$eps_lama){
+		$kur = $eps_baru-$eps_lama;
+		$new = array_splice($le, 0, $kur);
+		foreach ($new as $k => $v) {
+			$eps = preg_replace('/\s+/', ' ', trim($v['eps']));
+			$judul = trim($v['judul']);
+			$new[$k]['eps'] = $eps;
+			$new[$k]['judul'] = $judul;
+			$new[$k]['sts'] = '1';
+			$new[$k]['div'] = $kur;
+		}
+		$list_episode = array_merge($new, $list_episode);
+	}*/
 
-$per_page = $_GET['per_page'];
+/*
+echo "eps_lama: $eps_lama<br>";
+echo "eps_baru: $eps_baru<br>";
+*/
 
-$page_count = ceil(sizeof($list_episode)/$per_page);
-if(isset($_GET['hal'])){
-	$curr_page = $_GET['hal'];
-	$first = ((int)$curr_page * $per_page) - ($per_page-1) ;
-	$last = ($first+$per_page)-1;
-}else{
-	$curr_page = 1;
-	$first = 1;
-	$last = ($first+$per_page)-1;
-}
-$fr = $curr_page>4?$curr_page-3:1;
-$ls = $fr+4;
-if($ls>=$page_count){
-	$ls = $page_count;
-}
-if($last>sizeof($list_episode)){
-	$last = sizeof($list_episode);
-}
-?>
-<table class="table table-list">
-	<tbody>
-		<?php
-			for ($i=($first-1); $i < ($last) ; $i++) { 
-				$v = $list_episode[$i];
-				$link  = "index.php?page=view_anime&sub=$_GET[a]&eps=$i";
-				/*
-				index.php?page=view_anime&sub=<?= $_GET['a']?>&judul=<?= e_url($v['eps'].' - '.$v['judul']);?>&link=<?= e_url($v['link']);?>
-				index.php?page=view_anime&sub=<?= $_GET['a']?>&judul=<?= e_url($v['eps'].' - '.$v['judul']);?>&link=<?= e_url($v['link']);?>
-				*/
-		?>
-		<tr>
-			<td>
-				<a href="<?= $link; ?>">
-					<?= $v['eps']; ?>
-				</a>
-			</td>
-			<td>
-				<a href="<?= $link; ?>">
-					<?= $v['judul']; ?>
-				</a>
-			</td>
-			<td><?= $v['date']; ?></td>
-		</tr>
 
-		<?php
+/*if(sizeof($list_episode) != sizeof($le)){
+	echo 'Tidak sama<br>';
+	$kur =  sizeof($le) - sizeof($list_episode) - 3;
+	echo "$kur";
+	$div = array_splice($le, 0,  $kur);
+	foreach ($div as $k => $v) {
+		$eps = preg_replace('/\s+/', ' ', trim($v['eps']));
+		$judul = trim($v['judul']);
+		$div[$k]['eps'] = $eps;
+		$div[$k]['judul'] = $judul;
+		
+	}
+	$update = array_merge($div, $list_episode);
+	print_r($update);
+}*/
+
+
+$menime = json_decode(file_get_contents("data/menime.json") ,true);
+echo "<h4>Update Anime</h4><hr>";
+foreach ($menime as $k => $v) {
+	if($v['sts']==0){
+		/*print_r($v);
+		echo "<hr>";*/
+		$list_episode = json_decode(file_get_contents("data/".$v['link'].".json") ,true);
+		$le = list_episode_page($v['origin']);
+
+		$eps_lama = (int)explode(" ", $list_episode[0]['eps'])[1];
+		$eps_baru_arr = explode(" ", $le[0]['eps']);
+		$eps_baru = $eps_lama;
+		foreach ($eps_baru_arr as $a => $b) {
+			if(is_numeric($b)){
+				$eps_baru = (int)$b;
 			}
-		?>
-	</tbody>
-</table>
+		}
+		$kur = 0;
+		$new = [];
+		if($eps_baru>$eps_lama){
+			$kur = $eps_baru-$eps_lama;
+			echo "<strong>$v[judul]</strong><br>";
+			$new = array_splice($le, 0, $kur);
+			foreach ($new as $c => $d) {
+				$eps = preg_replace('/\s+/', ' ', trim($d['eps']));
+				$judul = trim($d['judul']);
+				$new[$c]['eps'] = $eps;
+				$new[$c]['judul'] = $judul;
+				echo "- $eps, $judul <br>";
+			}
+			$list_episode = array_merge($new, $list_episode);
+			$myfile = fopen("data/".$v['link'].".json", "w") or die("Unable to open file!");
+			fwrite($myfile, json_encode($list_episode));
+			fclose($myfile);
+		}
+	}
+}
 
-<hr>
-<nav>
-  	<ul class="pagination">
-	    <li>
-	      	<a href="index.php?page=anime&a=<?= $_GET['a']; ?>&hal=1" aria-label="Previous">
-	        	<span aria-hidden="true">&laquo;</span>
-	      	</a>
-	    </li>
-	    <?php
-	    	$link_pagination = "";
-	    	if($fr>1){
-    			$link_pagination.= '<li><a href="index.php?page=anime&a='.$_GET['a'].'&hal=1">1</a></li>';
-    			$link_pagination.= '<li class="disabled"><a href="#">...</a></li>';
-    		}
-	    	
-    		for($i = $fr; $i <= $ls; $i++){
-	    		
-	    		if($curr_page==$i){
-    				$link_pagination.= "<li class='active'><a href='index.php?page=anime&a=$_GET[a]&hal=$i'>$i</a></li>";
-	    		}else{
-    				$link_pagination.= "<li><a href='index.php?page=anime&a=$_GET[a]&hal=$i'>$i</a></li>";
-	    		}
-	    		
-	    	}
-	    	if($ls<$page_count){
-    			$link_pagination.= "<li class='disabled'><a href='#'>...</a></li>";
-	    		$link_pagination.= "<li><a href='index.php?page=anime&a=$_GET[a]&hal=$page_count'>$page_count</a></li>";
-    		}
-	    	echo $link_pagination;
-	    ?>	    
-	    <li>
-	      	<a href="index.php?page=anime&a=<?= $_GET['a']; ?>&hal=<?= $page_count; ?>" aria-label="Next">
-	        	<span aria-hidden="true">&raquo;</span>
-	      	</a>
-	    </li>
-  	</ul>
-</nav>
+?>
+</pre>

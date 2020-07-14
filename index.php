@@ -30,18 +30,13 @@ if(isset($_GET['page'])){
 			$inc = $p;
 			$sub = $_GET['sub'];
 			$ml_current = $menime_list[$sub];
-			if($ml_current['sts']==0){
-				$anime_txt = d_url($_GET['judul']);
-				$at = $ml_current['judul'];//join(" ", explode("_", $sub));
-				$nav = '<li><a href="index.php">Home</a></li>';
-				$nav .= '<li><a href="index.php?page=anime&a='.$sub.'">'.ucwords($at).'</a></li>';
-				$nav .= '<li class="active">'.trim($anime_txt).'</li>';
-				$title .= " | ".ucwords($at)." ".ucwords($anime_txt);
-				$link = d_url($_GET['link']);
-				$list_anime = list_anime($link);
+			$file = $ml_current['link'];
+			if(isset($_GET['judul'])){
+				$curr_le['eps'] = "Episode ".$_GET['eps'];
+				$anime_txt = $curr_le['eps']." - ".d_url($_GET['judul']);
+				//$list_anime['video'] = d_url($_GET['link']);
+				$list_anime = list_anime(d_url($_GET['link']));
 			}else{
-				$file = $ml_current['link'];
-
 				$list_episode = json_decode(file_get_contents("data/".$file.".json") ,true);
 				if($ml_current['link']=="avatar_the_legend_of_aang"){
 					$curr_le = $list_episode[$_GET['eps']];
@@ -68,25 +63,26 @@ if(isset($_GET['page'])){
 					$anime_txt = $curr_le['eps']." - ".$curr_le['judul'];
 					$list_anime = list_anime($curr_le['link']);
 				}
-				
-				
-				
-				$at = $ml_current['judul'];//join(" ", explode("_", $sub));
-				$nav = '<li><a href="index.php">Home</a></li>';
-				$nav .= '<li><a href="index.php?page=anime&a='.$sub.'">'.ucwords($at).'</a></li>';
-				$nav .= '<li class="active">'.trim($anime_txt).'</li>';
-				$title .= " | ".ucwords($at)." ".ucwords($anime_txt);
-
 				$ls_eps = "index.php?page=anime&a=$sub";
 				$ep = $_GET['eps'];
 				$seb = (int)$ep-1;
 				$nex = (int)$ep+1;
 				$dis = isset($list_episode[$seb])?'':'disabled';
 				$disn = isset($list_episode[$nex])?'':'disabled';
-
-				
 			}
+
+			$at = $ml_current['judul'];//join(" ", explode("_", $sub));
+			$nav = '<li><a href="index.php">Home</a></li>';
+			$nav .= '<li><a href="index.php?page=anime&a='.$sub.'">'.ucwords($at).'</a></li>';
+			$nav .= '<li class="active">'.trim($curr_le['eps']).'</li>';
+			$title .= " | ".ucwords($at)." ".ucwords($anime_txt);
+
+			
 		}
+	}else{
+		$inc = "404.php";
+		$nav = '<li><a href="index.php">Home</a></li>';
+		$nav .= '<li class="active">404</li>';
 	}
 }else{
 	$inc = "home.php";
