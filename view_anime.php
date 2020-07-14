@@ -83,7 +83,12 @@ function goFullScreen() {
   	}
 }
 
+
 <?php if(isset($_GET['sc'])): ?>
+var ne = $("#btnfullnext").attr("href");
+var pe = $("#btnfullprev").attr("href");
+$("#btnfullnext").attr("href", ne+"&sc=ld");
+$("#btnfullprev").attr("href", pe+"&sc=ld");
 setTimeout(function(){
 	launchIntoFullscreen(document.getElementById('container'));
 }, 1000);
