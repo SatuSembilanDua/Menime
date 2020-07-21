@@ -113,7 +113,6 @@ echo "eps_baru: $eps_baru<br>";
 	print_r($update);
 }*/
 
-
 $menime = json_decode(file_get_contents("data/menime.json") ,true);
 echo "<h4>Update Anime</h4><hr>";
 foreach ($menime as $k => $v) {

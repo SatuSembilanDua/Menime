@@ -1,6 +1,15 @@
 <style>
-
-
+	.nav_anime_txt{
+		min-height: 30px;
+	}
+	.nav_anime_txt>p{
+		color: #FFF;
+		margin: 0;
+	    line-height: 20px;
+	    overflow: hidden;
+	    text-overflow: ellipsis;
+	    white-space: nowrap;
+	}
 </style>
 <h2><?= $anime_txt; ?></h2>
 <br>
@@ -8,16 +17,21 @@
 	<?php if(isMobile()): ?>
 		<?php if(isset($ls_eps)): ?>
 		<div class="row" style="padding-top:20px">
-			<div class="col-xs-4 col-md-2">
+			<div class="col-xs-2 col-md-2" style="padding-right: 0;">
 				<div class="btn-fs" id="btnFS">Fullscreen</div>
 			</div>
-			<div class="col-xs-8 col-md-2 flex-container">
-				<a id="btnfullnext" href="index.php?page=view_anime&sub=<?= $_GET['sub']; ?>&eps=<?= $nex; ?>">
-					<div class="btn-fs">Next</div>
-				</a>&nbsp;
-				<a id="btnfullprev" href="index.php?page=view_anime&sub=<?= $_GET['sub']; ?>&eps=<?= $seb; ?>">
-					<div class="btn-fs">Prev</div>
-				</a>
+			<div class="pre_nav" style="display: none">
+				<div class="col-xs-8 col-md-2 nav_anime_txt">
+					<p><?= $anime_txt; ?></p>
+				</div>
+				<div class="col-xs-2 col-md-2 flex-container">
+					<a id="btnfullnext" href="index.php?page=view_anime&sub=<?= $_GET['sub']; ?>&eps=<?= $nex; ?>">
+						<div class="btn-fs">Next</div>
+					</a>&nbsp;
+					<a id="btnfullprev" href="index.php?page=view_anime&sub=<?= $_GET['sub']; ?>&eps=<?= $seb; ?>">
+						<div class="btn-fs">Prev</div>
+					</a>
+				</div>
 			</div>
 		</div>
 		<?php endif; ?>
@@ -75,8 +89,10 @@ function goFullScreen() {
 	if(fullscreenElement){
 		$("#btnfullnext").attr("href", ne.replace("&sc=ld", ""));
   		$("#btnfullprev").attr("href", pe.replace("&sc=ld", ""));
+		$(".pre_nav").hide();
   		exitFullscreen();
   	}else {
+		$(".pre_nav").show();
   		$("#btnfullnext").attr("href", ne+"&sc=ld");
   		$("#btnfullprev").attr("href", pe+"&sc=ld");
   		launchIntoFullscreen(document.getElementById('container'));
@@ -85,6 +101,7 @@ function goFullScreen() {
 
 
 <?php if(isset($_GET['sc'])): ?>
+$(".pre_nav").show();
 var ne = $("#btnfullnext").attr("href");
 var pe = $("#btnfullprev").attr("href");
 $("#btnfullnext").attr("href", ne+"&sc=ld");
