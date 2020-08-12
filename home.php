@@ -6,9 +6,14 @@
 		if(isset($v['img'])){
 			$img = $v['img'];
 		}
+		$ong = '';
+		if($v['sts']==0){
+			$ong = '<div class="featu">Ongoing</div>';
+		}
 ?>
 		<div class="col-md-2 col-xs-4 col-list">
 			<div class="anime-list">
+				<?= $ong; ?>
 				<a href="index.php?page=anime&a=<?= $k;?>" title="<?= $v['judul']; ?>">
 					<div class="poster-img">
 						<div class="img-list" style="background-image: url(<?= $img; ?>);" ></div>
