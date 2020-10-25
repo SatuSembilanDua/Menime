@@ -395,6 +395,8 @@ function korak_vid1($url){
 
 function cek_update_anime($list_episode, $origin){
 	$le = list_episode_page($origin);
+	unset($le[0]);
+	$le = array_values($le);
 	$eps_lama = (int)explode(" ", $list_episode[0]['eps'])[1];
 	$eps_baru_arr = explode(" ", $le[0]['eps']);
 	$eps_baru = $eps_lama;
