@@ -106,7 +106,23 @@ a{
 	margin: 0;
 }
 .social-btn{
-	padding: 50px;
+	padding: 100px 20px 0 0;
+}
+
+.about_desc>h2{
+	color:#FFF;
+}
+.about_desc>p{
+	color:#FFF;
+	margin-bottom: 15px;
+    line-height: 23px;
+}
+.about_desc>ul{
+	padding-left: 30px;
+    margin-bottom: 15px;
+}
+.about_desc>ul>li{
+	color:#FFF;
 }
 
 .btn-social{

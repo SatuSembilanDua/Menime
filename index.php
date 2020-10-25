@@ -76,13 +76,17 @@ if(isset($_GET['page'])){
 			$nav .= '<li><a href="index.php?page=anime&a='.$sub.'">'.ucwords($at).'</a></li>';
 			$nav .= '<li class="active">'.trim($curr_le['eps']).'</li>';
 			$title .= " | ".ucwords($at)." ".ucwords($anime_txt);
-
-			
 		}
 	}else{
-		$inc = "404.php";
-		$nav = '<li><a href="index.php">Home</a></li>';
-		$nav .= '<li class="active">404</li>';
+		if($q=="dmca" || $q=="privacy"){
+			$inc =  'about.php';
+			$nav = '<li><a href="index.php">Home</a></li>';
+			$nav .= '<li class="active">'.strtoupper($q).'</li>';
+		}else{
+			$inc = "404.php";
+			$nav = '<li><a href="index.php">Home</a></li>';
+			$nav .= '<li class="active">404</li>';
+		}
 	}
 }else{
 	$inc = "home.php";
@@ -138,6 +142,11 @@ if(isset($_GET['page'])){
 						</a>
 						<p>Powered by <a href="http://heroku.com/" target="blank" style="color:#337ab7;">heroku</a></p>
 					</div>
+					<div class="col-xs-6 social-btn text-right">
+						<a href="index.php?page=dmca">DMCA</a>
+						&nbsp;|&nbsp;
+						<a href="index.php?page=privacy">Privacy</a>
+					</div>
 					
 				</div>
 				<div style="clear:both"></div>
@@ -151,7 +160,6 @@ if(isset($_GET['page'])){
 				var link = $(this).children().children().attr("href");
 				window.location = link;
 			});
-
 		});
 	</script>
 </body>
