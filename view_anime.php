@@ -36,13 +36,13 @@
 		</div>
 		<?php endif; ?>
 	<?php endif; ?>
-<?php if($ml_current['src']!=1): ?>
+<?php if($ml_current['src']==1 || $ml_current['src']==5): ?>
+	<iframe src="<?= $list_anime['video']; ?>" allowfullscreen="true" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" class="idframe"></iframe>
+<?php else: ?>
 	<video controls class="idframe" poster="<?= $list_anime['thumb']; ?>">
 		<source src="<?= $list_anime['video']; ?>" type='video/mp4'/>
 	    <source src="<?= $list_anime['video']; ?>" type='video/webm'/>
 	</video>
-<?php else: ?>
-	<iframe src="<?= $list_anime['video']; ?>" allowfullscreen="true" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" class="idframe"></iframe>
 <?php endif; ?>
 </div>
 <br><br>

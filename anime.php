@@ -105,7 +105,7 @@
 		endforeach;
 	?>
 </div>
-<?php else: // if not have session ?>
+<?php else: // if not have seasson ?>
 <table class="table table-list myTable">
 	<thead>
 		<tr>
@@ -117,7 +117,7 @@
 	</thead>
 	<tbody>
 	<?php
-		if($ml_current['link']=="kekkaishi"){
+		if($ml_current['link']=="kekkaishi" || $ml_current['src']==5){
 			$list_episode = $list_episode;
 		}else{
 			if($ml_current['sts']==0){

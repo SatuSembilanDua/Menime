@@ -360,6 +360,30 @@ function get_kekkaishi($url){
 	return $info['redirect_url'];
 }
 
+
+
+function get_dragonball($url){
+	$ch = curl_init();
+	curl_setopt($ch,CURLOPT_URL,$url);
+	curl_setopt($ch, CURLOPT_USERAGENT, "Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.102 Safari/537.36");
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+	curl_setopt($ch, CURLOPT_PROXY, null);
+
+	$data = curl_exec($ch);
+	$info = curl_getinfo($ch);
+	$error = curl_error($ch);
+	$dom = new simple_html_dom(null, true, true, DEFAULT_TARGET_CHARSET, true, DEFAULT_BR_TEXT, DEFAULT_SPAN_TEXT);
+
+	//$html = file_get_html($url);
+	$html = $dom->load($data, true, true);
+	$list_episode = array();
+
+	foreach ($html->find(".playeriframe") as $iframe) {
+		return $iframe->src;
+	}
+}
+
 function korra_vid($url){
 	$vid = korak_vid1($url);
 	if($vid!=''){
