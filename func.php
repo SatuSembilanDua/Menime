@@ -364,7 +364,7 @@ function get_kekkaishi($url){
 
 function get_dragonball($url){
 	$ch = curl_init();
-	curl_setopt($ch,CURLOPT_URL,$url);
+	curl_setopt($ch,CURLOPT_URL,$url.'/');
 	curl_setopt($ch, CURLOPT_USERAGENT, "Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.102 Safari/537.36");
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 

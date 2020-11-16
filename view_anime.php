@@ -36,6 +36,7 @@
 		</div>
 		<?php endif; ?>
 	<?php endif; ?>
+
 <?php if($ml_current['src']==1 || $ml_current['src']==5): ?>
 	<iframe src="<?= $list_anime['video']; ?>" allowfullscreen="true" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" class="idframe"></iframe>
 <?php else: ?>
