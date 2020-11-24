@@ -11,6 +11,9 @@
 	}else{
 		$anime = $ml_current;
 	}
+	echo '<pre>';
+	print_r($anime);
+	echo '</pre>';
 ?>
 	<h2>NONTON <?= strtoupper($anime_txt); ?></h2>
 	<div class="row">
