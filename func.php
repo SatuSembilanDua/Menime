@@ -194,7 +194,7 @@ function anime_info($url){
 
 	curl_setopt($ch, CURLOPT_PROXY, null);
 	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-	
+
 	$data = curl_exec($ch);
 	$info = curl_getinfo($ch);
 	$error = curl_error($ch);
@@ -222,6 +222,7 @@ function anime_info($url){
 			//echo '<img src="data:image/gif;base64,'.$src.'"> ';
 		}
 	}
+	echo $data;
 	echo "<pre>";
 	print_r($info);
 	echo "<hr>";
