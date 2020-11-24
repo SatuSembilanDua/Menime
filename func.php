@@ -205,18 +205,22 @@ function anime_info($url){
 	        "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.66 Safari/537.36",
 	        "Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
 	        "Accept-Language: id-ID,id;q=0.9",
-	        "Accept-Encoding: gzip, deflate, br",
 	        "Connection: keep-alive",
 	        "Cache-Control: max-age=0",
 	        "Cookie: ci_session=5adalc3eqr1vjorambdjcncdidllbjiu; _ga=GA1.1.188950518.1606232481; _gid=GA1.1.1527533974.1606232481; __atuvc=1%7C48; __atuvs=5fbd29a1a5d5d086000; HstCfa4135177=1606232482217; HstCla4135177=1606232482217; HstCmu4135177=1606232482217; HstPn4135177=1; HstPt4135177=1; HstCnv4135177=1; HstCns4135177=1"
-	        "Sec-Fetch-Dest: document",
-	        "sec-fetch-user: ?1",
-	        "sec-fetch-mode: navigate",
 	    ));
 
 	$data = curl_exec($ch);
 	$info = curl_getinfo($ch);
 	$error = curl_error($ch);
+
+
+	echo $data;
+	echo "<pre>";
+	print_r($info);
+	echo "<hr>";
+	print_r($error);
+	echo "</pre>";
 
 	curl_close($ch);
 	$dom = new simple_html_dom(null, true, true, DEFAULT_TARGET_CHARSET, true, DEFAULT_BR_TEXT, DEFAULT_SPAN_TEXT);
@@ -241,12 +245,6 @@ function anime_info($url){
 			//echo '<img src="data:image/gif;base64,'.$src.'"> ';
 		}
 	}
-	echo $data;
-	echo "<pre>";
-	print_r($info);
-	echo "<hr>";
-	print_r($error);
-	echo "</pre>";
 	return $info_anime;
 
 }
