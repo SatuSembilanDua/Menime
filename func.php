@@ -221,8 +221,11 @@ function anime_info($url){
 			//echo '<img src="data:image/gif;base64,'.$src.'"> ';
 		}
 	}
-	
-	
+	echo "<pre>";
+	print_r($info);
+	echo "<hr>";
+	print_r($error);
+	echo "</pre>";
 	return $info_anime;
 
 }

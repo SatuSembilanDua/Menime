@@ -12,6 +12,8 @@
 		$anime = $ml_current;
 	}
 	echo '<pre>';
+	print_r($ml_current);
+	echo '<br>';
 	print_r($anime);
 	echo '</pre>';
 ?>
