@@ -193,7 +193,14 @@ function anime_info($url){
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
 	curl_setopt($ch, CURLOPT_PROXY, null);
-
+	curl_setopt($ch, CURLOPT_HTTPHEADER,
+	    array(
+	        "Upgrade-Insecure-Requests: 1",
+	        "User-Agent: Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.87 Safari/537.36",
+	        "Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
+	        "Accept-Language: id-ID,id;q=0.9",
+	        "cookie: __cfduid=dd11dcd43a486bbdf1c63bb3d14ffc1f41606231587; _ga=GA1.2.15192780.1606231593; _gid=GA1.2.1789912764.1606231593; __cf_bm=95e8739b177e62711be02969b917e9f07c6e4c48-1606231595-1800-Ad/HPAhdIesFiUQE7tgy3rr4uGcQXArDjOXxJjyTDD0nsl1lbGMwFUaSsmgPVM+BREZs2hC+AVKZIla2k11j4B6aAuTYwnRYYLE2tmYremnjbcZVOPtVH4NB+DBeWYGWMSsddtClFXkeLhBxVTSLmqY=; HstCfa4135177=1606231596047; HstCmu4135177=1606231596047; c_ref_4135177=http%3A%2F%2Flocalhost%2F; HstCnv4135177=1; HstCns4135177=1; __dtsu=6D00160623160042359F50EF2971A25F; wpdiscuz_hide_bubble_hint=1; __atuvc=2%7C48; __atuvs=5fbd2629a035d8f8001; HstCla4135177=1606231825003; HstPn4135177=2; HstPt4135177=2"
+	    ));
 	$data = curl_exec($ch);
 	$info = curl_getinfo($ch);
 	$error = curl_error($ch);
