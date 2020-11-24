@@ -186,6 +186,11 @@ echo '<pre>';
 print_r($anime);
 echo '</pre>';*/
 
+if(isset($_GET['test'])){
+
+	$anime = anime_info("https://www.oploverz.in/series/one-piece-sub-indo/");
+}
+
 function anime_info($url){
 	$ch = curl_init();
 	curl_setopt($ch,CURLOPT_URL,$url);
