@@ -190,7 +190,8 @@ if(isset($_GET['test'])){
 	header("Access-Control-Allow-Origin: *");
 	header("Access-Control-Allow-Headers: x-access-header, Authorization, Origin, X-Requested-With, Content-Type, Accept");
 
-	$anime = anime_info("https://www.oploverz.in/series/one-piece-sub-indo/");
+	//$anime = anime_info("https://www.oploverz.in/series/one-piece-sub-indo/");
+	$anime = anime_info("https://www.oploverz.in");
 	
 }
 
@@ -206,6 +207,8 @@ function anime_info($url){
 	curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 	curl_setopt($ch, CURLINFO_HEADER_OUT, true);
+	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+	curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
 
     $headers = [
 	    'X-Apple-Tz: 0',
