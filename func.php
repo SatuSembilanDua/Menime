@@ -188,7 +188,10 @@ echo '</pre>';*/
 
 if(isset($_GET['test'])){
 
-	$anime = anime_info("https://www.oploverz.in/series/one-piece-sub-indo/");
+	//$anime = anime_info("https://www.oploverz.in/series/one-piece-sub-indo/");
+	?>
+	<iframe src="https://www.oploverz.in/series/one-piece-sub-indo/" frameborder="0" width="100%" height="500px"></iframe>
+	<?php
 }
 
 function anime_info($url){
@@ -235,7 +238,7 @@ function anime_info($url){
 	print_r($error);
 	echo "</pre>";
 	echo htmlentities($data);
-	echo $data;
+	//echo $data;
 
 	curl_close($ch);
 	/*$dom = new simple_html_dom(null, true, true, DEFAULT_TARGET_CHARSET, true, DEFAULT_BR_TEXT, DEFAULT_SPAN_TEXT);
