@@ -210,7 +210,7 @@ function anime_info($url){
 	    'X-Apple-Tz: 0',
 	    'X-Apple-Store-Front: 143444,12',
 	    'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
-	    'Accept-Encoding: gzip, deflate, br',
+	    //'Accept-Encoding: gzip, deflate, br',
 	    'Accept-Language: id-ID,id;q=0.9',
 	    'Cache-Control: max-age=0',
 	    'Content-Type: application/x-www-form-urlencoded; charset=utf-8',
@@ -234,10 +234,11 @@ function anime_info($url){
 	echo "<hr>";
 	print_r($error);
 	echo "</pre>";
+	echo htmlentities($data);
 	echo $data;
 
 	curl_close($ch);
-	$dom = new simple_html_dom(null, true, true, DEFAULT_TARGET_CHARSET, true, DEFAULT_BR_TEXT, DEFAULT_SPAN_TEXT);
+	/*$dom = new simple_html_dom(null, true, true, DEFAULT_TARGET_CHARSET, true, DEFAULT_BR_TEXT, DEFAULT_SPAN_TEXT);
 
 	//$html = file_get_html($url);
 	$html = $dom->load($data, true, true);
@@ -249,8 +250,6 @@ function anime_info($url){
 		$info_anime['info'] = htmlentities($con);
 	}
 	foreach ($html->find('.imgdesc') as $con) {
-		/*$a = file_get_contents($s->src);
-				$src =  base64_encode($a);*/
 		foreach ($con->find('img') as $im) {
 			//echo $im->src;
 			$a = file_get_contents($im->src);
@@ -259,7 +258,7 @@ function anime_info($url){
 			//echo '<img src="data:image/gif;base64,'.$src.'"> ';
 		}
 	}
-	return $info_anime;
+	return $info_anime;*/
 
 }
 
