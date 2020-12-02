@@ -222,6 +222,7 @@ function anime_info($url){
 	    'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.66 Safari/537.36',
 	    //'X-MicrosoftAjax: Delta=true'
 	    "Upgrade-Insecure-Requests: 1",
+	    "Connection: keep-alive",
 	    "cookie: __cfduid=d463c2c74b8cb4ad701c41487ef15ba271592223878; PHPSESSID=cq1245ofoi0qab5gun4lqfj365; _ga=GA1.2.205899321.1592223880; _gid=GA1.2.1323666345.1592223880; HstCfa4237846=1592223880537; HstCmu4237846=1592223880537; c_ref_4237846=https%3A%2F%2Fwww.google.com%2F; __dtsu=1040159222388239E79CA78CAA0D19A1; HstCnv4237846=2; _gat_gtag_UA_126097535_3=1; HstCla4237846=1592234566756; HstPn4237846=6; HstPt4237846=14; HstCns4237846=3"
 	];
 
@@ -230,7 +231,6 @@ function anime_info($url){
 	$data = curl_exec($ch);
 	$info = curl_getinfo($ch);
 	$error = curl_error($ch);
-
 
 	echo "<pre>";
 	print_r($info);
