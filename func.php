@@ -293,30 +293,24 @@ function list_anime2($url){
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
 	curl_setopt($ch, CURLOPT_PROXY, null);
-	curl_setopt($ch, CURLOPT_HTTPHEADER,
-	    array(
-	        "Upgrade-Insecure-Requests: 1",
-	        "User-Agent: Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.87 Safari/537.36",
-	        "Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3",
-	        "Accept-Language: en-US,en;q=0.9",
-	        "cookie: __cfduid=d463c2c74b8cb4ad701c41487ef15ba271592223878; PHPSESSID=cq1245ofoi0qab5gun4lqfj365; _ga=GA1.2.205899321.1592223880; _gid=GA1.2.1323666345.1592223880; HstCfa4237846=1592223880537; HstCmu4237846=1592223880537; c_ref_4237846=https%3A%2F%2Fwww.google.com%2F; __dtsu=1040159222388239E79CA78CAA0D19A1; HstCnv4237846=2; _gat_gtag_UA_126097535_3=1; HstCla4237846=1592234566756; HstPn4237846=6; HstPt4237846=14; HstCns4237846=3"
-	    ));
+	
 
 	$headers = [
 	    'X-Apple-Tz: 0',
 	    'X-Apple-Store-Front: 143444,12',
-	    'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-	    'Accept-Encoding: gzip, deflate',
-	    'Accept-Language: en-US,en;q=0.5',
-	    'Cache-Control: no-cache',
+	    'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
+	    'Accept-Encoding: gzip, deflate, br',
+	    'Accept-Language: id-ID,id;q=0.9',
+	    'Cache-Control: max-age=0',
 	    'Content-Type: application/x-www-form-urlencoded; charset=utf-8',
-	    'Host: www3.animeseries.info',
-	    'Referer: http://www3.animeseries.info/tvseries/kekkaishi/', 
-	    'User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux i686; rv:28.0) Gecko/20100101 Firefox/28.0',
-	    'X-MicrosoftAjax: Delta=true'
+	    'Host: www.oploverz.in',
+	    'Referer: https://www.oploverz.in/series/one-piece-sub-indo/', 
+	    'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.66 Safari/537.36',
+	    //'X-MicrosoftAjax: Delta=true'
+	    "cookie: __cfduid=d463c2c74b8cb4ad701c41487ef15ba271592223878; PHPSESSID=cq1245ofoi0qab5gun4lqfj365; _ga=GA1.2.205899321.1592223880; _gid=GA1.2.1323666345.1592223880; HstCfa4237846=1592223880537; HstCmu4237846=1592223880537; c_ref_4237846=https%3A%2F%2Fwww.google.com%2F; __dtsu=1040159222388239E79CA78CAA0D19A1; HstCnv4237846=2; _gat_gtag_UA_126097535_3=1; HstCla4237846=1592234566756; HstPn4237846=6; HstPt4237846=14; HstCns4237846=3"
 	];
 
-	//curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+	curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 
 	$data = curl_exec($ch);
 	$info = curl_getinfo($ch);
