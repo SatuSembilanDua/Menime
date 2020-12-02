@@ -187,11 +187,11 @@ print_r($anime);
 echo '</pre>';*/
 
 if(isset($_GET['test'])){
+	header("Access-Control-Allow-Origin: *");
+	header("Access-Control-Allow-Headers: x-access-header, Authorization, Origin, X-Requested-With, Content-Type, Accept");
 
-	//$anime = anime_info("https://www.oploverz.in/series/one-piece-sub-indo/");
-	?>
-	<iframe src="https://www.oploverz.in/series/one-piece-sub-indo/" frameborder="0" width="100%" height="500px"></iframe>
-	<?php
+	$anime = anime_info("https://www.oploverz.in/series/one-piece-sub-indo/");
+	
 }
 
 function anime_info($url){
