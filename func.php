@@ -233,16 +233,16 @@ function anime_info($url){
 	$info = curl_getinfo($ch);
 	$error = curl_error($ch);
 
-	echo "<pre>";
+	/*echo "<pre>";
 	print_r($info);
 	echo "<hr>";
 	print_r($error);
 	echo "</pre>";
-	echo htmlentities($data);
+	echo htmlentities($data);*/
 	//echo $data;
 
 	curl_close($ch);
-	/*$dom = new simple_html_dom(null, true, true, DEFAULT_TARGET_CHARSET, true, DEFAULT_BR_TEXT, DEFAULT_SPAN_TEXT);
+	$dom = new simple_html_dom(null, true, true, DEFAULT_TARGET_CHARSET, true, DEFAULT_BR_TEXT, DEFAULT_SPAN_TEXT);
 
 	//$html = file_get_html($url);
 	$html = $dom->load($data, true, true);
@@ -262,7 +262,7 @@ function anime_info($url){
 			//echo '<img src="data:image/gif;base64,'.$src.'"> ';
 		}
 	}
-	return $info_anime;*/
+	return $info_anime;
 
 }
 
