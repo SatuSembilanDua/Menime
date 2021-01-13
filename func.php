@@ -190,12 +190,27 @@ if(isset($_GET['test'])){
 	header("Access-Control-Allow-Origin: *");
 	header("Access-Control-Allow-Headers: x-access-header, Authorization, Origin, X-Requested-With, Content-Type, Accept");
 
-	//$anime = anime_info("https://www.oploverz.in/series/one-piece-sub-indo/");
-	$anime = anime_info("https://www.oploverz.in");
-	
+	$anime = anime_info_bc("https://samehadaku.vip/anime/one-piece/");
+	//$anime = anime_info("https://www.oploverz.in");
+	//print_r($anime);
+	echo json_encode($anime);
 }
 
 function anime_info($url){
+	$url = e_url($url);
+	// https://apimenime.herokuapp.com/
+	$a = file_get_contents(" https://apimenime.herokuapp.com/anime_info/$url");
+	$b = json_decode($a, true);
+	$i = file_get_contents($b['img']);
+	$src =  base64_encode($i);
+	return array(
+					"desc" => $b['desc'],
+					"info" => $b['info'],
+					"img" => $src,
+					);
+}
+
+function anime_info_bc($url){
 	$ch = curl_init();
 	curl_setopt($ch,CURLOPT_URL,$url);
 	
@@ -233,16 +248,16 @@ function anime_info($url){
 	$info = curl_getinfo($ch);
 	$error = curl_error($ch);
 
-	/*echo "<pre>";
+	echo "<pre>";
 	print_r($info);
 	echo "<hr>";
 	print_r($error);
 	echo "</pre>";
-	echo htmlentities($data);*/
+	echo htmlentities($data);
 	//echo $data;
 
 	curl_close($ch);
-	$dom = new simple_html_dom(null, true, true, DEFAULT_TARGET_CHARSET, true, DEFAULT_BR_TEXT, DEFAULT_SPAN_TEXT);
+	/*$dom = new simple_html_dom(null, true, true, DEFAULT_TARGET_CHARSET, true, DEFAULT_BR_TEXT, DEFAULT_SPAN_TEXT);
 
 	//$html = file_get_html($url);
 	$html = $dom->load($data, true, true);
@@ -262,7 +277,8 @@ function anime_info($url){
 			//echo '<img src="data:image/gif;base64,'.$src.'"> ';
 		}
 	}
-	return $info_anime;
+	return $info_anime;*/
+	return [];
 
 }
 
