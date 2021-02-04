@@ -317,12 +317,13 @@ echo '</pre>';*/
 
 if(isset($_GET['debug_tes'])){
 	header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Headers: x-access-header, Authorization, Origin, X-Requested-With, Content-Type, Accept");
+	header("Access-Control-Allow-Headers: x-access-header, Authorization, Origin, X-Requested-With, Content-Type, Accept");
 
 ?>
 <iframe src="https://www.oploverz.in/" frameborder="0" width="100%"></iframe>
 <?php
 	$url = "https://www.oploverz.in/"; 
+	echo file_get_contents($url);
 	$ch = curl_init();
 	curl_setopt($ch,CURLOPT_URL,$url);
 	curl_setopt($ch, CURLOPT_USERAGENT, "Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.102 Safari/537.36");
@@ -335,7 +336,7 @@ header("Access-Control-Allow-Headers: x-access-header, Authorization, Origin, X-
 	        "User-Agent: Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.87 Safari/537.36",
 	        "Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3",
 	        "Accept-Language: en-US,en;q=0.9",
-	        "cookie: __cfduid=d463c2c74b8cb4ad701c41487ef15ba271592223878; PHPSESSID=cq1245ofoi0qab5gun4lqfj365; _ga=GA1.2.205899321.1592223880; _gid=GA1.2.1323666345.1592223880; HstCfa4237846=1592223880537; HstCmu4237846=1592223880537; c_ref_4237846=https%3A%2F%2Fwww.google.com%2F; __dtsu=1040159222388239E79CA78CAA0D19A1; HstCnv4237846=2; _gat_gtag_UA_126097535_3=1; HstCla4237846=1592234566756; HstPn4237846=6; HstPt4237846=14; HstCns4237846=3"
+	        "cookie: __cfduid=d7cad488d51ee8439553a4021c9592dba1612441264; _ga=GA1.2.543937370.1612441267; _gid=GA1.2.2075059068.1612441267; __cf_bm=d95bf8d638e749e5a8248b84d1f19069c2ee89bc-1612441267-1800-AYAwP17Q503w9oTlzW8OsQ4AormFg2F49z3MGWToBUmie7zKLh35MlMbTqI3/E8OwuQI+8DoZZTBT2z8z4PgGHfT3rTdQnRIpHvpNmp7ARDJ+5KAwffeIbHbvULbWdEOEw==; PHPSESSID=r126hve7fjgf6l7ovufg26gfg4; _gat=1; __atuvc=2%7C5; __atuvs=601be6b2cc538daf001"
 	    ));
 
 	$data = curl_exec($ch);
