@@ -196,10 +196,10 @@ if(isset($_GET['test'])){
 	echo json_encode($anime);
 }
 
-function anime_info($url){
+function anime_info_py($url){
 	$url = e_url($url);
 	// https://apimenime.herokuapp.com/
-	$a = file_get_contents(" https://apimenime.herokuapp.com/anime_info/$url");
+	$a = file_get_contents("https://apimenime.herokuapp.com/anime_info/$url");
 	$b = json_decode($a, true);
 	$i = file_get_contents($b['img']);
 	$src =  base64_encode($i);
@@ -210,7 +210,7 @@ function anime_info($url){
 					);
 }
 
-function anime_info_bc($url){
+function anime_info($url){
 	$ch = curl_init();
 	curl_setopt($ch,CURLOPT_URL,$url);
 	
@@ -248,16 +248,16 @@ function anime_info_bc($url){
 	$info = curl_getinfo($ch);
 	$error = curl_error($ch);
 
-	echo "<pre>";
+	/*echo "<pre>";
 	print_r($info);
 	echo "<hr>";
 	print_r($error);
 	echo "</pre>";
-	echo htmlentities($data);
+	echo htmlentities($data);*/
 	//echo $data;
 
 	curl_close($ch);
-	/*$dom = new simple_html_dom(null, true, true, DEFAULT_TARGET_CHARSET, true, DEFAULT_BR_TEXT, DEFAULT_SPAN_TEXT);
+	$dom = new simple_html_dom(null, true, true, DEFAULT_TARGET_CHARSET, true, DEFAULT_BR_TEXT, DEFAULT_SPAN_TEXT);
 
 	//$html = file_get_html($url);
 	$html = $dom->load($data, true, true);
@@ -277,7 +277,7 @@ function anime_info_bc($url){
 			//echo '<img src="data:image/gif;base64,'.$src.'"> ';
 		}
 	}
-	return $info_anime;*/
+	return $info_anime;
 	return [];
 
 }
@@ -314,6 +314,44 @@ function anime_info2($url){
 echo '<pre>';
 print_r($anime);
 echo '</pre>';*/
+
+if(isset($_GET['debug_tes'])){
+	header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Headers: x-access-header, Authorization, Origin, X-Requested-With, Content-Type, Accept");
+
+?>
+<iframe src="https://www.oploverz.in/" frameborder="0" width="100%"></iframe>
+<?php
+	$url = "https://www.oploverz.in/"; 
+	$ch = curl_init();
+	curl_setopt($ch,CURLOPT_URL,$url);
+	curl_setopt($ch, CURLOPT_USERAGENT, "Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.102 Safari/537.36");
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+	curl_setopt($ch, CURLOPT_PROXY, null);
+	curl_setopt($ch, CURLOPT_HTTPHEADER,
+	    array(
+	        "Upgrade-Insecure-Requests: 1",
+	        "User-Agent: Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.87 Safari/537.36",
+	        "Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3",
+	        "Accept-Language: en-US,en;q=0.9",
+	        "cookie: __cfduid=d463c2c74b8cb4ad701c41487ef15ba271592223878; PHPSESSID=cq1245ofoi0qab5gun4lqfj365; _ga=GA1.2.205899321.1592223880; _gid=GA1.2.1323666345.1592223880; HstCfa4237846=1592223880537; HstCmu4237846=1592223880537; c_ref_4237846=https%3A%2F%2Fwww.google.com%2F; __dtsu=1040159222388239E79CA78CAA0D19A1; HstCnv4237846=2; _gat_gtag_UA_126097535_3=1; HstCla4237846=1592234566756; HstPn4237846=6; HstPt4237846=14; HstCns4237846=3"
+	    ));
+
+	$data = curl_exec($ch);
+	$info = curl_getinfo($ch);
+	$error = curl_error($ch);
+	echo "<pre>";
+	print_r($info);
+	echo "<hr>";
+	print_r($error);
+	echo "<hr>";
+	echo $data;
+	echo "</pre>";
+
+	curl_close($ch);
+
+}
 
 function list_anime2($url){
 	$ch = curl_init();

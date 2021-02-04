@@ -2,6 +2,7 @@
 	$ml_current = $menime_list[$_GET['a']];
 				
 	$url = $ml_current['origin'];
+	echo e_url($url);
 	$anime = anime_info($url);
 	
 	$per_page = 100;
