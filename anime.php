@@ -2,15 +2,17 @@
 	$ml_current = $menime_list[$_GET['a']];
 				
 	$url = $ml_current['origin'];
-	$anime = anime_info_py($url);
 	
 	$per_page = 100;
 	if($ml_current["src"]==1){
-		$anime = anime_info($url);
+		//$anime = anime_info($url);
+		$anime = anime_info_py($url);
 		$ml_current['img'] = "data:image/gif;base64,".$anime['img'];
 	}else{
 		$anime = $ml_current;
 	}
+		$anime['desc'] = html_entity_decode($anime['desc']);
+		$anime['info'] = html_entity_decode($anime['info']);
 ?>
 	<h2>NONTON <?= strtoupper($anime_txt); ?></h2>
 	<div class="row">
@@ -18,11 +20,11 @@
 			<img src="<?= $ml_current['img']; ?>" alt="anime" class="img-res">
 		</div>
 		<div class="col-xs-8 col-md-10 anime-desk">
-			<?= html_entity_decode($anime['desc']); ?>
+			<?= $anime['desc']; ?>
 		</div>
 	</div>
 	<hr>
-	<?= html_entity_decode($anime['info']); ?>
+	<?= $anime['info']; ?>
 
 
 <!-- LIST ANIME -->

@@ -206,10 +206,12 @@ if(isset($_GET['test'])){
 	//$anime = anime_info_bc("https://samehadaku.vip/anime/one-piece/");
 	$url = d_url("aHR0cHM6Ly93d3cub3Bsb3ZlcnouaW4vc2VyaWVzL29uZS1waWVjZS1zdWItaW5kby8");
 	$anime = anime_info_py($url);
+	$anime2 = anime_info($url);
 
 	$url2 = "https://www.oploverz.in/one-piece-episode-959-subtitle-indonesia/";
 	$eps = list_anime_py($url2);
 	echo "<pre>";
+	print_r($anime2);
 	print_r($anime);
 	print_r($eps);
 	echo "</pre>";
@@ -220,6 +222,7 @@ function anime_info_py($url){
 	$url = e_url($url);
 	// https://apimenime.herokuapp.com/
 	$a = file_get_contents("https://apimenime.herokuapp.com/anime_info/$url");
+	//$a = file_get_contents("http://127.0.0.1:5000/anime_info/$url");
 	$b = json_decode($a, true);
 	$i = file_get_contents($b['img']);
 	$src =  base64_encode($i);
