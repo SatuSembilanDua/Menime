@@ -2,8 +2,7 @@
 	$ml_current = $menime_list[$_GET['a']];
 				
 	$url = $ml_current['origin'];
-	echo e_url($url);
-	$anime = anime_info($url);
+	$anime = anime_info_py($url);
 	
 	$per_page = 100;
 	if($ml_current["src"]==1){
