@@ -323,7 +323,9 @@ if(isset($_GET['debug_tes'])){
 <iframe src="https://www.oploverz.in/" frameborder="0" width="100%"></iframe>
 <?php
 	$url = "https://www.oploverz.in/"; 
-	echo file_get_contents($url);
+	$a = file_get_contents($url);
+	echo $a;
+	echo "<hr><hr><hr><hr><hr><hr><hr><hr><hr>";
 	$ch = curl_init();
 	curl_setopt($ch,CURLOPT_URL,$url);
 	curl_setopt($ch, CURLOPT_USERAGENT, "Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.102 Safari/537.36");
