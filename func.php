@@ -203,10 +203,17 @@ if(isset($_GET['test'])){
 	header("Access-Control-Allow-Origin: *");
 	header("Access-Control-Allow-Headers: x-access-header, Authorization, Origin, X-Requested-With, Content-Type, Accept");
 
-	$anime = anime_info_bc("https://samehadaku.vip/anime/one-piece/");
-	//$anime = anime_info("https://www.oploverz.in");
-	//print_r($anime);
-	echo json_encode($anime);
+	//$anime = anime_info_bc("https://samehadaku.vip/anime/one-piece/");
+	$url = d_url("aHR0cHM6Ly93d3cub3Bsb3ZlcnouaW4vc2VyaWVzL29uZS1waWVjZS1zdWItaW5kby8");
+	$anime = anime_info_py($url);
+
+	$url2 = "https://www.oploverz.in/one-piece-episode-959-subtitle-indonesia/";
+	$eps = list_anime_py($url2);
+	echo "<pre>";
+	print_r($anime);
+	print_r($eps);
+	echo "</pre>";
+	//echo json_encode($anime);
 }
 
 function anime_info_py($url){
