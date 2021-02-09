@@ -66,7 +66,7 @@ if(isset($_GET['page'])){
 					$list_episode = array_reverse($list_episode);
 					$curr_le = $list_episode[$_GET['eps']];
 					$anime_txt = $curr_le['eps']." - ".$curr_le['judul'];
-					echo $curr_le['link'];
+					//echo $curr_le['link'];
 					//$list_anime = list_anime($curr_le['link']);
 					$list_anime = list_anime_py($curr_le['link']);
 				}
