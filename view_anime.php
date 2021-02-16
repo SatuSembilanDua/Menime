@@ -38,7 +38,21 @@
 	<?php endif; ?>
 
 <?php if($ml_current['src']==1 || $ml_current['src']==5): ?>
-	<iframe src="<?= $list_anime['video']; ?>" allowfullscreen="true" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" class="idframe"></iframe>
+	<!-- <iframe src="<?= '';//$list_anime['video']; ?>" allowfullscreen="true" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" class="idframe"></iframe> -->
+	
+	<iframe style="display: none;" src="" allowfullscreen="true" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" class="idframe"></iframe>
+	
+	<div class="load_video_box"></div>
+	<!-- h:500px -->
+	<div class="before_player" data-href="<?= e_url($curr_le['link']); ?>">
+		
+		<h1>
+			<i class="fa fa-play"></i>
+		</h1>
+		<!-- 
+		<img src="assets/img/loading.svg" alt="loading">
+		 -->
+	</div>
 <?php else: ?>
 	<video controls class="idframe" poster="<?= $list_anime['thumb']; ?>">
 		<source src="<?= $list_anime['video']; ?>" type='video/mp4'/>
@@ -65,6 +79,38 @@
 </div>
 <br><br>
 <?php endif; ?>
+<pre id="pre_print_error" style="display: none;"></pre>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$(".before_player").click(function(){
+			var lnk = $(this).attr("data-href");
+			$(".before_player").html('<img src="assets/img/loading.svg" alt="loading">');
+			var url = "anime_load.php?vid&link="+lnk;
+			$.ajax({
+				url: url, 
+				success: function(res){
+    				var result = JSON.parse(res);
+
+    				if(result.error != []){
+    					console.log(result.error);
+    					$("#pre_print_error").show();
+    					$("#pre_print_error").html(JSON.stringify(result.error, null, 2));
+    				}else{
+	    				$(".before_player").hide();
+	    				//$(".load_video_box").html('<iframe src="'+result.video+'" allowfullscreen="true" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" class="idframe"></iframe>');
+	    				$(".idframe").attr("src", result.video);
+	    				$(".idframe").show();
+    				}
+  				},
+  				error: function(xhr,status,error){
+  					console.log(xhr);
+  					console.log(status);
+  					console.log(error);
+  				}
+  			});
+		});
+	});
+</script>
 <?php if(!empty($list_anime['error'])): ?>
 <pre>
 --- debug

@@ -3,8 +3,6 @@
 
 require('func.php');
 
-header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Headers: x-access-header, Authorization, Origin, X-Requested-With, Content-Type, Accept");
 $menime_list = json_decode(file_get_contents("data/menime.json") ,true);
 $file = scandir(".");
 unset($file[0], $file[1]);
@@ -35,7 +33,9 @@ if(isset($_GET['page'])){
 				$curr_le['eps'] = "Episode ".$_GET['eps'];
 				$anime_txt = $curr_le['eps']." - ".d_url($_GET['judul']);
 				//$list_anime['video'] = d_url($_GET['link']);
-				$list_anime = list_anime(d_url($_GET['link']));
+				$curr_le['link'] = d_url($_GET['link']);
+				//$curr_le['link'] = $_GET['link'];
+				//$list_anime = list_anime(d_url($_GET['link']));
 			}else{
 				$list_episode = json_decode(file_get_contents("data/".$file.".json") ,true);
 				if($ml_current['link']=="avatar_the_legend_of_aang"){
@@ -68,7 +68,7 @@ if(isset($_GET['page'])){
 					$anime_txt = $curr_le['eps']." - ".$curr_le['judul'];
 					//echo $curr_le['link'];
 					//$list_anime = list_anime($curr_le['link']);
-					$list_anime = list_anime_py($curr_le['link']);
+					//$list_anime = list_anime_py($curr_le['link']);
 				}
 				$ls_eps = "index.php?page=anime&a=$sub";
 				$ep = $_GET['eps'];
@@ -121,7 +121,7 @@ if(isset($_GET['page'])){
 	<link rel="shortcut icon" href="assets/img/logo.png" type="image/x-icon"/>
 	<link rel="stylesheet" href="assets/css/bootstrap.min.css">
 	<link rel="stylesheet" href="assets/css/font-awesome.css">
-	<link rel="stylesheet" href="assets/css/style.css">
+	<link rel="stylesheet" href="assets/css/style.css?t=<?= time(); ?>">
 	
     <script src="assets/js/jquery.min.js"></script>
 </head>

@@ -1,5 +1,8 @@
 <?php
 
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Headers: x-access-header, Authorization, Origin, X-Requested-With, Content-Type, Accept");
+
 require('simplehtmldom/simple_html_dom.php');
 
 function e_url( $s ) {
@@ -10,9 +13,15 @@ function d_url($s) {
 	return base64_decode(str_pad(strtr($s, '-_', '+/'), strlen($s) % 4, '=', STR_PAD_RIGHT));
 }
 
+function pre($isi){
+	echo '<pre>';
+	print_r($isi);
+	echo '</pre>';
+}
+
 function isMobile() {
-    return true;
-    //return preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo|fone|hiptop|mini|mobi|palm|phone|pie|tablet|up\.browser|up\.link|webos|wos)/i", $_SERVER["HTTP_USER_AGENT"]);
+    //return true;
+    return preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo|fone|hiptop|mini|mobi|palm|phone|pie|tablet|up\.browser|up\.link|webos|wos)/i", $_SERVER["HTTP_USER_AGENT"]);
 }
 
 function _filter_($arr){
@@ -184,11 +193,16 @@ function list_anime($url){
 
 function list_anime_py($url){
 	$url = e_url($url);
-	$a = file_get_contents("https://apimenime.herokuapp.com/list_anime/$url");
+	$a = @file_get_contents("https://apimenime.herokuapp.com/list_anime/$url");
 	//$b = json_decode($a, true);
+	$error = '';
+	if($a === FALSE){$a="";
+		$error = error_get_last();
+		$error['penyakit'] = d_url($url);
+	}
 	return array(
 					"video" => $a,
-					"error" => []
+					"error" => $error
 					);
 
 	//return $list_anime;
@@ -538,7 +552,7 @@ function korak_vid1($url){
 
 function cek_update_anime($list_episode, $origin){
 	$le = list_episode_page($origin);
-	unset($le[0]);
+	//unset($le[0]);
 	$le = array_values($le);
 	$eps_lama = (int)explode(" ", $list_episode[0]['eps'])[1];
 	$eps_baru_arr = explode(" ", $le[0]['eps']);
@@ -566,6 +580,42 @@ function cek_update_anime($list_episode, $origin){
 	return $list_episode;
 }
 
+
+function cek_update_anime_py($list_episode, $origin){
+	$le = file_get_contents("https://apimenime.herokuapp.com/eps_anime/".e_url($origin));
+	//unset($le[0]);
+	$le = json_decode($le, true);
+	$le = array_values($le);
+	/*
+	pre($le);
+	echo "<br>";
+	*/
+	$eps_lama = (int)explode(" ", $list_episode[0]['eps'])[1];
+	$eps_baru_arr = explode(" ", $le[0]['eps']);
+	$eps_baru = $eps_lama;
+	foreach ($eps_baru_arr as $k => $v) {
+		if(is_numeric($v)){
+			$eps_baru = (int)$v;
+		}
+	}
+	//echo "$eps_baru  $eps_lama"; 
+	$kur = 0;
+	$new = [];
+	if($eps_baru>$eps_lama){
+		$kur = $eps_baru-$eps_lama;
+		$new = array_splice($le, 0, $kur);
+		foreach ($new as $k => $v) {
+			$eps = preg_replace('/\s+/', ' ', trim($v['eps']));
+			$judul = trim($v['judul']);
+			$new[$k]['eps'] = $eps;
+			$new[$k]['judul'] = $judul;
+			$new[$k]['sts'] = '1';
+			$new[$k]['div'] = $kur;
+		}
+		$list_episode = array_merge($new, $list_episode);
+	}
+	return $list_episode;
+}
 /*
 $url = "https://anoboy.mobi/anime/avatar-the-legend-of-aang/";
 $vid = list_episode2($url);*/

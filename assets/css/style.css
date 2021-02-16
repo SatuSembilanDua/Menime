@@ -222,17 +222,17 @@ a:hover{
 }
 
 .btn-seb{
-	border-radius: 4px 0px 0px 4px;
 	-moz-border-radius: 4px 0px 0px 4px;
 	-webkit-border-radius: 4px 0px 0px 4px;
+	border-radius: 4px 0px 0px 4px;
 }
 .btn-lis{
 	border-radius:0;
 }
 .btn-nex{
-	border-radius: 0px 4px 4px 0px;
 	-moz-border-radius: 0px 4px 4px 0px;
 	-webkit-border-radius: 0px 4px 4px 0px;
+	border-radius: 0px 4px 4px 0px;
 }
 @media (min-width: 320px) and (max-width: 480px) {
 	.btn-nav-bottom{
@@ -426,6 +426,19 @@ video.idframe{
   	z-index: 10;
 	background: #e50914;
 	color: #FFF;
+}
+
+.before_player{
+	width: 100%;
+	height: 500px;
+	background: #000;
+	padding: 125px 0;
+	text-align: center;
+	cursor: pointer;
+}
+.before_player>h1>i{
+	padding-top: 40px;
+	font-size: 2em;
 }
 
 @media (min-width: 320px) and (max-width: 480px) {

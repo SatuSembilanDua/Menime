@@ -1,42 +1,45 @@
 <?php
 	$ml_current = $menime_list[$_GET['a']];
-				
+	$per_page = 100;
+	/*			
 	$url = $ml_current['origin'];
 	
-	$per_page = 100;
 	if($ml_current["src"]==1){
-		//$anime = anime_info($url);
 		$anime = anime_info_py($url);
 		$ml_current['img'] = "data:image/gif;base64,".$anime['img'];
 	}else{
 		$anime = $ml_current;
 	}
-		$anime['desc'] = html_entity_decode($anime['desc']);
-		$anime['info'] = html_entity_decode($anime['info']);
+	$anime['desc'] = html_entity_decode($anime['desc']);
+	$anime['info'] = html_entity_decode($anime['info']);*/
 ?>
-	<h2>NONTON <?= strtoupper($anime_txt); ?></h2>
-	<div class="row">
-		<div class="col-xs-4 col-md-2">
-			<img src="<?= $ml_current['img']; ?>" alt="anime" class="img-res">
-		</div>
-		<div class="col-xs-8 col-md-10 anime-desk">
-			<?= $anime['desc']; ?>
+<h2>NONTON <?= strtoupper($anime_txt); ?></h2>
+<div class="row">
+	<div class="col-xs-4 col-md-2">
+		<img src="<?= $ml_current['img']; ?>" alt="anime" class="img-res">
+	</div>
+	<div class="col-xs-8 col-md-10 anime-desk">
+		<?= ''//$anime['desc']; ?>
+		<div style="text-align:center;">
+			<img src="assets/img/loading.svg" alt="loading">
 		</div>
 	</div>
-	<hr>
-	<?= $anime['info']; ?>
-
+</div>
+<hr>
+<div class="anime-infoni">
+<?= '';//$anime['info']; ?>
+</div>
 
 <!-- LIST ANIME -->
 <h2>LIST ANIME <?= strtoupper($anime_txt); ?></h2>
-<?php
-	$list_episode = json_decode(file_get_contents("data/".$ml_current['link'].".json") ,true);	
-?>
 <link rel="stylesheet" href="assets/css/dataTables.bootstrap.min.css">
 <script type="text/javascript" src="assets/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="assets/js/dataTables.bootstrap.min.js"></script>
 <br>
 <?php if(explode("_", $ml_current['link'])[0]=="avatar"): ?>
+<?php
+	$list_episode = json_decode(file_get_contents("data/".$ml_current['link'].".json") ,true);	
+?>
 <ul class="nav nav-tabs" role="tablist">
 	<?php
 		
@@ -118,55 +121,23 @@
 		</tr>
 	</thead>
 	<tbody>
-	<?php
-		if($ml_current['link']=="kekkaishi" || $ml_current['src']==5){
-			$list_episode = $list_episode;
-		}else{
-			if($ml_current['sts']==0){
-				//$le = list_episode_page($ml_current['origin']);
-				$list_episode = cek_update_anime($list_episode, $ml_current['origin']);
-			}
-			$list_episode = array_reverse($list_episode);
-		}
-		$i=0;
-		foreach($list_episode as $k => $v): 
-			$judul = $v['judul'];
-			$link  = "index.php?page=view_anime&sub=$_GET[a]&eps=$k";
-			if(isset($v['sts'])){
-				$judul .= '<img src="assets/img/new.gif" alt="New">';
-				//$get_a -= $v['div'];
-				//e_url
-				$jdl = e_url($v['judul']);
-				$lnk = e_url($v['link']);
-				$link = "index.php?page=view_anime&sub=$_GET[a]&eps=$k&judul=$jdl&link=$lnk";
-			}
-	?>
-		<tr>
-			<td><?= ++$i; ?></td>
-			<td>
-				<a href="<?= $link; ?>">
-					<?= $v['eps']; ?>
-				</a>
-			</td>
-			<td>
-				<a href="<?= $link; ?>">
-					<?= $judul; ?>
-				</a>
-			</td>
-			<td><?= $v['date']; ?></td>
-		</tr>
-	<?php endforeach; ?>
+	
 	</tbody>
 </table>
 <?php endif; ?>
 <script type="text/javascript">
-	<?php if($ml_current['sts']==0): ?>
-	var table = $('.myTable').DataTable({
-		 "order": [[ 0, "desc" ]]
+	$(document).ready(function(){
+		$.getJSON("anime_load.php?desc&a=<?= $_GET['a']; ?>", function(result){
+			//console.log(result);
+			$(".anime-desk").html(result.desc);
+			$(".anime-infoni").html(result.info);
+			$(".img-res").attr("src",result.img);
+	  	});
 	});
-	<?php else: ?>
-	var table = $('.myTable').DataTable();
-	<?php endif; ?>
+
+	var table = $('.myTable').DataTable({
+		"ajax": "anime_load.php?list&a=<?= $_GET['a']; ?>"
+	});
 	
 </script>
 
