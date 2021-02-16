@@ -121,7 +121,7 @@ foreach ($menime as $k => $v) {
 		echo "<hr>";*/
 		$list_episode = json_decode(file_get_contents("data/".$v['link'].".json") ,true);
 		$le = list_episode_page($v['origin']);
-		unset($le[0]);
+		//unset($le[0]);
 		$le = array_values($le);
 		$eps_lama = (int)explode(" ", $list_episode[0]['eps'])[1];
 		$eps_baru_arr = explode(" ", $le[0]['eps']);
