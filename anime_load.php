@@ -83,6 +83,12 @@ if(isset($_GET['a'])){
 }else{
 	//echo $curr_le['link'];
 
+	$menime_list = json_decode(file_get_contents("data/menime.json") ,true);
+
+	pre($menime_list);
+
+	
+
 }
 
 
