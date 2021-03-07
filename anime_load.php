@@ -29,7 +29,7 @@ if(isset($_GET['a'])){
 
 	if(isset($_GET['list'])){
 		$list_episode = json_decode(file_get_contents("data/".$ml_current['link'].".json") ,true);
-
+		
 		if($ml_current['link']=="kekkaishi" || $ml_current['src']==5){
 			$list_episode = $list_episode;
 		}else{

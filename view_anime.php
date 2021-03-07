@@ -84,6 +84,11 @@
 	$(document).ready(function(){
 		$(".before_player").click(function(){
 			var lnk = $(this).attr("data-href");
+			<?php if(isset($list_anime['video'])): ?>
+				$(".before_player").hide();
+	    		$(".idframe").attr("src", "<?= $list_anime['video']; ?>");
+	    		$(".idframe").show();
+			<?php else: ?>
 			$(".before_player").html('<img src="assets/img/loading.svg" alt="loading">');
 			var url = "anime_load.php?vid&link="+lnk;
 			$.ajax({
@@ -106,8 +111,13 @@
   					console.log(xhr);
   					console.log(status);
   					console.log(error);
+  					$("#pre_print_error").show();
+  					$("#pre_print_error").append(xhr);
+  					$("#pre_print_error").append(status);
+  					$("#pre_print_error").append(error);
   				}
   			});
+			<?php endif; ?>
 		});
 	});
 </script>

@@ -517,6 +517,12 @@ function get_dragonball($url){
 	}
 }
 
+//$lk = "https://www.animeindo.cc/dragon-ball-episode-002-subtitle-indonesia";
+/*$lk = "https://www.animeindo.cc/2020/02/dragon-ball-episode-002-subtitle-indonesia";
+
+$b = get_dragonball($lk);
+pre($b);*/
+
 function korra_vid($url){
 	$vid = korak_vid1($url);
 	if($vid!=''){
