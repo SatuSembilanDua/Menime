@@ -115,12 +115,24 @@ echo "eps_baru: $eps_baru<br>";
 
 $menime = json_decode(file_get_contents("data/menime.json") ,true);
 echo "<h4>Update Anime</h4><hr>";
+
 foreach ($menime as $k => $v) {
-	if($v['sts']==0){
+	if($v['sts']==0 ){
 		/*print_r($v);
 		echo "<hr>";*/
 		$list_episode = json_decode(file_get_contents("data/".$v['link'].".json") ,true);
-		$le = list_episode_page($v['origin']);
+
+
+		/*echo $v['origin'];
+		echo "<br>";
+		echo e_url($v['origin']);
+		echo "<br>";*/
+		//$le = cek_update_anime_py($list_episode, $v['origin']);
+		$le = file_get_contents("https://apimenime.herokuapp.com/eps_anime/".e_url($v['origin']));
+		$le = json_decode($le, true);
+		$le = array_values($le);
+		unset($le[0]);
+		//print_r($le);
 		//unset($le[0]);
 		$le = array_values($le);
 		$eps_lama = (int)explode(" ", $list_episode[0]['eps'])[1];
