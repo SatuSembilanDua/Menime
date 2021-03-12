@@ -50,7 +50,7 @@ function anime_infox($url){
 	}
 }
 
-$a = anime_infox("https://oploverz.bz/anime/one-piece/");
+//$a = anime_infox("https://oploverz.bz/anime/one-piece/");
 //echo e_url("https://oploverz.bz/anime/one-piece/");
 echo "<pre>";
 
@@ -61,7 +61,7 @@ $menime = json_decode(file_get_contents("data/menime.json") ,true);
 18 -> https://oploverz.bz/anime/one-punch-man-season-2/
 */
 
-//print_r($menime);
+print_r($menime);
 
 
 

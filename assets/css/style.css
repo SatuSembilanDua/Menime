@@ -441,6 +441,79 @@ video.idframe{
 	font-size: 2em;
 }
 
+.entry-content {
+    line-height: 21px;
+    color:#FFF;
+}
+
+.postbody p {
+    margin: 10px 0;
+}
+
+.ninfo {
+    font-size: 13.5px;
+    line-height: normal;
+	padding: 20px 29px;
+    background: #f7f7f7;
+    border: 1px solid #e0dfdf;
+}
+
+.mindesc {
+    margin-bottom: 5px;
+    line-height: 21px;
+}
+
+.spe {
+    margin-bottom: 10px;
+    overflow: hidden;
+    column-count: 2;
+}
+
+.spe span {
+    margin-bottom: 3px;
+    padding-right: 7px;
+    padding-left: 14px;
+    position: relative;
+    line-height: 19px;
+    display: block;
+}
+.spe span:before {
+    content: "";
+    width: 8px;
+    height: 8px;
+    border-radius: 2px;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    background: #e50914;
+    display: inline-block;
+    position: absolute;
+    left: 0;
+    top: 4px;
+}
+.spe span b {
+    font-weight: 500;
+}
+span.split {
+    overflow: hidden;
+}
+.genxed {
+    overflow: hidden;
+    margin-bottom: 10px;
+}
+.genxed a {
+    display: inline-block;
+    padding: 4px 8px;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    font-size: 13px;
+    border: .5px solid #e50914;
+    border-radius: 3px;
+}
+.genxed a:hover {
+	color:#FFF;
+    background: #e50914;
+}
+
 @media (min-width: 320px) and (max-width: 480px) {
 	.body-main{
 		padding: 20px 20px;
