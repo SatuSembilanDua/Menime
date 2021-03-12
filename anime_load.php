@@ -8,7 +8,7 @@ if(isset($_GET['a'])){
 	$ml_current = $menime_list[$_GET['a']];
 	if(isset($_GET['desc'])){
 		$url = $ml_current['origin'];
-		pre($ml_current);
+		//pre($ml_current);
 		if($ml_current["src"]==1){
 			$anime = anime_info_py($url);
 			$anime['img'] = "data:image/gif;base64,".$anime['img'];
