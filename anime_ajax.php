@@ -1,119 +1,90 @@
-<pre>
+
 <?php
+require('func.php');
 echo "<br>";
 
-/*$data = json_decode(file_get_contents("data/menime.json") ,true);
-$op = [array(
-			"judul" => "One Piece",
-			"link" => "one_piece",
-			"origin" => "https://www.oploverz.in/series/one-piece-sub-indo/",
-			"sts" => "2",
-			"src" => "1",
-			"img" => "https://cdn.myanimelist.net/images/anime/6/73245.jpg"
-			)];
-$start_data = array_slice($data,0, 8);
-$end_data = array_slice($data,10);
-$data = array_merge($start_data, $op, $end_data);*/
-//print_r($data);
-/*
-$myfile = fopen("data/menime.json", "w") or die("Unable to open file!");
-fwrite($myfile, json_encode($data));
-fclose($myfile);
-*/
+function anime_infox($url){
+	$ch = curl_init();
+	curl_setopt($ch,CURLOPT_URL,$url);
+	curl_setopt($ch, CURLOPT_USERAGENT, "Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.102 Safari/537.36");
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
+	curl_setopt($ch, CURLOPT_PROXY, null);
 
-/*$ani = json_decode(file_get_contents("../opmanga/anime.json") ,true);
-//print_r(json_decode(file_get_contents("data/naruto.json") ,true));
-$data = [];
-foreach ($ani as $k => $v) {
-	unset($ani[$k]['video']);
-	$eps = preg_replace('/\s+/', ' ', trim($v['eps']));
+	$data = curl_exec($ch);
+	$info = curl_getinfo($ch);
+	$error = curl_error($ch);
 
-	$data[] = array(
-					'link' => $v['link'],
-					'eps' => $eps,
-					'judul' => trim($v['judul']),
-					'date' => $v['date'],
-					);	
-}
-print_r($data);*/
-/*$data = json_decode(file_get_contents("data/one_piece.json") ,true);
-$data = array_reverse($data);
-print_r($data);*/
-/*
-$myfile = fopen("data/one_piece.json", "w") or die("Unable to open file!");
-fwrite($myfile, json_encode($data));
-fclose($myfile);
-*/
-/*$list_episode = json_decode(file_get_contents("data/one_piece.json") ,true);
-$le = list_episode('https://www.oploverz.in/series/boruto-naruto-next-generations/');
-foreach ($le as $k => $v) {
-	$eps = preg_replace('/\s+/', ' ', trim($v['eps']));
-	$judul = trim($v['judul']);
-	$le[$k]['eps'] = $eps;
-	$le[$k]['judul'] = $judul;
+	curl_close($ch);
+	$dom = new simple_html_dom(null, true, true, DEFAULT_TARGET_CHARSET, true, DEFAULT_BR_TEXT, DEFAULT_SPAN_TEXT);
+
+	$html = $dom->load($data, true, true);
+	$info_anime = array();
+	/*
+	// desc
+	$entry_content = $html->find(".entry-content",0);
+	//echo htmlentities($entry_content);
+
+	//listinfo
+	$ninfo = $html->find(".ninfo",0);
+	//echo htmlentities($ninfo);
 	
+	$image = $html->find(".wp-post-image",0);
+	//echo $image->src;
+	*/
+
+	$eplister = $html->find(".eplister",0);
+	foreach ($eplister->find("li") as $li) {
+		/*
+		eps = li.find(class_="leftoff")
+        judul = li.find(class_="lefttitle")
+        dt = li.find(class_="rightoff")
+        alink = eps.find("a")
+		*/
+		$eps = $li->find(".epl-num",0)->text();
+		$judul = $li->find(".epl-title",0)->text();
+		$dt = $li->find(".epl-date",0)->text();
+		$alink = $li->find("a",0)->href;
+		echo "$eps $judul $dt $alink";
+		echo "<br>";
+	}
 }
-$myfile = fopen("data/boruto_naruto_next_generations.json", "w") or die("Unable to open file!");
-fwrite($myfile, json_encode($le));
-fclose($myfile);*/
-/*
-$list_episode = json_decode(file_get_contents("data/boruto_naruto_next_generations.json") ,true);
-$le = list_episode_page('https://www.oploverz.in/series/boruto-naruto-next-generations/');
-*/
 
-/*$list_episode = json_decode(file_get_contents("data/one_piece.json") ,true);
-$le = list_episode_page('https://www.oploverz.in/series/one-piece-sub-indo/');
-$origin = 'https://www.oploverz.in/series/one-piece-sub-indo/';
-//$list_episode = cek_update_anime($list_episode, $origin);
-
-$eps_lama = (int)explode(" ", $list_episode[0]['eps'])[1];
-	$eps_baru_arr = explode(" ", $le[0]['eps']);
-	$eps_baru = $eps_lama;
-	foreach ($eps_baru_arr as $k => $v) {
-		if(is_numeric($v)){
-			$eps_baru = (int)$v;
-		}
-	}
-	$kur = 0;
-	$new = [];
-	if($eps_baru>$eps_lama){
-		$kur = $eps_baru-$eps_lama;
-		$new = array_splice($le, 0, $kur);
-		foreach ($new as $k => $v) {
-			$eps = preg_replace('/\s+/', ' ', trim($v['eps']));
-			$judul = trim($v['judul']);
-			$new[$k]['eps'] = $eps;
-			$new[$k]['judul'] = $judul;
-			$new[$k]['sts'] = '1';
-			$new[$k]['div'] = $kur;
-		}
-		$list_episode = array_merge($new, $list_episode);
-	}*/
-
-/*
-echo "eps_lama: $eps_lama<br>";
-echo "eps_baru: $eps_baru<br>";
-*/
-
-
-/*if(sizeof($list_episode) != sizeof($le)){
-	echo 'Tidak sama<br>';
-	$kur =  sizeof($le) - sizeof($list_episode) - 3;
-	echo "$kur";
-	$div = array_splice($le, 0,  $kur);
-	foreach ($div as $k => $v) {
-		$eps = preg_replace('/\s+/', ' ', trim($v['eps']));
-		$judul = trim($v['judul']);
-		$div[$k]['eps'] = $eps;
-		$div[$k]['judul'] = $judul;
-		
-	}
-	$update = array_merge($div, $list_episode);
-	print_r($update);
-}*/
+$a = anime_infox("https://oploverz.bz/anime/one-piece/");
+//echo e_url("https://oploverz.bz/anime/one-piece/");
+echo "<pre>";
 
 $menime = json_decode(file_get_contents("data/menime.json") ,true);
+
+/*
+11 -> https://oploverz.bz/anime/one-piece/
+18 -> https://oploverz.bz/anime/one-punch-man-season-2/
+*/
+
+//print_r($menime);
+
+
+
+/*
+foreach ($menime as $k => $v) {
+	if($v['src']==1){
+		$ori = $v['origin'];
+		$oar = explode("/", $ori);
+		$oar[2] = "oploverz.bz";
+		$oar[3] = "anime";
+		$jadi = join("/",$oar);
+		
+		$menime[$k]["origin"] = $jadi;
+		//print_r($v);
+	}
+}
+print_r($menime)*/;
+/*$myfile = fopen("data/menime.json", "w") or die("Unable to open file!");
+fwrite($myfile, json_encode($menime));
+fclose($myfile);*/
+if(isset($_GET['update'])){
+
+
 echo "<h4>Update Anime</h4><hr>";
 
 foreach ($menime as $k => $v) {
@@ -164,5 +135,6 @@ foreach ($menime as $k => $v) {
 	}
 }
 
+}
 ?>
 </pre>
