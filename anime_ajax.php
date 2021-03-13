@@ -61,10 +61,6 @@ $menime = json_decode(file_get_contents("data/menime.json") ,true);
 18 -> https://oploverz.bz/anime/one-punch-man-season-2/
 */
 
-print_r($menime);
-
-
-
 /*
 foreach ($menime as $k => $v) {
 	if($v['src']==1){
