@@ -490,6 +490,7 @@ function get_kekkaishi($url){
 	$data = curl_exec($ch);
 	$info = curl_getinfo($ch);
 	$error = curl_error($ch);
+	curl_close($ch);
 	return $info['redirect_url'];
 }
 
@@ -497,7 +498,7 @@ function get_kekkaishi($url){
 
 function get_dragonball($url){
 	$ch = curl_init();
-	curl_setopt($ch,CURLOPT_URL,$url.'/');
+	curl_setopt($ch,CURLOPT_URL,$url);
 	curl_setopt($ch, CURLOPT_USERAGENT, "Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.102 Safari/537.36");
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
@@ -506,6 +507,7 @@ function get_dragonball($url){
 	$data = curl_exec($ch);
 	$info = curl_getinfo($ch);
 	$error = curl_error($ch);
+	curl_close($ch);
 	$dom = new simple_html_dom(null, true, true, DEFAULT_TARGET_CHARSET, true, DEFAULT_BR_TEXT, DEFAULT_SPAN_TEXT);
 
 	//$html = file_get_html($url);
@@ -625,6 +627,32 @@ function cek_update_anime_py($list_episode, $origin){
 /*
 $url = "https://anoboy.mobi/anime/avatar-the-legend-of-aang/";
 $vid = list_episode2($url);*/
+
+
+if(isset($_GET['dr'])){
+	$url = "https://www.animeindo.cc/dragon-ball-episode-001-subtitle-indonesia/";
+	$ch = curl_init();
+	curl_setopt($ch,CURLOPT_URL,$url);
+	curl_setopt($ch, CURLOPT_USERAGENT, "Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.102 Safari/537.36");
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+	curl_setopt($ch, CURLOPT_PROXY, null);
+	
+
+	$data = curl_exec($ch);
+	$info = curl_getinfo($ch);
+	$error = curl_error($ch);
+
+	pre($info);
+	echo "<hr>";
+	pre($error);
+	echo "<hr>";
+	echo htmlentities($data);
+	echo "<hr>";
+	echo $data;
+
+	curl_close($ch);
+
+}
 
 
 ?>

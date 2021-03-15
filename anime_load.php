@@ -77,7 +77,15 @@ if(isset($_GET['a'])){
 	}
 }else if(isset($_GET['vid'])){
 	$link = d_url($_GET['link']);
+	
+
+
 	$list_anime = list_anime_py($link);
+	/*if($ml_current["src"]==1){
+	echo $link;
+	}else{
+		$list_anime = get_dragonball($link);
+	}*/
 	//pre($list_anime);
 	echo json_encode($list_anime);
 }else{

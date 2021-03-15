@@ -55,6 +55,19 @@ function anime_infox($url){
 echo "<pre>";
 
 $menime = json_decode(file_get_contents("data/menime.json") ,true);
+/*
+foreach ($menime as $k => $v) {
+	if(substr($v['link'], 0, 11)=="dragon_ball"){
+		$load = json_decode(file_get_contents("data/$v[link].json"), true);
+		foreach ($load as $a => $b) {
+			$load[$a]['link'] .= "/";
+		}
+		$myfile = fopen("data/".$v['link'].".json", "w") or die("Unable to open file!");
+		fwrite($myfile, json_encode($load));
+		fclose($myfile);
+	}
+}*/
+
 
 /*
 11 -> https://oploverz.bz/anime/one-piece/
@@ -74,7 +87,7 @@ foreach ($menime as $k => $v) {
 		//print_r($v);
 	}
 }
-print_r($menime)*/;
+print_r($menime)*/
 /*$myfile = fopen("data/menime.json", "w") or die("Unable to open file!");
 fwrite($myfile, json_encode($menime));
 fclose($myfile);*/
