@@ -631,11 +631,21 @@ $vid = list_episode2($url);*/
 
 if(isset($_GET['dr'])){
 	$url = "https://www.animeindo.cc/dragon-ball-episode-001-subtitle-indonesia/";
+
 	$ch = curl_init();
-	curl_setopt($ch,CURLOPT_URL,$url);
-	curl_setopt($ch, CURLOPT_USERAGENT, "Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.102 Safari/537.36");
+	curl_setopt($ch, CURLOPT_URL, $url);
+	curl_setopt($ch, CURLOPT_POST, 1);
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-	curl_setopt($ch, CURLOPT_PROXY, null);
+
+	$headers = [
+	    'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
+	    'Cache-Control: no-cache',
+	    'Content-Type: application/x-www-form-urlencoded; charset=utf-8',
+	    'Host: www.animeindo.cc',
+	    'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36 Edg/89.0.774.54'
+	];
+
+	curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 	
 
 	$data = curl_exec($ch);
