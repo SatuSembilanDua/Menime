@@ -1,5 +1,5 @@
 <?php
-
+date_default_timezone_set("Asia/Jakarta");
 $user_agent = $_SERVER['HTTP_USER_AGENT'];
 /*echo "IP anda adalah : ". get_client_ip()."<br>";
 echo "Browser : ".getBrowser()."<br>";
