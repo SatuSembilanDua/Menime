@@ -82,6 +82,7 @@
 <pre id="pre_print_error" style="display: none;"></pre>
 <script type="text/javascript">
 	$(document).ready(function(){
+
 		$(".before_player").click(function(){
 			var lnk = $(this).attr("data-href");
 			<?php if(isset($list_anime['video'])): ?>
@@ -91,6 +92,13 @@
 			<?php else: ?>
 			$(".before_player").html('<img src="assets/img/loading.svg" alt="loading">');
 			var url = "anime_load.php?vid&link="+lnk;
+			<?php
+				if(isset($_GET['sub']) && $_GET['sub']==11){
+					$sub = $_GET['sub'];
+					$id = isset($_GET['eps'])?$_GET['eps']:'';
+					echo "url += \"&sub=$sub&eps=$id\";";
+				}
+			?>
 			$.ajax({
 				url: url, 
 				success: function(res){
@@ -100,6 +108,10 @@
     					console.log(result.error);
     					$("#pre_print_error").show();
     					$("#pre_print_error").html(JSON.stringify(result.error, null, 2));
+    					swal("Error!", "FIle Not Found!", "error");
+    					//$(".idframe").attr("src", '404.php');
+	    				$(".before_player").hide();
+	    				$(".idframe").show();
     				}else{
 	    				$(".before_player").hide();
 	    				//$(".load_video_box").html('<iframe src="'+result.video+'" allowfullscreen="true" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" class="idframe"></iframe>');
@@ -132,6 +144,35 @@ print_r($list_anime['error']);
 <?php endif; ?>
 
 <script src="assets/js/media_session.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <?php if(isMobile()): ?>
 <script type="text/javascript">
 var fs = document.getElementById('btnFS');
@@ -181,9 +222,7 @@ function launchIntoFullscreen(element) {
   	} else if (element.msRequestFullscreen) {
     	element.msRequestFullscreen();
   	}
-  	/*var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-  	if(isMobile){
-  	}*/
+  	
   	screen.orientation.lock("landscape");
 }
 
@@ -196,10 +235,7 @@ function exitFullscreen() {
   	} else if (document.webkitExitFullscreen) {
     	document.webkitExitFullscreen();
   	}
-  	/*var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-  	if(isMobile){
-  		screen.orientation.unlock();
-  	}*/
+  	
 }
 
 </script>

@@ -87,6 +87,13 @@ if(isset($_GET['a'])){
 		$list_anime = get_dragonball($link);
 	}*/
 	//pre($list_anime);
+	if($list_anime['error']!='' && $_GET['sub']==11){
+		//echo "ROORROO";
+		$opc = json_decode(file_get_contents("data/one_piece.json") ,true);
+		$eps = isset($_GET['eps'])?$_GET['eps']:0;
+		//pre($opc[$eps]);
+		$list_anime = array("video"=> $opc[$eps]['vid'], 'error' => '');
+	}
 	echo json_encode($list_anime);
 }else{
 	//echo $curr_le['link'];

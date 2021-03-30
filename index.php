@@ -124,6 +124,7 @@ if(isset($_GET['page'])){
 	<link rel="stylesheet" href="assets/css/style.css?t=<?= time(); ?>">
 	
     <script src="assets/js/jquery.min.js"></script>
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </head>
 <body>
 	<div class="container header-main">
