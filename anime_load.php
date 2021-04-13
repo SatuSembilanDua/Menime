@@ -9,7 +9,7 @@ if(isset($_GET['a'])){
 	if(isset($_GET['desc'])){
 		$url = $ml_current['origin'];
 		//pre($ml_current);
-		if($ml_current["src"]==1){
+		if($ml_current["src"]==1 && $ml_current["link"]!="one_piece"){
 			$anime = anime_info_py($url);
 			$anime['img'] = "data:image/gif;base64,".$anime['img'];
 			$ml_current['img'] = "data:image/gif;base64,".$anime['img'];
