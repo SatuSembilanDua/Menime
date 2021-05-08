@@ -72,11 +72,12 @@
 	?>
 	<div role="tabpanel" class="tab-pane <?= $ac; ?>" id="<?= $k; ?>">
 		<br>
-		<table class="table table-list myTable">
+		<table class="table table-list">
 			<thead>
 				<tr>
 					<th>No</th>
 					<th>Episode</th>
+					<th>Book</th>
 					<th>Judul</th>
 					<th>Date</th>
 				</tr>
@@ -92,6 +93,11 @@
 					<td>
 						<a href="<?= $link; ?>">
 							<?= $v['eps']; ?>
+						</a>
+					</td>
+					<td>
+						<a href="<?= $link; ?>">
+							<?= "$book"; ?>
 						</a>
 					</td>
 					<td>

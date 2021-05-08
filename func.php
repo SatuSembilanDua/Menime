@@ -590,14 +590,15 @@ function cek_update_anime($list_episode, $origin){
 
 
 function cek_update_anime_py($list_episode, $origin){
-	$le = file_get_contents("https://apimenime.herokuapp.com/eps_anime/".e_url($origin));
+	$le = @file_get_contents("https://apimenime.herokuapp.com/eps_anime/".e_url($origin));
 	//unset($le[0]);
-	$le = json_decode($le, true);
-	$le = array_values($le);
-	/*
-	pre($le);
-	echo "<br>";
-	*/
+	if($le === FALSE){
+		$le = [];
+		return $list_episode;
+	}else{
+		$le = json_decode($le, true);
+		$le = array_values($le);
+	}
 	$eps_lama = (int)explode(" ", $list_episode[0]['eps'])[1];
 	$eps_baru_arr = explode(" ", $le[0]['eps']);
 	$eps_baru = $eps_lama;

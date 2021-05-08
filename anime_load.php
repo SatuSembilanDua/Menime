@@ -78,7 +78,7 @@ if(isset($_GET['a'])){
 }else if(isset($_GET['vid'])){
 	$link = d_url($_GET['link']);
 	$list_anime = list_anime_py($link);
-	if($list_anime['error']!='' && $_GET['sub']==11){
+	if($list_anime['error']!='' && isset($_GET['sub']) && $_GET['sub']==11){
 		//echo "ROORROO";
 		$opc = json_decode(file_get_contents("data/one_piece.json") ,true);
 		$opc = array_reverse($opc);
