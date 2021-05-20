@@ -20,8 +20,8 @@ function pre($isi){
 }
 
 function isMobile() {
-    //return true;
-    return preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo|fone|hiptop|mini|mobi|palm|phone|pie|tablet|up\.browser|up\.link|webos|wos)/i", $_SERVER["HTTP_USER_AGENT"]);
+    return false;
+    //return preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo|fone|hiptop|mini|mobi|palm|phone|pie|tablet|up\.browser|up\.link|webos|wos)/i", $_SERVER["HTTP_USER_AGENT"]);
 }
 
 function _filter_($arr){
@@ -508,13 +508,14 @@ function get_dragonball($url){
 	$info = curl_getinfo($ch);
 	$error = curl_error($ch);
 	curl_close($ch);
+
 	$dom = new simple_html_dom(null, true, true, DEFAULT_TARGET_CHARSET, true, DEFAULT_BR_TEXT, DEFAULT_SPAN_TEXT);
 
 	//$html = file_get_html($url);
 	$html = $dom->load($data, true, true);
 	$list_episode = array();
 
-	foreach ($html->find(".playeriframe") as $iframe) {
+	foreach ($html->find("#tontonin") as $iframe) {
 		return $iframe->src;
 	}
 }

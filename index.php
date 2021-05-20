@@ -170,6 +170,6 @@ if(isset($_GET['page'])){
 			});
 		});
 	</script>
-	<?php //include "visicount.php"; ?>
+	<?php include "visicount.php"; ?>
 </body>
 </html>

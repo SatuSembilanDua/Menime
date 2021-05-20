@@ -93,7 +93,8 @@
 			$(".before_player").html('<img src="assets/img/loading.svg" alt="loading">');
 			var url = "anime_load.php?vid&link="+lnk;
 			<?php
-				if(isset($_GET['sub']) && $_GET['sub']==11){
+				$in_arr = [5,6,7,11];
+				if(isset($_GET['sub']) && in_array($_GET['sub'], $in_arr) ){
 					$sub = $_GET['sub'];
 					$id = isset($_GET['eps'])?$_GET['eps']:'';
 					echo "url += \"&sub=$sub&eps=$id\";";
