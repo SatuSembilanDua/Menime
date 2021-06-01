@@ -6,7 +6,7 @@ require('func.php');
 $menime_list = json_decode(file_get_contents("data/menime.json") ,true);
 $file = scandir(".");
 unset($file[0], $file[1]);
-$title = "Menine ";
+$title = "Menime ";
 $inc = '';
 $og_desc = 'Menine Adalah Website Nonton Anime Subtitle Indonesia Gratis Disini Bisa Streaming.'; 
 $og_img = 'menime.herokuapp.com/assets/img/logo.png'; 
@@ -170,6 +170,6 @@ if(isset($_GET['page'])){
 			});
 		});
 	</script>
-	<?php include "visicount.php"; ?>
+	<?php //include "visicount.php"; ?>
 </body>
 </html>
