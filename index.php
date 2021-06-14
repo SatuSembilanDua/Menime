@@ -61,7 +61,7 @@ if(isset($_GET['page'])){
 					$curr_le = $list_episode[$_GET['eps']];
 					$anime_txt = $curr_le['judul'];
 					//$list_anime['thumb'] = $curr_le['thumb'];
-					$list_anime['video'] = get_dragonball($curr_le['link']);
+					//$list_anime['video'] = get_dragonball($curr_le['link']);
 				}else{
 					$list_episode = array_reverse($list_episode);
 					$curr_le = $list_episode[$_GET['eps']];

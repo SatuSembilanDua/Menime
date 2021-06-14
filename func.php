@@ -5,6 +5,9 @@ header("Access-Control-Allow-Headers: x-access-header, Authorization, Origin, X-
 
 require('simplehtmldom/simple_html_dom.php');
 
+$GLOBAL["api_link"] = "https://apimenime.herokuapp.com";
+//$GLOBALS["api_link"] = "http://127.0.0.1:5000";
+
 function e_url( $s ) {
 	return rtrim(strtr(base64_encode($s), '+/', '-_'), '='); 
 }
@@ -193,7 +196,7 @@ function list_anime($url){
 
 function list_anime_py($url){
 	$url = e_url($url);
-	$a = @file_get_contents("https://apimenime.herokuapp.com/list_anime/$url");
+	$a = @file_get_contents("$GLOBALS[api_link]/list_anime/$url");
 	//$b = json_decode($a, true);
 	$error = '';
 	if($a === FALSE){$a="";
@@ -234,12 +237,19 @@ if(isset($_GET['test'])){
 
 function anime_info_py($url){
 	$url = e_url($url);
-	// https://apimenime.herokuapp.com/
-	$a = file_get_contents("https://apimenime.herokuapp.com/anime_info/$url");
+	// $GLOBALS[api_link]/
+	$a = @file_get_contents("$GLOBALS[api_link]/anime_info/$url");
 	//$a = file_get_contents("http://127.0.0.1:5000/anime_info/$url");
-	$b = json_decode($a, true);
-	$i = file_get_contents($b['img']);
-	$src =  base64_encode($i);
+	if($a === FALSE){
+		$b = ["desc"=>"Error","info"=>"$GLOBALS[api_link]/anime_info/$url"];
+		$i = file_get_contents("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSUrgu4a7W_OM8LmAuN7Prk8dzWXm7PVB_FmA&usqp=CAU");
+		$src =  base64_encode($i);
+	}else{
+		$b = json_decode($a, true);
+		$i = file_get_contents($b['img']);
+		$src =  base64_encode($i);
+	}
+	//
 	return array(
 					"desc" => $b['desc'],
 					"info" => $b['info'],
@@ -591,7 +601,7 @@ function cek_update_anime($list_episode, $origin){
 
 
 function cek_update_anime_py($list_episode, $origin){
-	$le = @file_get_contents("https://apimenime.herokuapp.com/eps_anime/".e_url($origin));
+	$le = @file_get_contents("$GLOBALS[api_link]/eps_anime/".e_url($origin));
 	//unset($le[0]);
 	if($le === FALSE){
 		$le = [];
