@@ -16,5 +16,9 @@
 		"bin/heroku-hhvm-nginx",
 		"bin/heroku-php-apache2",
 		"bin/heroku-php-nginx"
-	]
+	],
+	"require": {
+	    "php": "^7.3.0",
+		"ext-sqlite3" : "*"
+  	}
 }

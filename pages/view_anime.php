@@ -1,0 +1,119 @@
+
+<style>
+	.nav_anime_txt{
+		min-height: 30px;
+	}
+	.nav_anime_txt>p{
+		color: #FFF;
+		margin: 0;
+	    line-height: 20px;
+	    overflow: hidden;
+	    text-overflow: ellipsis;
+	    white-space: nowrap;
+	}
+</style>
+<?php
+
+if(isset($_GET["id"])):
+ 	$id_anime = $row["id_anime"];
+ 	$id_eps = (int)$row["id_eps"];
+	$video = $row["vid"];
+	if($src==3){$thumb = $row["thumb"];}
+
+	$ls_eps = ${$tbl}->get_naveps($id_anime, $id_eps);
+	$ls_eps["prev"]["link"] = $ls_eps["prev"]["id"]!=""?"index.php?page=view_anime&id=".e_url($ls_eps["prev"]["id"])."&src=".e_url($src):"";  
+	$ls_eps["cur"] ="index.php?page=anime&a=".e_url($id_anime);  
+	$ls_eps["next"]["link"] = $ls_eps["next"]["id"]!=""?"index.php?page=view_anime&id=".e_url($ls_eps["next"]["id"])."&src=".e_url($src):"";  	
+	
+?>
+<h2><?= $anime_txt; ?></h2>
+<br><br>
+<div id="container">
+	<iframe src="<?= $video; ?>" allowfullscreen="true" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" class="idframe"></iframe>
+</div>
+<br><br>
+<?php if(isset($ls_eps)): ?>
+	<div class="container nav_bottom">
+		<div class="col-xs-4">
+			<a href="<?= $ls_eps["prev"]["link"]; ?>" class="btn btn-danger2 btn-nav-bottom btn-seb <?= $ls_eps["prev"]["dis"]==1?'disabled':''; ?>">	
+				<i class="fa fa-angle-double-left"></i> Episode Sebelumnya
+			</a>
+		</div>
+		<div class="col-xs-4">
+			<a href="<?= $ls_eps["cur"]; ?>" class="btn btn-danger btn-nav-bottom btn-lis">List Episode</a>
+		</div>
+		<div class="col-xs-4">
+			<a href="<?= $ls_eps["next"]["link"]; ?>" class="btn btn-danger2 btn-nav-bottom btn-nex <?= $ls_eps["next"]["dis"]==1?'disabled':''; ?>">
+				Episode Berikutnya <i class="fa fa-angle-double-right"></i> 
+			</a>
+		</div>
+	</div>
+	<br><br>
+<?php endif; ?>
+<pre id="pre_print_error" style="display: none;"></pre>
+<script type="text/javascript">
+	$(document).ready(function(){
+
+		$(".before_player").click(function(){
+			var lnk = $(this).attr("data-href");
+			<?php if(isset($list_anime['video'])): ?>
+				$(".before_player").hide();
+	    		$(".idframe").attr("src", "<?= $list_anime['video']; ?>");
+	    		$(".idframe").show();
+			<?php else: ?>
+			$(".before_player").html('<img src="assets/img/loading.svg" alt="loading">');
+			var url = "anime_load.php?vid&link="+lnk;
+			<?php
+				$in_arr = [5,6,7,11];
+				if(isset($_GET['sub']) && in_array($_GET['sub'], $in_arr) ){
+					$sub = $_GET['sub'];
+					$id = isset($_GET['eps'])?$_GET['eps']:'';
+					echo "url += \"&sub=$sub&eps=$id\";";
+				}
+			?>
+			$.ajax({
+				url: url, 
+				success: function(res){
+    				var result = JSON.parse(res);
+
+    				if(result.error != []){
+    					console.log(result.error);
+    					$("#pre_print_error").show();
+    					$("#pre_print_error").html(JSON.stringify(result.error, null, 2));
+    					swal("Error!", "FIle Not Found!", "error");
+    					//$(".idframe").attr("src", '404.php');
+	    				$(".before_player").hide();
+	    				$(".idframe").show();
+    				}else{
+	    				$(".before_player").hide();
+	    				//$(".load_video_box").html('<iframe src="'+result.video+'" allowfullscreen="true" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" class="idframe"></iframe>');
+	    				$(".idframe").attr("src", result.video);
+	    				$(".idframe").show();
+    				}
+  				},
+  				error: function(xhr,status,error){
+  					console.log(xhr);
+  					console.log(status);
+  					console.log(error);
+  					$("#pre_print_error").show();
+  					$("#pre_print_error").append(xhr);
+  					$("#pre_print_error").append(status);
+  					$("#pre_print_error").append(error);
+  				}
+  			});
+			<?php endif; ?>
+		});
+	});
+</script>
+<?php if(!empty($list_anime['error'])): ?>
+<pre>
+--- debug
+<?php
+echo "\n";
+print_r($list_anime['error']);
+?>
+</pre>
+<?php endif; ?>
+
+<script src="assets/js/media_session.js"></script>
+<?php endif; ?>
