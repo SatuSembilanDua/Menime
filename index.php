@@ -9,7 +9,7 @@ $og_img = 'menime.herokuapp.com/assets/img/logo.png';
 $og_url = "https://menime.herokuapp.com/index.php";
 
 $dir = "pages";
-$nav = '<li class="active">Home</li>';
+$nav = '<li><a href="index.php">Home</a></li>';
 $inc = "$dir/home.php";
 
 if(isset($_GET['page'])){

@@ -93,6 +93,7 @@ a{
 .footer{
 	height: 150px;
 	/* margin-top: 50px; */
+	border-top: 4px solid #e50914;
 }
 
 .footer h1{
@@ -245,6 +246,7 @@ a:hover{
 	background: #0a0909;
 	border-radius: 0;
 	margin-bottom: 0;
+	border-bottom: 4px solid #e50914;
 }
 
 .breadcrumb>.active {

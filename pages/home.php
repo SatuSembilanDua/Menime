@@ -13,7 +13,7 @@
 			$ong = '<div class="featu">Ongoing</div>';
 		}
 ?>
-		<div class="col-md-2 col-xs-4 col-list">
+		<div class="col-md-2 col-xs-3 col-list">
 			<div class="anime-list">
 				<?= $ong; ?>
 				<a href="index.php?page=anime&a=<?= $k;?>" title="<?= $v['judul_anime']; ?>">
