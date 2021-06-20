@@ -252,4 +252,8 @@
 		return $browser;
 	}
 
+	if(isset($_GET["get_time"])){
+		echo date("d-m-Y H:i:s");
+	}
+
 ?>
