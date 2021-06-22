@@ -15,6 +15,17 @@ require "config/config.php";
 	<link rel="stylesheet" href="assets/css/dataTables.bootstrap.min.css">
 
     <script src="assets/js/jquery.min.js"></script>
+    <style>
+
+	@media (min-width: 320px) and (max-width: 480px) {
+    	.link_txt{
+    		width: 100px;
+    		text-overflow: ellipsis;
+		    white-space: nowrap;
+		    overflow: hidden;
+    	}
+   	}
+    </style>
 </head>
 <body>
 <br>
@@ -47,10 +58,13 @@ require "config/config.php";
 	);*/
 ?>
 	<pre>
-Time : <b id="txt_date"><?= date("d-m-Y H:i:s"); ?></b>
-	</pre>
+Server Time : <b id="txt_date"><?= date("d-m-Y H:i:s"); ?></b></pre>
 	<hr>
-	<table class="table table-list myTable">
+	<div class="container well">
+		<canvas id="myChart"></canvas>
+	</div>
+	<hr>
+	<table class="table table-striped table-list myTable">
 		<thead>
 			<tr>
 				<th>User</th>
@@ -71,12 +85,84 @@ Time : <b id="txt_date"><?= date("d-m-Y H:i:s"); ?></b>
 	<script src="https://www.gstatic.com/firebasejs/7.7.0/firebase-app.js"></script>
 	<script src="https://www.gstatic.com/firebasejs/7.7.0/firebase-auth.js"></script>
 	<script src="https://www.gstatic.com/firebasejs/7.7.0/firebase-database.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.3.2/chart.min.js" integrity="sha512-VCHVc5miKoln972iJPvkQrUYYq7XpxXzvqNfiul1H4aZDwGBGC0lq373KNleaB2LpnC2a/iNfE5zoRYmB4TRDQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<script src="https://cdn.jsdelivr.net/npm/moment@2.27.0"></script>
+	<script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-moment@0.1.1"></script>
 	<script type="text/javascript">
 		var table = $('.myTable').DataTable({
-			"lengthMenu": [[100, 200, 300, -1], [100, 200, 300, "All"]]
+			"lengthMenu": [[100, 200, 300, -1], [100, 200, 300, "All"]],
+			"order": [[ 2, "desc" ]],
+			"responsive": true
+		});
+		var data_chart = [];
+		var ctx = document.getElementById('myChart').getContext('2d');
+		var myChart = new Chart(ctx, {
+		    type: 'line',
+		    data: {
+		    	datasets:[{
+		    		label: "Visitor",
+		    		backgroundColor: 'rgb(255, 99, 132)',
+					borderColor: 'rgb(255, 99, 132)',
+		    		data: data_chart
+		    	}]
+		    },
+		   	options: {
+		   	 	plugins: {
+		      		title: {
+		        		text: 'Visitor per days',
+		        		display: true
+		      		}
+		    	},
+			    scales: {
+			      	x: {
+			        	type: 'time',
+			        	time: {
+			          		unit: 'day'
+			        	},
+			        	title: {
+			          		display: true,
+			          		text: 'Date'
+			        	}
+			      	},
+			      	y: {
+			        	title: {
+			          		display: true,
+			          		text: 'value'
+			        	}
+			      	}
+			    },
+			}
 		});
 
+/*
+		$.getJSON("data.json", function(result){
+			var tmp_data_chart = [];
+			$.each(result, function(i, field){
+				var a = [
+		      				field.ip+"<br>"+field.browser+"<br>"+field.os,
+		      				field.title+"<br><p class='link_txt'>"+field.link+'</p>',
+		      				field.date
+		      			];
+		      	table.rows.add([a]).draw();
+				var da = field.date.split(" ")[0];
+				if(tmp_data_chart[da] == undefined){
+		      		tmp_data_chart[da] = 0;
+				}else{
+		      		tmp_data_chart[da] += 1;
+				}
+			});
+			var data_chart = [];
+			for (var key in tmp_data_chart) {
+				data_chart.push({"x":key, "y":tmp_data_chart[key]})
+			}
+			
+		});
+*/
 
+		
+
+
+		
 		setInterval(function(){
 			$("#txt_date").load("config/config.php?get_time");
 		},3000);
@@ -84,27 +170,34 @@ Time : <b id="txt_date"><?= date("d-m-Y H:i:s"); ?></b>
 		var _0x3241=['myvisitore','895914dKalOU','7GOEbRO','1328705DTzAWG','13612BAZZKA','502768GRnCVY','AIzaSyC1vSXlOJuIMTtRNeXe_wLjytyGhyT7bQA','605136510766','ref','myvisitore.firebaseapp.com','tvisit2','39znhJMj','1fnlXaX','1:605136510766:web:eaf33b045e52ec975264bf','myvisitore.appspot.com','138626mpFziK','6301yEIhQZ','initializeApp','17NiWJzF','41146nmZKHv','database','1pcAYOj'];var _0x1301=function(_0x457e2b,_0x433122){_0x457e2b=_0x457e2b-0xe0;var _0x324148=_0x3241[_0x457e2b];return _0x324148;};var _0x5175f2=_0x1301;(function(_0x254549,_0x652459){var _0x32ca4f=_0x1301;while(!![]){try{var _0x3422f5=parseInt(_0x32ca4f(0xed))+-parseInt(_0x32ca4f(0xe0))*-parseInt(_0x32ca4f(0xf1))+-parseInt(_0x32ca4f(0xe9))*-parseInt(_0x32ca4f(0xee))+-parseInt(_0x32ca4f(0xf0))*-parseInt(_0x32ca4f(0xe2))+parseInt(_0x32ca4f(0xf3))*-parseInt(_0x32ca4f(0xf5))+parseInt(_0x32ca4f(0xea))*parseInt(_0x32ca4f(0xe1))+-parseInt(_0x32ca4f(0xe3));if(_0x3422f5===_0x652459)break;else _0x254549['push'](_0x254549['shift']());}catch(_0x330a81){_0x254549['push'](_0x254549['shift']());}}}(_0x3241,0xcb916));var firebaseConfig={'apiKey':_0x5175f2(0xe4),'authDomain':_0x5175f2(0xe7),'databaseURL':'https://myvisitore-default-rtdb.firebaseio.com','projectId':_0x5175f2(0xf4),'storageBucket':_0x5175f2(0xec),'messagingSenderId':_0x5175f2(0xe5),'appId':_0x5175f2(0xeb)};firebase[_0x5175f2(0xef)](firebaseConfig);var db,VisitRef;db=firebase[_0x5175f2(0xf2)](),VisitRef=db[_0x5175f2(0xe6)](_0x5175f2(0xe8));
 
 		VisitRef.on("value", function(snapshot) {
-			var dada = [];
-			var i=1;
+			var tmp_data_chart = [];
 			snapshot.forEach(function(childSnapshot) {
 		      	var childData = childSnapshot.val();
-		      	dada[i] = {
-			      				no:i,
-			      				id:childData.id,
-			      				user:childData.IP+"<br>"+childData.browser+"<br>"+childData.os,
-			      				visit:childData.title+"<br>"+childData.link,
-			      				date:childData.date
-		      				};
 		      	var a = [
-		      				/*i,
-		      				childData.id,*/
 		      				childData.ip+"<br>"+childData.browser+"<br>"+childData.os,
-		      				childData.title+"<br>"+childData.link,
+		      				childData.title+"<br><p class='link_txt'>"+childData.link+'</p>',
 		      				childData.date
 		      			];
 		      	table.rows.add([a]).draw();
-		      	i++;
+		      	var da = childData.date.split(" ")[0];
+				if(tmp_data_chart[da] == undefined){
+		      		tmp_data_chart[da] = 0;
+				}else{
+		      		tmp_data_chart[da] += 1;
+				}
 		    });
+			for (var key in tmp_data_chart) {
+				data_chart.push({"x":key, "y":tmp_data_chart[key]})
+			}
+			console.log(data_chart);
+			myChart.data.datasets = [{
+		    		label: "Visitor",
+		    		backgroundColor: 'rgb(255, 99, 132)',
+					borderColor: 'rgb(255, 99, 132)',
+		    		data: data_chart
+		    	}];
+		    myChart.update();
+
 		}, function (errorObject) {
 	  		console.log("The read failed: " + errorObject.code);
 		});

@@ -2,6 +2,7 @@
 
 /bc/
 /vendor/
+data.json
 
 ## Sublime Text cache files
 *.tmlanguage.cache

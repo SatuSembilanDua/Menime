@@ -231,6 +231,7 @@
 		global $user_agent;
 		$browser        = "Unknown Browser";
 		$browser_array = array(
+								'/mobile/i'    		=> 'Handheld Browser',
 								'/msie/i'      		=> 'Internet Explorer',
 								'/firefox/i'   		=> 'Firefox',
 								'/safari/i'    		=> 'Safari',
@@ -240,7 +241,6 @@
 								'/netscape/i'  		=> 'Netscape',
 								'/maxthon/i'   		=> 'Maxthon',
 								'/konqueror/i' 		=> 'Konqueror',
-								'/mobile/i'    		=> 'Handheld Browser',
 								'/edg/i'    		=> 'Edge',
 								'/samsungbrowser/i'	=> 'Samsung Browser',
 						 );
