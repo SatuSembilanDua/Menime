@@ -60,7 +60,7 @@ require "config/config.php";
 	<pre>
 Server Time : <b id="txt_date"><?= date("d-m-Y H:i:s"); ?></b></pre>
 	<hr>
-	<div class="container well">
+	<div class="container-fluid well">
 		<canvas id="myChart"></canvas>
 	</div>
 	<hr>
@@ -117,7 +117,7 @@ Server Time : <b id="txt_date"><?= date("d-m-Y H:i:s"); ?></b></pre>
 			      	x: {
 			        	type: 'time',
 			        	time: {
-			          		unit: 'day'
+			          		unit: 'month'
 			        	},
 			        	title: {
 			          		display: true,
@@ -134,8 +134,8 @@ Server Time : <b id="txt_date"><?= date("d-m-Y H:i:s"); ?></b></pre>
 			}
 		});
 
-/*
-		$.getJSON("data.json", function(result){
+
+		/*$.getJSON("data.json", function(result){
 			var tmp_data_chart = [];
 			$.each(result, function(i, field){
 				var a = [
@@ -156,20 +156,18 @@ Server Time : <b id="txt_date"><?= date("d-m-Y H:i:s"); ?></b></pre>
 				data_chart.push({"x":key, "y":tmp_data_chart[key]})
 			}
 			
-		});
-*/
-
-		
-
+		});*/
 
 		
 		setInterval(function(){
 			$("#txt_date").load("config/config.php?get_time");
 		},3000);
 
-		var _0x3241=['myvisitore','895914dKalOU','7GOEbRO','1328705DTzAWG','13612BAZZKA','502768GRnCVY','AIzaSyC1vSXlOJuIMTtRNeXe_wLjytyGhyT7bQA','605136510766','ref','myvisitore.firebaseapp.com','tvisit2','39znhJMj','1fnlXaX','1:605136510766:web:eaf33b045e52ec975264bf','myvisitore.appspot.com','138626mpFziK','6301yEIhQZ','initializeApp','17NiWJzF','41146nmZKHv','database','1pcAYOj'];var _0x1301=function(_0x457e2b,_0x433122){_0x457e2b=_0x457e2b-0xe0;var _0x324148=_0x3241[_0x457e2b];return _0x324148;};var _0x5175f2=_0x1301;(function(_0x254549,_0x652459){var _0x32ca4f=_0x1301;while(!![]){try{var _0x3422f5=parseInt(_0x32ca4f(0xed))+-parseInt(_0x32ca4f(0xe0))*-parseInt(_0x32ca4f(0xf1))+-parseInt(_0x32ca4f(0xe9))*-parseInt(_0x32ca4f(0xee))+-parseInt(_0x32ca4f(0xf0))*-parseInt(_0x32ca4f(0xe2))+parseInt(_0x32ca4f(0xf3))*-parseInt(_0x32ca4f(0xf5))+parseInt(_0x32ca4f(0xea))*parseInt(_0x32ca4f(0xe1))+-parseInt(_0x32ca4f(0xe3));if(_0x3422f5===_0x652459)break;else _0x254549['push'](_0x254549['shift']());}catch(_0x330a81){_0x254549['push'](_0x254549['shift']());}}}(_0x3241,0xcb916));var firebaseConfig={'apiKey':_0x5175f2(0xe4),'authDomain':_0x5175f2(0xe7),'databaseURL':'https://myvisitore-default-rtdb.firebaseio.com','projectId':_0x5175f2(0xf4),'storageBucket':_0x5175f2(0xec),'messagingSenderId':_0x5175f2(0xe5),'appId':_0x5175f2(0xeb)};firebase[_0x5175f2(0xef)](firebaseConfig);var db,VisitRef;db=firebase[_0x5175f2(0xf2)](),VisitRef=db[_0x5175f2(0xe6)](_0x5175f2(0xe8));
-
+		
+		var _0x3241=['myvisitore','895914dKalOU','7GOEbRO','1328705DTzAWG','13612BAZZKA','502768GRnCVY','AIzaSyC1vSXlOJuIMTtRNeXe_wLjytyGhyT7bQA','605136510766','ref','myvisitore.firebaseapp.com','tvisiter','39znhJMj','1fnlXaX','1:605136510766:web:eaf33b045e52ec975264bf','myvisitore.appspot.com','138626mpFziK','6301yEIhQZ','initializeApp','17NiWJzF','41146nmZKHv','database','1pcAYOj'];var _0x1301=function(_0x457e2b,_0x433122){_0x457e2b=_0x457e2b-0xe0;var _0x324148=_0x3241[_0x457e2b];return _0x324148;};var _0x5175f2=_0x1301;(function(_0x254549,_0x652459){var _0x32ca4f=_0x1301;while(!![]){try{var _0x3422f5=parseInt(_0x32ca4f(0xed))+-parseInt(_0x32ca4f(0xe0))*-parseInt(_0x32ca4f(0xf1))+-parseInt(_0x32ca4f(0xe9))*-parseInt(_0x32ca4f(0xee))+-parseInt(_0x32ca4f(0xf0))*-parseInt(_0x32ca4f(0xe2))+parseInt(_0x32ca4f(0xf3))*-parseInt(_0x32ca4f(0xf5))+parseInt(_0x32ca4f(0xea))*parseInt(_0x32ca4f(0xe1))+-parseInt(_0x32ca4f(0xe3));if(_0x3422f5===_0x652459)break;else _0x254549['push'](_0x254549['shift']());}catch(_0x330a81){_0x254549['push'](_0x254549['shift']());}}}(_0x3241,0xcb916));var firebaseConfig={'apiKey':_0x5175f2(0xe4),'authDomain':_0x5175f2(0xe7),'databaseURL':'https://myvisitore-default-rtdb.firebaseio.com','projectId':_0x5175f2(0xf4),'storageBucket':_0x5175f2(0xec),'messagingSenderId':_0x5175f2(0xe5),'appId':_0x5175f2(0xeb)};firebase[_0x5175f2(0xef)](firebaseConfig);var db,VisitRef;db=firebase[_0x5175f2(0xf2)](),VisitRef=db[_0x5175f2(0xe6)](_0x5175f2(0xe8));
+		
 		VisitRef.on("value", function(snapshot) {
+
 			var tmp_data_chart = [];
 			snapshot.forEach(function(childSnapshot) {
 		      	var childData = childSnapshot.val();
@@ -189,7 +187,14 @@ Server Time : <b id="txt_date"><?= date("d-m-Y H:i:s"); ?></b></pre>
 			for (var key in tmp_data_chart) {
 				data_chart.push({"x":key, "y":tmp_data_chart[key]})
 			}
-			console.log(data_chart);
+			data_chart.sort(function(a, b) {
+			  	var keyA = new Date(a.x),
+			    keyB = new Date(b.x);
+			  	// Compare the 2 dates
+			  	if (keyA < keyB) return -1;
+			  	if (keyA > keyB) return 1;
+			  	return 0;
+			});
 			myChart.data.datasets = [{
 		    		label: "Visitor",
 		    		backgroundColor: 'rgb(255, 99, 132)',
