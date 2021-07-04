@@ -296,7 +296,7 @@ All Visitor 		: <b id="u_visit">0</b>
 							[
 			      				childData.ip+"<br>"+childData.browser+"<br>"+childData.os,
 			      				childData.date,
-			      				childData.title+"<br><p class='link_txt'>"+childData.link+'</p>'
+			      				childData.title+"<br><p class='link_txt' data-text='1' onclick='view_link(this)'>"+childData.link+'</p>'
 			      			]
 			      		);
 				/* FOR CHART */
@@ -416,6 +416,24 @@ All Visitor 		: <b id="u_visit">0</b>
 				}
 			});
 			return ret;
+		}
+
+		function view_link(ini){
+			if($(ini).attr("data-text")==1){
+				$(ini).attr("data-text",2);
+				var text = $(ini).text();
+				var input = document.createElement("input");
+				input.type = "text";
+				input.className = "form-control";
+				input.value = text;
+				$(ini).html(input);
+				input.focus();
+				input.onfocusout = function(){
+					$(ini).attr("data-text",1);
+					var val = input.value;
+					$(ini).html(val);
+				};
+			}
 		}
 
 	</script>

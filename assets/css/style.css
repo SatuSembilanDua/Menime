@@ -530,7 +530,7 @@ span.split {
 
 	.img-list{
 		width: 100%;
-		height: 170px;
+		height: 110px;
 	}
 
 	.anime-judul>p{
@@ -538,11 +538,11 @@ span.split {
 	}
 
 	.see{
-		height: 170px;
+		height: 110px;
 		background: rgba(0, 0, 0, 0.5);
 		text-align: center;
 		font-size: 2.5em;
-		padding-top: 55px;
+		padding-top: 30px;
 	}
 	.listinfo>ul{
 		padding-left: 10px;

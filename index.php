@@ -115,7 +115,7 @@ if(isset($_GET['page'])){
 							</h1>
 						</a>
 						<p>Powered by <a href="http://heroku.com/" target="blank" style="color:#337ab7;">heroku</a></p>
-						<p><?php //include "visicount.php"; ?></p>
+						<p><?php include "visicount.php"; ?></p>
 					</div>
 					<div class="col-xs-6 social-btn text-right">
 						<a href="index.php?page=about&p=dmca">DMCA</a>

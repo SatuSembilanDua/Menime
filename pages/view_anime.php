@@ -21,17 +21,48 @@ if(isset($_GET["id"])):
 	if($src==3){$thumb = $row["thumb"];}
 
 	$ls_eps = ${$tbl}->get_naveps($id_anime, $id_eps);
+
+	$ls_part = "";
+
+	$ideps_sepcial = ["ME0013", "ME0014"];
+	if(in_array($id_anime, $ideps_sepcial)){
+		$qb = $tb_episode->get_query("SELECT * FROM episodes WHERE id_anime = '$id_anime' AND eps = '$row[eps]' ");
+		$pa = 1;
+		while ($rowb = $tb_episode->fetch_assoc($qb)) {
+			if($pa==1){
+				$ls_eps = ${$tbl}->get_naveps($id_anime, (int)$rowb["id_eps"]);
+			}
+			$idb = e_url($rowb["id_episode"]);
+			$dis = $row['id_episode'] == $rowb["id_episode"]?"disabled":''; 
+			$ls_part .= "<a href=\"index.php?page=view_anime&id=$idb&src=".e_url($src)."\" class=\"btn btn-success\" $dis>Part $pa</a>&nbsp;";
+			$pa++;
+		}
+		$ls_part = $pa>2?$ls_part:'';
+	}
+	
+	
+
 	$ls_eps["prev"]["link"] = $ls_eps["prev"]["id"]!=""?"index.php?page=view_anime&id=".e_url($ls_eps["prev"]["id"])."&src=".e_url($src):"";  
 	$ls_eps["cur"] ="index.php?page=anime&a=".e_url($id_anime);  
 	$ls_eps["next"]["link"] = $ls_eps["next"]["id"]!=""?"index.php?page=view_anime&id=".e_url($ls_eps["next"]["id"])."&src=".e_url($src):"";  	
-	
+		
+
 ?>
 <h2><?= $anime_txt; ?></h2>
 <br><br>
 <div id="container">
 	<iframe src="<?= $video; ?>" allowfullscreen="true" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" class="idframe"></iframe>
 </div>
-<br><br>
+<br>
+<?php if($ls_part != ""): ?>
+<div class="container nav_bottom">
+	<?= $ls_part; ?>
+	<!-- <a href="#" class="btn btn-success" disabled="disabled">Part 1</a>
+	<a href="#" class="btn btn-success">Part 2</a>
+	<a href="#" class="btn btn-success">Part 3</a> -->
+</div>
+<?php endif; ?>
+<br>
 <?php if(isset($ls_eps)): ?>
 	<div class="container nav_bottom">
 		<div class="col-xs-4">

@@ -252,6 +252,20 @@
 		return $browser;
 	}
 
+	function check_local(){
+		$ipaddress = '';
+		if (
+				(getenv('HTTP_CLIENT_IP')) || 
+				(getenv('HTTP_X_FORWARDED_FOR')) || 
+				(getenv('HTTP_X_FORWARDED')) || 
+				(getenv('HTTP_FORWARDED_FOR')) || 
+				(getenv('HTTP_FORWARDED'))
+			)
+		   return false;
+		else
+		   return true;
+	}
+
 	if(isset($_GET["get_time"])){
 		echo date("d-m-Y H:i:s");
 	}

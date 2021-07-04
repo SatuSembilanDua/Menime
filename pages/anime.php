@@ -59,7 +59,12 @@ if(isset($_GET['a'])):
 			}else if($status_table==4){
 				$q = $tb_boruto->get_all("WHERE anime.id_anime = '$id_anime' ORDER BY id_eps DESC ");
 			}else{
-				$q = $tb_episode->get_byfk($id_anime);
+				$ideps_sepcial = ["ME0013", "ME0014"];
+				if(in_array($id_anime, $ideps_sepcial)){
+					$q = $tb_episode->get_qwhere("anime.id_anime = '$id_anime' GROUP BY episodes.eps");
+				}else{
+					$q = $tb_episode->get_byfk($id_anime);
+				}
 			}
 			while($row = $tb_menime->fetch_assoc($q)){
 				$link = "index.php?page=view_anime&id=".e_url($row["id_episode"])."&src=".e_url($status_table);
