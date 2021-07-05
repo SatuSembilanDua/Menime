@@ -61,7 +61,7 @@ if(isset($_GET['a'])):
 			}else{
 				$ideps_sepcial = ["ME0013", "ME0014"];
 				if(in_array($id_anime, $ideps_sepcial)){
-					$q = $tb_episode->get_qwhere("anime.id_anime = '$id_anime' GROUP BY episodes.eps");
+					$q = $tb_episode->get_qwhere("anime.id_anime = '$id_anime' GROUP BY episodes.eps ORDER BY id_eps ASC");
 				}else{
 					$q = $tb_episode->get_byfk($id_anime);
 				}
