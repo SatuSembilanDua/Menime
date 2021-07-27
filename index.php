@@ -3,7 +3,7 @@
 
 require "config/config.php";
 
-$urla= $_SERVER['REQUEST_URI'];
+/*$urla= $_SERVER['REQUEST_URI'];
 $re = '/index\.php(.?)+/';
 preg_match_all($re, $urla, $matches, PREG_SET_ORDER, 0);
 if(isset($matches[0][0])){
@@ -13,7 +13,7 @@ if(isset($matches[0][0])){
 	echo "document.location='$ural';";
 	echo "</script>";
 }
-
+*/
 $title = "Menime ";
 $og_desc = 'Menine Adalah Website Nonton Anime Subtitle Indonesia Gratis Disini Bisa Streaming.'; 
 $og_img = 'menime.herokuapp.com/assets/img/logo.png'; 
