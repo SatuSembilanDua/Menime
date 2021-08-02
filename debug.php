@@ -81,6 +81,7 @@ All Visitor 		: <b id="u_visit">0</b>
 	  	<ul class="nav nav-tabs" role="tablist">
 		    <li role="presentation" class="active"><a href="#traffic" aria-controls="traffic" role="tab" data-toggle="tab">Traffic</a></li>
 		    <li role="presentation"><a href="#user" aria-controls="user" role="tab" data-toggle="tab">User</a></li>
+		    <li role="presentation"><a href="#pages" aria-controls="pages" role="tab" data-toggle="tab">Pages</a></li>
 		</ul>
 	  	<div class="tab-content">
     		<div role="tabpanel" class="tab-pane active" id="traffic">
@@ -150,6 +151,20 @@ All Visitor 		: <b id="u_visit">0</b>
   				</script>
   				</div>
 			</div>
+			<div role="tabpanel" class="tab-pane" id="pages">
+    			<br>
+    			<table class="table table-striped table-list myTable_pages">
+					<thead>
+						<tr>
+							<th>Pages</th>
+							<th>Visit</th>
+						</tr>
+					</thead>
+					<tbody>
+						
+					</tbody>
+				</table>
+    		</div>
 		</div>
 	</div>
 </div>
@@ -170,6 +185,7 @@ All Visitor 		: <b id="u_visit">0</b>
 	<script type="text/javascript">
 		var all_data = [];
 		var sudah_user = false;
+		var sudah_pages = false;
 
 		$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
 		  	/*e.target; // newly activated tab
@@ -178,6 +194,11 @@ All Visitor 		: <b id="u_visit">0</b>
 		  		if(sudah_user==false){
 		  			data_data_data(all_data);
 		  			sudah_user=true;
+		  		}
+		  	}else if($(e.target).text() == "Pages"){
+		  		if(sudah_pages==false){
+		  			data_data_pages(all_data);
+		  			sudah_pages=true;
 		  		}
 		  	}
 		});
@@ -194,6 +215,7 @@ All Visitor 		: <b id="u_visit">0</b>
 				echo "var table_$tbl = \$('.$key').DataTable(setting_tabel);";
 			}
 		?>
+		var table_pages = $(".myTable_pages").DataTable(setting_tabel);
 
 		var data_chart = [];
 		var ctx = document.getElementById('myChart').getContext('2d');
@@ -245,7 +267,6 @@ All Visitor 		: <b id="u_visit">0</b>
 			    },
 			}
 		});
-		
 		/*setInterval(function(){
 			$("#txt_date").load("config/config.php?get_time");
 		},3000);*/
@@ -394,6 +415,45 @@ All Visitor 		: <b id="u_visit">0</b>
 			$("#ut_visit").html(tau_visit.length);
 		}
 
+
+		function data_data_pages(data){
+			//console.log(data);
+			var tmpt = [];
+			data.forEach(function(childData, i) {
+				var title = childData.title;
+				var pa = title.split(" | ");
+				var tt = "";
+				if(pa[1]!=undefined){
+					var ttt = pa[1].split(" - ");
+					//console.log(ttt[0]);
+					var tttt = ttt[0].split(" Episode ");
+					if(tttt[0].trim()==""){
+						tt = "Home";
+					}else{
+						var avt = tttt[0].substring(0, 6);
+						if (avt == "Avatar"){
+							var tavt = tttt[0].split(" Book ");
+							tt = tavt[0];
+						}else{
+							tt = tttt[0].trim();
+						}
+					}
+				}else{
+					tt = "Home";
+				}
+
+				if(tmpt[tt]==undefined){
+					tmpt[tt]=1;
+				}else{
+					tmpt[tt]++;
+				}
+			});
+			var data_tab = [];
+			for (var key in tmpt) {
+				data_tab.push([key, tmpt[key]]);
+			}
+			table_pages.rows.add(data_tab).draw();
+		}
 
 		function dalam_array2d(val, arr, prop){
 			var ret = -1;

@@ -13,7 +13,7 @@
 */
 	
 	$con = new SQLite3('dbmenime.db');
-
+	
 	if(!$con) {
   		die("Terjadi Kesalahan saat koneksi ke database!<br>"."Connection failed: " . $con->lastErrorMsg());
 	}
