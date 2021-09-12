@@ -20,7 +20,7 @@ $og_img = 'menime.herokuapp.com/assets/img/logo.png';
 $og_url = "https://menime.herokuapp.com/index.php";
 
 $dir = "pages";
-$nav = '<li><a href="index.php">Home</a></li>';
+$nav = '<li><a href="'.base_url("index.php").'">Home</a></li>';
 $inc = "$dir/home.php";
 
 if(isset($_GET['page'])){
@@ -32,10 +32,18 @@ if(isset($_GET['page'])){
 
 		if($_GET["page"]=="anime"){
 			if(isset($_GET['a'])){
-				$id_anime = htmlspecialchars(d_url($_GET['a']));
-				$q = $tb_menime->get_byid($id_anime);
-				$ml_current = [];
+				$slug = htmlentities($_GET['a']);
+				$q = $tb_menime->get_slug($slug);
 				$row = $tb_menime->fetch_assoc($q);
+				if(is_array($row)){
+					//$id = $row['id_anime']; 
+					$id_anime = $row['id_anime'];
+				}else{
+					$id_anime = htmlspecialchars(d_url($_GET['a']));
+					$q = $tb_menime->get_byid($id_anime);
+					$row = $tb_menime->fetch_assoc($q);	
+				}
+				$ml_current = [];
 				$anime_txt = $row['judul_anime'];
 				$title .= "| $anime_txt";
 				$nav .= '<li class="active">'.$anime_txt.'</li>';
@@ -44,7 +52,7 @@ if(isset($_GET['page'])){
 
 		if($_GET["page"]=="view_anime"){
 			if(isset($_GET["id"])){
-				$id_episode = htmlentities(d_url($_GET["id"]));
+
 				$src = htmlentities(d_url($_GET["src"]));
 				$tbl = "";
 				if($src==1){
@@ -56,15 +64,29 @@ if(isset($_GET['page'])){
 				}else if($src==4){
 					$tbl = "tb_boruto";
 				}
-				$q = ${$tbl}->get_byid($id_episode);
-				$row = ${$tbl}->fetch_assoc($q);
+
+				$id = $_GET["id"];
+				$ur = explode("_", $id);
+				if(sizeof($ur)>1){
+					$num = $ur[sizeof($ur)-1];
+					unset($ur[sizeof($ur)-1]);
+
+					$q = ${$tbl}->get_slug2(join("_",$ur), $num);
+					$row = ${$tbl}->fetch_assoc($q);
+				}else{
+					$id_episode = htmlentities(d_url($_GET["id"]));
+					$q = ${$tbl}->get_byid($id_episode);
+					$row = ${$tbl}->fetch_assoc($q);
+				}
+
 			 	$anime_txt = $row["eps"]." - ".$row["judul"];
 				if($src==3){
 					$anime_txt = $row["book"]." - ".$anime_txt;
 				}
 				$title .= "| $row[judul_anime] - $anime_txt";
 
-				$nav .= '<li><a href="index.php?page=anime&a='.e_url($row["id_anime"]).'">'.$row['judul_anime'].'</a></li>';
+				//$nav .= '<li><a href="index.php?page=anime&a='.e_url($row["id_anime"]).'">'.$row['judul_anime'].'</a></li>';
+				$nav .= '<li><a href="'.base_url("anime/$row[link_anime]").'">'.$row['judul_anime'].'</a></li>';
 				$nav .= '<li class="active">'.str_replace(" - ".$row["judul"], "", $anime_txt).'</li>';
 			}
 		}
@@ -92,21 +114,21 @@ if(isset($_GET['page'])){
   	<meta property="og:description"   content="<?= $og_desc; ?>" />
   	<meta property="og:image"         content="<?= $og_img; ?>" />
 	<title><?= $title; ?></title>
-	<link rel="shortcut icon" href="assets/img/logo.png" type="image/x-icon"/>
-	<link rel="stylesheet" href="assets/css/bootstrap.min.css">
-	<link rel="stylesheet" href="assets/css/font-awesome.css">
-	<link rel="stylesheet" href="assets/css/style.css?t=<?= time(); ?>">
+	<link rel="shortcut icon" href="<?= base_url(); ?>assets/img/logo.png" type="image/x-icon"/>
+	<link rel="stylesheet" href="<?= base_url(); ?>assets/css/bootstrap.min.css">
+	<link rel="stylesheet" href="<?= base_url(); ?>assets/css/font-awesome.css">
+	<link rel="stylesheet" href="<?= base_url(); ?>assets/css/style.css?t=<?= time(); ?>">
 	
 
-	<link rel="stylesheet" href="assets/css/dataTables.bootstrap.min.css">
+	<link rel="stylesheet" href="<?= base_url(); ?>assets/css/dataTables.bootstrap.min.css">
 
-    <script src="assets/js/jquery.min.js"></script>
+    <script src="<?= base_url(); ?>assets/js/jquery.min.js"></script>
 	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </head>
 <body>
 	<div class="container header-main">
-		<a href="index.php">
-			<img src="assets/img/icons.png" alt="Logo" height="75px" style="margin:20px 0;">
+		<a href="<?= base_url(); ?>">
+			<img src="<?= base_url(); ?>assets/img/icons.png" alt="Logo" height="75px" style="margin:20px 0;">
 		</a>
 	</div>
 	<ol class="breadcrumb">
@@ -122,7 +144,7 @@ if(isset($_GET['page'])){
 					<div class="col-xs-6 footer-left">
 						<a href="index.php">
 							<h1>
-							<img src="assets/img/icons.png" alt="Logo" height="45px" style="margin:5px 0;">
+							<img src="<?= base_url(); ?>assets/img/icons.png" alt="Logo" height="45px" style="margin:5px 0;">
 							</h1>
 						</a>
 						<p>Powered by <a href="http://heroku.com/" target="blank" style="color:#337ab7;">heroku</a></p>
@@ -138,9 +160,9 @@ if(isset($_GET['page'])){
 			</div>
 		</div>
 	</div>
-	<script src="assets/js/bootstrap.min.js"></script>
-	<script type="text/javascript" src="assets/js/jquery.dataTables.min.js"></script>
-	<script type="text/javascript" src="assets/js/dataTables.bootstrap.min.js"></script>
+	<script src="<?= base_url(); ?>assets/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="<?= base_url(); ?>assets/js/jquery.dataTables.min.js"></script>
+	<script type="text/javascript" src="<?= base_url(); ?>assets/js/dataTables.bootstrap.min.js"></script>
 	<script type="text/javascript">
 		$(document).ready(function(){
 			var table = $('.myTable').DataTable({

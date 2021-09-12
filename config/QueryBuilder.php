@@ -52,6 +52,44 @@ class QueryBuilder{
 		return $this->con->query($this->sql);
 	}
 
+	public function get_slug($slug)
+	{
+		$this->sql = "SELECT * FROM ".$this->config['table'];
+		if(isset($this->config['join'])){
+			if(is_array($this->config['join'])){
+				foreach ($this->config['join'] as $k => $v) {
+					$this->sql .= " JOIN ".$v." ON ";
+					$this->sql .= $v.".".$this->config['fk'][$k]." = ".$this->config['table'].".".$this->config['fk'][$k];
+				}
+			}else{
+				$this->sql .= " JOIN ".$this->config['join']." ON ";
+				$this->sql .= $this->config['join'].".".$this->config['fk']." = ".$this->config['table'].".".$this->config['fk'];
+			}
+		}
+		$this->sql .= " WHERE ".$this->config['table'].".link_anime = '$slug'";
+		//return $this->sql;
+		return $this->con->query($this->sql);
+	}
+
+	public function get_slug2($slug, $num)
+	{
+		$this->sql = "SELECT * FROM ".$this->config['table'];
+		if(isset($this->config['join'])){
+			if(is_array($this->config['join'])){
+				foreach ($this->config['join'] as $k => $v) {
+					$this->sql .= " JOIN ".$v." ON ";
+					$this->sql .= $v.".".$this->config['fk'][$k]." = ".$this->config['table'].".".$this->config['fk'][$k];
+				}
+			}else{
+				$this->sql .= " JOIN ".$this->config['join']." ON ";
+				$this->sql .= $this->config['join'].".".$this->config['fk']." = ".$this->config['table'].".".$this->config['fk'];
+			}
+		}
+		$this->sql .= " WHERE ".$this->config['join'].".link_anime = '$slug' and ".$this->config['table'].".id_eps = $num";
+		//return $this->sql;
+		return $this->con->query($this->sql);
+	}
+
 	public function get_byfk($id)
 	{
 		$this->sql = "SELECT * FROM ".$this->config['table'];
@@ -254,24 +292,26 @@ class QueryBuilder{
 
 	 	$ret = ["prev"=> ["id" => "", "dis" => true], "next"=> ["id" => "", "dis" => true]];
 
-	 	$this->sql = "SELECT id_episode FROM ".$this->config['table'];
+	 	$this->sql = "SELECT id_episode, id_eps FROM ".$this->config['table'];
 	 	$this->sql .= " WHERE id_anime = '$id_anime' AND id_eps = $before ";
 	 	$q_before = $this->con->query($this->sql);
 		$row = $this->fetch_assoc($q_before);
 		if(is_array($row)){
-			$ret["prev"]["id"] = $row["id_episode"]; 
+			//$ret["prev"]["id"] = $row["id_episode"]; 
+			$ret["prev"]["id"] = $row["id_eps"]; 
 			$ret["prev"]["dis"] = false; 	
 		}
 		/*if($this->num_rows($q_before)>0){
 		}	*/ 	
 
-		$this->sql = "SELECT id_episode FROM ".$this->config['table'];
+		$this->sql = "SELECT id_episode, id_eps FROM ".$this->config['table'];
 	 	$this->sql .= " WHERE id_anime = '$id_anime' AND id_eps = $after ";
 	 	$q_after = $this->con->query( $this->sql);
 		
 		$row = $this->fetch_assoc($q_after);
 		if(is_array($row)){
-			$ret["next"]["id"] = $row["id_episode"]; 
+			//$ret["next"]["id"] = $row["id_episode"]; 
+			$ret["next"]["id"] = $row["id_eps"]; 
 			$ret["next"]["dis"] = false; 
 		}	 	
 		/*if($this->num_rows($q_after)>0){

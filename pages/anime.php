@@ -67,7 +67,8 @@ if(isset($_GET['a'])):
 				}
 			}
 			while($row = $tb_menime->fetch_assoc($q)){
-				$link = "index.php?page=view_anime&id=".e_url($row["id_episode"])."&src=".e_url($status_table);
+				$link_lama = "index.php?page=view_anime&id=".e_url($row["id_episode"])."&src=".e_url($status_table);
+				$link = base_url("view/$row[link_anime]_$row[id_eps]&src=".e_url($status_table));
 		?>
 			<tr>
 				<td><a href="<?= $link; ?>"><?= ++$i; ?></a></td>
@@ -128,7 +129,8 @@ if(isset($_GET['a'])):
 				<?php 
 					$j=0;
 					foreach($a as $b => $v): 
-					$link = "index.php?page=view_anime&id=".e_url($v["id_episode"])."&src=".e_url($status_table);
+					$link_lama = "index.php?page=view_anime&id=".e_url($v["id_episode"])."&src=".e_url($status_table);
+					$link = base_url("view/$v[link_anime]_$v[id_eps]&src=".e_url($status_table));
 				?>
 					<tr>
 						<td><?= ++$j; ?></td>

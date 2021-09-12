@@ -34,7 +34,7 @@ if(isset($_GET["id"])):
 			}
 			$idb = e_url($rowb["id_episode"]);
 			$dis = $row['id_episode'] == $rowb["id_episode"]?"disabled":''; 
-			$ls_part .= "<a href=\"index.php?page=view_anime&id=$idb&src=".e_url($src)."\" class=\"btn btn-success\" $dis>Part $pa</a>&nbsp;";
+			$ls_part .= "<a href=\"".base_url("index.php?page=view_anime&id=$idb&src=".e_url($src))."\" class=\"btn btn-success\" $dis>Part $pa</a>&nbsp;";
 			$pa++;
 		}
 		$ls_part = $pa>2?$ls_part:'';
@@ -42,11 +42,16 @@ if(isset($_GET["id"])):
 	
 	
 
+	/*
 	$ls_eps["prev"]["link"] = $ls_eps["prev"]["id"]!=""?"index.php?page=view_anime&id=".e_url($ls_eps["prev"]["id"])."&src=".e_url($src):"";  
-	$ls_eps["cur"] ="index.php?page=anime&a=".e_url($id_anime);  
+	$ls_eps["cur"] = "index.php?page=anime&a=".e_url($id_anime);  
 	$ls_eps["next"]["link"] = $ls_eps["next"]["id"]!=""?"index.php?page=view_anime&id=".e_url($ls_eps["next"]["id"])."&src=".e_url($src):"";  	
-		
-
+	*/	
+	//$ls_eps["prev"]["link"] = $ls_eps["prev"]["id"]!=""?"index.php?page=view_anime&id=".e_url($ls_eps["prev"]["id"])."&src=".e_url($src):"";  
+	$ls_eps["prev"]["link"] = $ls_eps["prev"]["id"]!=""?base_url("view/$row[link_anime]_".$ls_eps["prev"]["id"]."&src=".e_url($src)):"";  
+	$ls_eps["cur"] = base_url("anime/$row[link_anime]");   	
+	$ls_eps["next"]["link"] = $ls_eps["next"]["id"]!=""?base_url("view/$row[link_anime]_".$ls_eps["next"]["id"]."&src=".e_url($src)):"";  
+	
 ?>
 <h2><?= $anime_txt; ?></h2>
 <br><br>
