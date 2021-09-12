@@ -151,5 +151,5 @@ print_r($list_anime['error']);
 </pre>
 <?php endif; ?>
 
-<script src="assets/js/media_session.js"></script>
+<script src="<?= base_url('assets/js/media_session.js'); ?>"></script>
 <?php endif; ?>

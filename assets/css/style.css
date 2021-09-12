@@ -523,14 +523,13 @@ span.split {
 	.body-main>h2{
 		margin: 20px 0;
 	}
-	.idframe{
-		width:100%; 
-		height:320px;
+	.idframe{ 
+		height:280px;
 	}
 
 	.img-list{
 		width: 100%;
-		height: 110px;
+		height: 170px;
 	}
 
 	.anime-judul>p{
@@ -538,11 +537,11 @@ span.split {
 	}
 
 	.see{
-		height: 110px;
+		height: 170px;
 		background: rgba(0, 0, 0, 0.5);
 		text-align: center;
 		font-size: 2.5em;
-		padding-top: 30px;
+		padding-top: 55px;
 	}
 	.listinfo>ul{
 		padding-left: 10px;

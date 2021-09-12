@@ -25,8 +25,12 @@
 	}
 
 	function base_url($url=""){
-		//$root = (isset($_SERVER['HTTPS']) ? "https://" : "http://").$_SERVER['HTTP_HOST'];
-		$root = "https://".$_SERVER['HTTP_HOST'];
+		$root = "";
+		if(check_local()){
+			$root = (isset($_SERVER['HTTPS']) ? "https://" : "http://").$_SERVER['HTTP_HOST'];
+		}else{
+			$root = "https://".$_SERVER['HTTP_HOST'];
+		}
 		$root .= str_replace(basename($_SERVER['SCRIPT_NAME']),"",$_SERVER['SCRIPT_NAME']);
 		//$config['base_url'] = "$root";
 		return $root.$url;
