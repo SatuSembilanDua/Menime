@@ -56,6 +56,11 @@ if(isset($_GET["id"])):
 <h2><?= $anime_txt; ?></h2>
 <br><br>
 <div id="container">
+	<?php
+		if($row['src']==4){
+			echo "<style>.idframe {height: 600px;}</style>";
+		}
+	?>
 	<iframe src="<?= $video; ?>" allowfullscreen="true" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" class="idframe"></iframe>
 </div>
 <br>
@@ -87,6 +92,59 @@ if(isset($_GET["id"])):
 	<br><br>
 <?php endif; ?>
 <pre id="pre_print_error" style="display: none;"></pre>
+<script type="text/javascript">
+	document.addEventListener('touchstart', handleTouchStart, false);        
+	document.addEventListener('touchmove', handleTouchMove, false);
+
+	var xDown = null;                                                        
+	var yDown = null;
+
+	function getTouches(evt) {
+	  return evt.touches ||             // browser API
+	         evt.originalEvent.touches; // jQuery
+	}                                                     
+	                                                                         
+	function handleTouchStart(evt) {
+	    const firstTouch = getTouches(evt)[0];                                      
+	    xDown = firstTouch.clientX;                                      
+	    yDown = firstTouch.clientY;                                      
+	};                                                
+	                                                                         
+	function handleTouchMove(evt) {
+	    if ( ! xDown || ! yDown ) {
+	        return;
+	    }
+
+	    var xUp = evt.touches[0].clientX;                                    
+	    var yUp = evt.touches[0].clientY;
+
+	    var xDiff = xDown - xUp;
+	    var yDiff = yDown - yUp;
+	                                                                         
+	    if ( Math.abs( xDiff ) > Math.abs( yDiff ) ) {/*most significant*/
+	        if ( xDiff > 0 ) {
+	            /* right swipe */ 
+	            console.log("swiped-right");
+	            //alert("swiped-right");
+	            document.location = "<?= $ls_eps["next"]["link"]; ?>";
+	        } else {
+	            /* left swipe */
+	            console.log("swiped-left");
+	            //alert("swiped-left");
+	            document.location = "<?= $ls_eps["prev"]["link"]; ?>";
+	        }                       
+	    } else {
+	        if ( yDiff > 0 ) {
+	            /* down swipe */ 
+	        } else { 
+	            /* up swipe */
+	        }                                                                 
+	    }
+	    /* reset values */
+	    xDown = null;
+	    yDown = null;                                             
+	};
+</script>
 <script type="text/javascript">
 	$(document).ready(function(){
 

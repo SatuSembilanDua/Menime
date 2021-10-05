@@ -85,7 +85,9 @@ class QueryBuilder{
 				$this->sql .= $this->config['join'].".".$this->config['fk']." = ".$this->config['table'].".".$this->config['fk'];
 			}
 		}
-		$this->sql .= " WHERE ".$this->config['join'].".link_anime = '$slug' and ".$this->config['table'].".id_eps = $num";
+		//$this->sql .= " WHERE ".$this->config['join'].".link_anime = '$slug' and ".$this->config['table'].".id_eps = $num";
+		$this->sql .= " WHERE ".$this->config['join'].".link_anime = '$slug' and ";
+		$this->sql .= "CAST(SUBSTR(".$this->config['table'].".eps, INSTR(".$this->config['table'].".eps, ' ')+1) AS INTEGER) = $num"; //$this->config['table'].".id_eps = $num";
 		//return $this->sql;
 		return $this->con->query($this->sql);
 	}
@@ -292,26 +294,28 @@ class QueryBuilder{
 
 	 	$ret = ["prev"=> ["id" => "", "dis" => true], "next"=> ["id" => "", "dis" => true]];
 
-	 	$this->sql = "SELECT id_episode, id_eps FROM ".$this->config['table'];
+	 	$this->sql = "SELECT id_episode, id_eps, eps FROM ".$this->config['table'];
 	 	$this->sql .= " WHERE id_anime = '$id_anime' AND id_eps = $before ";
 	 	$q_before = $this->con->query($this->sql);
 		$row = $this->fetch_assoc($q_before);
 		if(is_array($row)){
 			//$ret["prev"]["id"] = $row["id_episode"]; 
-			$ret["prev"]["id"] = $row["id_eps"]; 
+			$lkeps = explode(" ", $row["eps"])[1];
+			$ret["prev"]["id"] = $lkeps; //$row["id_eps"]; 
 			$ret["prev"]["dis"] = false; 	
 		}
 		/*if($this->num_rows($q_before)>0){
 		}	*/ 	
 
-		$this->sql = "SELECT id_episode, id_eps FROM ".$this->config['table'];
+		$this->sql = "SELECT id_episode, id_eps, eps FROM ".$this->config['table'];
 	 	$this->sql .= " WHERE id_anime = '$id_anime' AND id_eps = $after ";
 	 	$q_after = $this->con->query( $this->sql);
 		
 		$row = $this->fetch_assoc($q_after);
 		if(is_array($row)){
 			//$ret["next"]["id"] = $row["id_episode"]; 
-			$ret["next"]["id"] = $row["id_eps"]; 
+			$lkeps = explode(" ", $row["eps"])[1];
+			$ret["next"]["id"] = $lkeps;//$row["id_eps"]; 
 			$ret["next"]["dis"] = false; 
 		}	 	
 		/*if($this->num_rows($q_after)>0){

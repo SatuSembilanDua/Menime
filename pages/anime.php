@@ -59,7 +59,7 @@ if(isset($_GET['a'])):
 			}else if($status_table==4){
 				$q = $tb_boruto->get_all("WHERE anime.id_anime = '$id_anime' ORDER BY id_eps DESC ");
 			}else{
-				$ideps_sepcial = ["ME0013", "ME0014"];
+				$ideps_sepcial = ["ME0013", "ME0014"]; /* IF videos is parted */
 				if(in_array($id_anime, $ideps_sepcial)){
 					$q = $tb_episode->get_qwhere("anime.id_anime = '$id_anime' GROUP BY episodes.eps ORDER BY id_eps ASC");
 				}else{
@@ -68,7 +68,8 @@ if(isset($_GET['a'])):
 			}
 			while($row = $tb_menime->fetch_assoc($q)){
 				$link_lama = "index.php?page=view_anime&id=".e_url($row["id_episode"])."&src=".e_url($status_table);
-				$link = base_url("view/$row[link_anime]_$row[id_eps]&src=".e_url($status_table));
+				$lkeps = explode(" ", $row["eps"])[1];
+				$link = base_url("view/$row[link_anime]_$lkeps&src=".e_url($status_table));
 		?>
 			<tr>
 				<td><a href="<?= $link; ?>"><?= ++$i; ?></a></td>
@@ -81,7 +82,7 @@ if(isset($_GET['a'])):
 		?>
 		</tbody>
 	</table>
-<?php elseif($status_table==3): ?>
+<?php elseif($status_table==3): /*  IF EPISODE SEASONED */ ?>
 <?php
 	$q = $tb_avatar->get_byfk($id_anime);
 	$avatar = [];
