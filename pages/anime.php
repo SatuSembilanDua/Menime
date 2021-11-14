@@ -84,7 +84,11 @@ if(isset($_GET['a'])):
 	</table>
 <?php elseif($status_table==3): /*  IF EPISODE SEASONED */ ?>
 <?php
-	$q = $tb_avatar->get_byfk($id_anime);
+	if($id_anime!="ME0021"){
+		$q = $tb_avatar->get_byfk($id_anime);
+	}else{
+		$q = $tb_spongebob->get_byfk($id_anime);
+	}
 	$avatar = [];
 	while($row = $tb_menime->fetch_assoc($q)){
 		$avatar[$row["book"]][] = $row;
@@ -131,7 +135,7 @@ if(isset($_GET['a'])):
 					$j=0;
 					foreach($a as $b => $v): 
 					$link_lama = "index.php?page=view_anime&id=".e_url($v["id_episode"])."&src=".e_url($status_table);
-					$link = base_url("view/$v[link_anime]_$v[id_eps]&src=".e_url($status_table));
+					$link = base_url("view/$v[link_anime]_$v[id_eps]&src=".e_url(($id_anime!='ME0021')?$status_table:$status_table+2));
 				?>
 					<tr>
 						<td><?= ++$j; ?></td>

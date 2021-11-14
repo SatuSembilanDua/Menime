@@ -63,6 +63,8 @@ if(isset($_GET['page'])){
 					$tbl = "tb_avatar";
 				}else if($src==4){
 					$tbl = "tb_boruto";
+				}else if($src==5){
+					$tbl = "tb_spongebob";
 				}
 
 				$id = $_GET["id"];
@@ -70,7 +72,6 @@ if(isset($_GET['page'])){
 				if(sizeof($ur)>1){
 					$num = $ur[sizeof($ur)-1];
 					unset($ur[sizeof($ur)-1]);
-
 					$q = ${$tbl}->get_slug2(join("_",$ur), $num);
 					$row = ${$tbl}->fetch_assoc($q);
 				}else{
@@ -81,6 +82,9 @@ if(isset($_GET['page'])){
 
 			 	$anime_txt = $row["eps"]." - ".$row["judul"];
 				if($src==3){
+					$anime_txt = $row["book"]." - ".$anime_txt;
+				}
+				if($src==5){
 					$anime_txt = $row["book"]." - ".$anime_txt;
 				}
 				$title .= "| $row[judul_anime] - $anime_txt";
