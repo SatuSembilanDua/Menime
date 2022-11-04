@@ -41,7 +41,7 @@ if(isset($_GET['a'])):
 <!-- LIST ANIME -->
 <h2>LIST ANIME <?= strtoupper($anime_txt); ?></h2>
 <br>
-<?php if($status_table==1 || $status_table==2 || $status_table==4): ?>
+<?php if($status_table==1 || $status_table==2 || $status_table==4 || $status_table==6): ?>
 	<table class="table table table-list myTable">
 		<thead>
 			<tr>
@@ -58,6 +58,9 @@ if(isset($_GET['a'])):
 				$q = $tb_onepiece->get_all("WHERE anime.id_anime = '$id_anime' ORDER BY id_eps DESC ");
 			}else if($status_table==4){
 				$q = $tb_boruto->get_all("WHERE anime.id_anime = '$id_anime' ORDER BY id_eps DESC ");
+			}else if($status_table==6){
+				$q = $tb_spyxfamily->get_all("WHERE anime.id_anime = '$id_anime' ORDER BY id_eps DESC ");
+				//pre($tb_spyxfamily->lasst_query());
 			}else{
 				$ideps_sepcial = ["ME0013", "ME0014"]; /* IF videos is parted */
 				if(in_array($id_anime, $ideps_sepcial)){

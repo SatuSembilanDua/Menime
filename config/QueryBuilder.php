@@ -90,9 +90,10 @@ class QueryBuilder{
 		if(in_array($slug, ["avatar_the_legend_of_aang", "avatar_the_legend_of_korra", "spongebob_squarepants"]) ){
 			$this->sql .= "id_eps = $num";
 		}else{
-			$this->sql .= "CAST(SUBSTR(".$this->config['table'].".eps, INSTR(".$this->config['table'].".eps, ' ')+1) AS INTEGER) = $num"; //$this->config['table'].".id_eps = $num";
+			$this->sql .= "CAST(SUBSTR(".$this->config['table'].".eps, INSTR(".$this->config['table'].".eps, ' ')+1) AS REAL) = $num"; //$this->config['table'].".id_eps = $num";
 		}
 		//return $this->sql;
+		//echo $this->sql;
 		return $this->con->query($this->sql);
 	}
 

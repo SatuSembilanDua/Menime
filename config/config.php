@@ -14,6 +14,7 @@
 	$tb_episode = new QueryBuilder($con, ["table" => "episodes", "pk" => "id_episode", "fk" => "id_anime", "join" => "anime"]);
 	$tb_onepiece = new QueryBuilder($con, ["table" => "one_piece", "pk" => "id_episode", "fk" => "id_anime", "join" => "anime"]);
 	$tb_boruto = new QueryBuilder($con, ["table" => "boruto", "pk" => "id_episode", "fk" => "id_anime", "join" => "anime"]);
+	$tb_spyxfamily = new QueryBuilder($con, ["table" => "spy_x_family", "pk" => "id_episode", "fk" => "id_anime", "join" => "anime"]);
 	$tb_avatar = new QueryBuilder($con, ["table" => "avatar", "pk" => "id_episode", "fk" => "id_anime", "join" => "anime"]);
 	$tb_spongebob = new QueryBuilder($con, ["table" => "spongebob", "pk" => "id_episode", "fk" => "id_anime", "join" => "anime"]);
 

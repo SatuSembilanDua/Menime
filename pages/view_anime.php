@@ -51,6 +51,7 @@ if(isset($_GET["id"])):
 	$ls_eps["prev"]["link"] = $ls_eps["prev"]["id"]!=""?base_url("view/$row[link_anime]_".$ls_eps["prev"]["id"]."&src=".e_url($src)):"";  
 	$ls_eps["cur"] = base_url("anime/$row[link_anime]");   	
 	$ls_eps["next"]["link"] = $ls_eps["next"]["id"]!=""?base_url("view/$row[link_anime]_".$ls_eps["next"]["id"]."&src=".e_url($src)):"";  
+	$ls_eps["ini"] = base_url("full/$row[link_anime]_".$num."&src=".e_url($src));
 	
 ?>
 <h2><?= $anime_txt; ?></h2>
@@ -90,6 +91,11 @@ if(isset($_GET["id"])):
 		</div>
 	</div>
 	<br><br>
+<?php endif; ?>
+<?php if(check_local()): ?>
+<div class="col-xs-4">
+	<a href="<?= $ls_eps["ini"]; ?>" class="btn btn-primary">Full Screen Mode (beta)</a>
+</div>
 <?php endif; ?>
 <pre id="pre_print_error" style="display: none;"></pre>
 <script type="text/javascript">

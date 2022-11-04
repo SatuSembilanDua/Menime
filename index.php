@@ -16,8 +16,8 @@ if(isset($matches[0][0])){
 */
 $title = "Menime ";
 $og_desc = 'Menine Adalah Website Nonton Anime Subtitle Indonesia Gratis Disini Bisa Streaming.'; 
-$og_img = 'menime.herokuapp.com/assets/img/logo.png'; 
-$og_url = "https://menime.herokuapp.com/index.php";
+$og_img = 'menime.epizy.com/assets/img/logo.png'; 
+$og_url = "http://menime.epizy.com/index.php";
 
 $dir = "pages";
 $nav = '<li><a href="'.base_url("index.php").'">Home</a></li>';
@@ -27,6 +27,7 @@ if(isset($_GET['page'])){
 	$files = scandir($dir);
 	unset($files[0], $files[1]);
 	$file = $_GET["page"].".php";
+	
 	if(in_array($file, $files)){
 		$inc = "$dir/$file";
 
@@ -50,7 +51,7 @@ if(isset($_GET['page'])){
 			}
 		}
 
-		if($_GET["page"]=="view_anime"){
+		if($_GET["page"]=="view_anime" || $_GET["page"]=="fview"){
 			if(isset($_GET["id"])){
 
 				$src = htmlentities(d_url($_GET["src"]));
@@ -65,6 +66,8 @@ if(isset($_GET['page'])){
 					$tbl = "tb_boruto";
 				}else if($src==5){
 					$tbl = "tb_spongebob";
+				}else if($src==6){
+					$tbl = "tb_spyxfamily";
 				}
 
 				$id = $_GET["id"];
@@ -80,7 +83,7 @@ if(isset($_GET['page'])){
 					$row = ${$tbl}->fetch_assoc($q);
 				}
 
-			 	$anime_txt = $row["eps"]." - ".$row["judul"];
+				$anime_txt = $row["eps"]." - ".$row["judul"];
 				if($src==3){
 					$anime_txt = $row["book"]." - ".$anime_txt;
 				}
@@ -103,20 +106,20 @@ if(isset($_GET['page'])){
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- Chrome, Firefox OS and Opera -->
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- Chrome, Firefox OS and Opera -->
 	<meta name="theme-color" content="#e50914">
 	<!-- Windows Phone -->
 	<meta name="msapplication-navbutton-color" content="#e50914">
 	<!-- iOS Safari -->
 	<meta name="apple-mobile-web-app-status-bar-style" content="#e50914">
 	<meta property="og:url"           content="<?= $og_url; ?>" />
-  	<meta property="og:type"          content="website" />
-  	<meta property="og:title"         content="<?= $title; ?>" />
-  	<meta property="og:description"   content="<?= $og_desc; ?>" />
-  	<meta property="og:image"         content="<?= $og_img; ?>" />
+	<meta property="og:type"          content="website" />
+	<meta property="og:title"         content="<?= $title; ?>" />
+	<meta property="og:description"   content="<?= $og_desc; ?>" />
+	<meta property="og:image"         content="<?= $og_img; ?>" />
 	<title><?= $title; ?></title>
 	<link rel="shortcut icon" href="<?= base_url(); ?>assets/img/logo.png" type="image/x-icon"/>
 	<link rel="stylesheet" href="<?= base_url(); ?>assets/css/bootstrap.min.css">
@@ -126,7 +129,7 @@ if(isset($_GET['page'])){
 
 	<link rel="stylesheet" href="<?= base_url(); ?>assets/css/dataTables.bootstrap.min.css">
 
-    <script src="<?= base_url(); ?>assets/js/jquery.min.js"></script>
+	<script src="<?= base_url(); ?>assets/js/jquery.min.js"></script>
 	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </head>
 <body>
@@ -142,28 +145,46 @@ if(isset($_GET['page'])){
 		<?php include $inc; ?>
 	</div>
 	<div class="footer">
-		<div class="container">
-			<div class="container">
-				<div class="row">
-					<div class="col-xs-6 footer-left">
-						<a href="index.php">
-							<h1>
-							<img src="<?= base_url(); ?>assets/img/icons.png" alt="Logo" height="45px" style="margin:5px 0;">
-							</h1>
-						</a>
-						<p>Powered by <a href="http://heroku.com/" target="blank" style="color:#337ab7;">heroku</a></p>
-						<p><?php include "visicount.php"; ?></p>
-					</div>
-					<div class="col-xs-6 social-btn text-right">
-						<a href="index.php?page=about&p=dmca">DMCA</a>
-						&nbsp;|&nbsp;
-						<a href="index.php?page=about&p=privacy">Privacy</a>
-					</div>
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-xs-6 footer-left">
+					<a href="index.php">
+						<h1>
+						<img src="<?= base_url(); ?>assets/img/icons.png" alt="Logo" height="45px" style="margin:5px 0;">
+						</h1>
+					</a>
+					<p><!-- Powered by <a href="http://heroku.com/" target="blank" style="color:#337ab7;">heroku</a> --></p>
+					<p><?php include "visicount.php"; ?></p>
 				</div>
-				<div style="clear:both"></div>
+				<div class="col-xs-6 social-btn text-right">
+					<a href="index.php?page=about&p=dmca">DMCA</a>
+					&nbsp;|&nbsp;
+					<a href="index.php?page=about&p=privacy">Privacy</a>
+				</div>
 			</div>
+			<div style="clear:both"></div>
 		</div>
 	</div>
+
+	<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" id="modal_announce">
+		<div class="modal-dialog modal-lg" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title"><i class="fa fa-bullhorn"></i> Pengumuman</h4>
+				</div>
+				<div class="modal-body">
+					<p>
+						<ol>
+							<li>Mulai 28 November 2022 <a href="https://www.heroku.com/" target="blank">Heroku</a> tidak menyediakan fitur gratis.</li>
+							<li>Berhubung Web ini berjalan di Heroku, <strong>maka MENIME akan pindah ke <a href="http://menime.epizy.com/">sini</a></strong>.</li>
+						</ol>
+					</p>
+				</div>
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
+
 	<script src="<?= base_url(); ?>assets/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="<?= base_url(); ?>assets/js/jquery.dataTables.min.js"></script>
 	<script type="text/javascript" src="<?= base_url(); ?>assets/js/dataTables.bootstrap.min.js"></script>
@@ -176,6 +197,7 @@ if(isset($_GET['page'])){
 				var link = $(this).children().children().attr("href");
 				window.location = link;
 			});
+			//$('#modal_announce').modal("show");
 		});
 	</script>
 </body>
