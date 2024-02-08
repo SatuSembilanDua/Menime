@@ -10,6 +10,7 @@ const View = () => {
 	const [rawData, setRawData] = useState(false)
 	const [episode, setEpisode] = useState([])
 	const [animeSlug, setAnimeSlug] = useState("")
+	const [oriSlug, setOriSlug] = useState("")
 	const [animeJdl, setAnimeJdl] = useState("")
 	const [btnNav, setBtnNav] = useState([])
 	const [pageTitle, setPageTitle] = useState("")
@@ -18,6 +19,7 @@ const View = () => {
 
 	useEffect(() => {
 		const slug = location.pathname.split("/")[2].split("_")
+		setOriSlug(slug.join("_"))
 		const eps_slug = slug.pop()
 		const anime_slug = slug.join("_")
 		setAnimeSlug(anime_slug)
@@ -136,6 +138,14 @@ const View = () => {
 					>
 						<span className="md:block hidden">Episode Berikutnya&nbsp;</span>
 						<CaretDoubleRight size={16} />
+					</Link>
+				</div>
+				<div className="py-4 text-sm">
+					<Link
+						className="btn block w-full py-2 bg-color-biru text-center text-white rounded-sm hover:bg-color-biru/70 hover:text-white"
+						to={`/fullview/${oriSlug}`}
+					>
+						Full Screen Mode
 					</Link>
 				</div>
 			</BodyMain>

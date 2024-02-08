@@ -14,12 +14,12 @@ const FooterComponent = () => {
 								className="h-[45px] my-[5px]"
 							/>
 						</Link>
-						<p className="border-solid border-t-2 border-white mb-1">
+						<p className="border-solid border-t-2 border-white mb-1 py-2">
 							Copyright &copy; 2024 Menime. All Rights Reserved
 							<br />
 						</p>
 						<p className="text-xs leading-1">
-							Disclaimer: This site Samehadaku does not store any files on its
+							Disclaimer: This site Menime does not store any files on its
 							server. All contents are provided by non-affiliated third parties.
 						</p>
 					</div>

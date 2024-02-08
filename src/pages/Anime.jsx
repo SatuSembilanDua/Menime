@@ -1,18 +1,27 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState, useRef } from "react"
 import { useLocation } from "react-router-dom"
 import { parseEpisodes, unescapeHTML } from "../helpers/aparser"
 import parse from "html-react-parser"
 import { Link } from "react-router-dom"
-import { MonitorPlay } from "@phosphor-icons/react"
+import {
+	MonitorPlay,
+	SortAscending,
+	SortDescending,
+} from "@phosphor-icons/react"
+
 import BodyMain from "../components/BodyMain"
 import Loading from "../components/Loading"
 import NotFound from "./NotFound"
+import useDebounce from "../helpers/useDebounce"
 
 const Anime = () => {
 	const [data, setData] = useState(false)
 	const [episodes, setEpisodes] = useState([])
 	const [isError, setIsError] = useState(false)
+	const [sort, setSort] = useState(false)
+	const [searchValue, setSearchValue] = useState("")
 	const location = useLocation()
+	const searchRef = useRef()
 
 	useEffect(() => {
 		const apiurl = "https://raw.githubusercontent.com/laserine32/menimedb/main/"
@@ -21,7 +30,7 @@ const Anime = () => {
 		if (sessionStorage.getItem(slug)) {
 			const loc = JSON.parse(sessionStorage.getItem(slug))
 			setData(loc.anime)
-			setEpisodes(parseEpisodes(loc.episodes))
+			setEpisodes(parseEpisodes(loc.episodes, sort, searchValue))
 			doc_title = loc.anime.judul_anime
 			document.title = `Menime | ${doc_title}`
 		} else {
@@ -29,7 +38,7 @@ const Anime = () => {
 				.then((response) => response.json())
 				.then((data) => {
 					setData(data.anime)
-					setEpisodes(parseEpisodes(data.episodes.reverse()))
+					setEpisodes(parseEpisodes(data.episodes.reverse(), sort, searchValue))
 					sessionStorage.setItem(slug, JSON.stringify(data))
 					doc_title = data.anime.judul_anime
 					document.title = `Menime | ${doc_title}`
@@ -40,10 +49,21 @@ const Anime = () => {
 					setIsError(true)
 				})
 		}
-	}, [location])
+	}, [location, sort, searchValue])
+
+	const handleSort = () => {
+		setSort((prevState) => !prevState)
+	}
+	const handleSearchBounce = useDebounce((term) => {
+		setSearchValue(term)
+	}, 500)
+
+	const handleSearch = (e) => {
+		let keyword = searchRef.current.value
+		handleSearchBounce(keyword)
+	}
 
 	if (isError) return <NotFound />
-	// if (1=1) return (<Loading />)
 	if (!data) {
 		return (
 			<BodyMain>
@@ -64,7 +84,7 @@ const Anime = () => {
 							className="w-full h-auto"
 						/>
 					</div>
-					<div className="scroll-box md:col-span-10 col-span-8 pl-4 leading-5 text-md text-pretty md:overflow-y-visible overflow-y-scroll md:h-auto h-60">
+					<div className="scroll-box md:col-span-10 col-span-8 pl-4 leading-5 text-md text-pretty md:overflow-y-visible overflow-y-auto md:pr-0 pr-2 md:h-auto h-60">
 						{parse(unescapeHTML(data.desc_anime))}
 					</div>
 				</div>
@@ -88,7 +108,30 @@ const Anime = () => {
 				<h2 className="page-title">
 					LIST EPISODE {data.judul_anime.toUpperCase()}
 				</h2>
-				<div className="scroll-box h-80 overflow-y-auto">
+				<div className="grid grid-cols-2 gap-2 text-black py-2 my-2 border-solid border-b-2 border-white/70">
+					<div>
+						<button
+							onClick={handleSort}
+							className="flex justify-center items-center bg-white py-1 px-8 rounded-sm"
+						>
+							Sort&nbsp;
+							{sort ? (
+								<SortDescending size={16} />
+							) : (
+								<SortAscending size={16} />
+							)}
+						</button>
+					</div>
+					<input
+						type="text"
+						id="search-navbar"
+						className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2 ps-5 text-sm focus:border-blue-500 focus:ring-blue-500"
+						placeholder="Search..."
+						ref={searchRef}
+						onChange={handleSearch}
+					/>
+				</div>
+				<div className="scroll-box h-96 overflow-y-auto pr-2">
 					{episodes.map((episode, i) => {
 						const link = `/view/${data.link_anime}_${episode.id_eps}`
 						let eps = episode.eps
@@ -97,7 +140,7 @@ const Anime = () => {
 						}
 						return (
 							<Link to={link} key={i}>
-								<div className="flex gap-2 text-white hover:bg-color-menime py-1">
+								<div className="flex gap-2 text-white hover:bg-color-menime py-1 border-solid border-b-2 border-white/40">
 									<div className="flex-none basis-12">
 										<MonitorPlay size={40} className="w-full" />
 									</div>

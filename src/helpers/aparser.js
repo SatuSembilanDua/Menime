@@ -1,4 +1,3 @@
-
 export const unescapeHTML = (str) => {
 	var htmlEntities = {
 		nbsp: " ",
@@ -31,14 +30,22 @@ export const unescapeHTML = (str) => {
 	})
 }
 
-export const parseEpisodes = (data) => {
+export const parseEpisodes = (data, sort, search) => {
 	let tmp = []
 	let ret = []
 	data.map((dt) => {
-		if(!tmp.includes(dt.eps)){
+		if (!tmp.includes(dt.eps)) {
 			tmp.push(dt.eps)
 			ret.push(dt)
 		}
 	})
+	if (sort) ret.reverse()
+	if (search !== "") {
+		ret = ret.filter(
+			(itm) =>
+				itm.eps.toLowerCase().includes(search.toLowerCase()) ||
+				itm.judul.toLowerCase().includes(search.toLowerCase()),
+		)
+	}
 	return ret
 }

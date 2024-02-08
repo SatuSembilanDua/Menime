@@ -13,6 +13,7 @@ const Home = () => {
 			.then((response) => response.json())
 			.then((data) => {
 				setAnimes(data)
+				sessionStorage.setItem("anime", JSON.stringify(data))
 			})
 	}, [apiurl])
 

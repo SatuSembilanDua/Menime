@@ -41,15 +41,18 @@ const FullView = () => {
 	const [btnNav, setBtnNav] = useState([])
 	const [pageTitle, setPageTitle] = useState("")
 	const [isError, setIsError] = useState(false)
+	const [isFull, setIsFull] = useState(false)
 	const location = useLocation()
 	const navigate = useNavigate()
 
 	const handler = ({ key }) => {
 		if (KEYS.includes(String(key))) {
 			if (key == "]") {
+				if (btnNav.next === "") return
 				navigate(`/fullview/${btnNav.next}`)
 			}
 			if (key == "[") {
+				if (btnNav.prev === "") return
 				navigate(`/fullview/${btnNav.prev}`)
 			}
 		}
@@ -94,7 +97,7 @@ const FullView = () => {
 
 		if (sessionStorage.getItem(anime_slug)) {
 			const loc = JSON.parse(sessionStorage.getItem(anime_slug))
-			setRawData(loc)
+			setRawData(loc.episodes.reverse())
 			const tmpeps = getEps(
 				loc.episodes,
 				anime_slug,
@@ -114,7 +117,7 @@ const FullView = () => {
 			fetch(`${apiurl}${anime_slug}.json`)
 				.then((response) => response.json())
 				.then((data) => {
-					setRawData(data)
+					setRawData(data.episodes.reverse())
 					const tmpeps = getEps(
 						data.episodes,
 						anime_slug,
@@ -162,12 +165,18 @@ const FullView = () => {
 		listEps.current.classList.toggle("hidden")
 	}
 
-	const pencet = (e) => {
-		console.log(e)
+	const fullScreen = () => {
+		setIsFull((prevState) => !prevState)
+		if (isFull) {
+			document.exitFullscreen()
+		} else {
+			document.documentElement.requestFullscreen()
+		}
 	}
 
 	if (isError) return <NotFound />
 	if (!episode) return <Loading />
+	if (!rawData) return <Loading />
 	return (
 		<>
 			<iframe
@@ -186,7 +195,7 @@ const FullView = () => {
 						<h1 className="text-white">{pageTitle}</h1>
 					</div>
 					<div>
-						<button>
+						<button onClick={fullScreen}>
 							<ArrowsOut size={32} />
 						</button>
 					</div>
@@ -207,7 +216,7 @@ const FullView = () => {
 						</div>
 						<div>
 							<MenuItem
-								href={`/anime/${animeSlug}`}
+								href={`/view/${animeSlug}_${episode.id_eps}`}
 								icon={<ArrowFatLeft size={24} weight="fill" />}
 								text={"Kembali ke Normal"}
 							/>
@@ -234,11 +243,11 @@ const FullView = () => {
 							className={`${styles.list_eps} ${styles.list_show} hidden overflow-y-auto`}
 							ref={listEps}
 						>
-							{rawData.episodes?.map((eps, i) => {
+							{rawData.map((eps, i) => {
 								return (
 									<MenuItem
 										key={i}
-										href={`/fullview/${rawData.anime.link_anime}_${eps.id_eps}`}
+										href={`/fullview/${animeSlug}_${eps.id_eps}`}
 										text={eps.eps}
 										icon={<MonitorPlay size={24} />}
 										onMClick={menuClick}
