@@ -4,8 +4,7 @@ import ItemComponent from "../components/ItemComponent"
 import BodyMain from "../components/BodyMain"
 
 const Home = () => {
-	const apiurl =
-		"https://raw.githubusercontent.com/laserine32/menimedb/main/anime.json"
+	const apiurl = `${import.meta.env.VITE_API_BASE_URL}/anime.json`
 	const [animes, setAnimes] = useState([])
 
 	useEffect(() => {

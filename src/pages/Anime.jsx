@@ -24,7 +24,6 @@ const Anime = () => {
 	const searchRef = useRef()
 
 	useEffect(() => {
-		const apiurl = "https://raw.githubusercontent.com/laserine32/menimedb/main/"
 		const slug = location.pathname.split("/")[2]
 		let doc_title = ""
 		if (sessionStorage.getItem(slug)) {
@@ -34,7 +33,7 @@ const Anime = () => {
 			doc_title = loc.anime.judul_anime
 			document.title = `Menime | ${doc_title}`
 		} else {
-			fetch(`${apiurl}${slug}.json`)
+			fetch(`${import.meta.env.VITE_API_BASE_URL}/${slug}.json`)
 				.then((response) => response.json())
 				.then((data) => {
 					setData(data.anime)

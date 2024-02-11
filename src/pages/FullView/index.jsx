@@ -112,9 +112,7 @@ const FullView = () => {
 			document.title = `Menime | ${doc_title} - ${ket_sts}`
 			setPageTitle(ket_sts)
 		} else {
-			const apiurl =
-				"https://raw.githubusercontent.com/laserine32/menimedb/main/"
-			fetch(`${apiurl}${anime_slug}.json`)
+			fetch(`${import.meta.env.VITE_API_BASE_URL}/${anime_slug}.json`)
 				.then((response) => response.json())
 				.then((data) => {
 					setRawData(data.episodes.reverse())

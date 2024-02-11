@@ -30,8 +30,7 @@ const Search = () => {
 	}
 
 	useEffect(() => {
-		const apiurl =
-			"https://raw.githubusercontent.com/laserine32/menimedb/main/anime.json"
+		const apiurl = `${import.meta.env.VITE_API_BASE_URL}/anime.json`
 		fetch(apiurl)
 			.then((response) => response.json())
 			.then((data) => {
